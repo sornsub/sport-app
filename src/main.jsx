@@ -5,15 +5,51 @@ import './index.css'
 
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import Login from './pages/Login/Login.jsx';
+import SignUp from './pages/SignUp/SignUp.jsx';
+import ActivityType from './pages/ActivityType/ActivityType.jsx';
+import Dashboard from './pages/Dashboard/Dashboard.jsx';
+import CreateExercise from './pages/Exercise/CreateExercise/CreateExercise.jsx';
+import EditExercise from './pages/Exercise/EditExercise/EditExercise.jsx';
+import DeleteExercise from './pages/Exercise/DeleteExercise/DeleteExercise.jsx';
+import History from './pages/History/History.jsx';
+import LandingPage from './pages/LandingPage/LandingPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <LandingPage />
   },
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
+  },
+  {
+    path: '/activity-type',
+    element: <ActivityType />
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />
+  },
+  {
+    path: '/exercise-create',
+    element: <CreateExercise />
+  },
+  {
+    path: '/exercise-edit',
+    element: <EditExercise />
+  },
+  {
+    path: '/exercise-delete',
+    element: <DeleteExercise />
+  },
+  {
+    path: '/history',
+    element: <History />
   }
 ])
 
