@@ -1,8 +1,12 @@
 import React from 'react'
+import Nav from '../../components/Layouts/Nav'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <>
+      <Nav />
+      <div>Dashboard</div>
+    </>
   )
 }
 
