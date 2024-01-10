@@ -1,7 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
 
 // font inter
 import "@fontsource/inter/300.css";
@@ -31,6 +30,8 @@ import LandingPageDesk2 from "./pages/LandingPage/LandingPageDesk2.jsx";
 import LandingPageDesk3 from "./pages/LandingPage/LandingPageDesk3.jsx";
 import LandingPageDesk4 from "./pages/LandingPage/LandingPageDesk4.jsx";
 import LandingPageDesk5 from "./pages/LandingPage/LandingPageDesk5.jsx";
+import ErrorPage from './pages/ErrorPage.jsx'
+import DashboardLayout from "./components/layouts/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -142,8 +143,23 @@ const router = createBrowserRouter([
     path: "/history",
     element: <History />,
   },
-]);
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />
+      }
+      // ,
+      // {
+      //   path: "/1",
+      //   element: <Dashboard1 />
+      // }
+  ]}
+])
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <RouterProvider router={router} />
+)
