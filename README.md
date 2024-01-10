@@ -1,9 +1,31 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Bob-tail Soda - Sport App (Mobile & Desktop)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# sportapp
+## Create Project 
+
+### Create Project React + Vite 
+https://vitejs.dev/guide/
+
+`npm create vite@latest my-project -- --template react`
+
+
+### Install MUI with styled-components
+https://mui.com/material-ui/getting-started/installation/
+
+`npm install @mui/material @mui/styled-engine-sc styled-components`
+
+
+
+
+## Project on github 
+https://github.com/SenPatthamawan/sportapp
+
+### Clone repository from git
+` git clone https://github.com/SenPatthamawan/sportapp.git` 
+
+### Download all packages
+`npm install`
+
+### How to run
+`npm run dev`
