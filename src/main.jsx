@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 
 // font inter
@@ -25,6 +24,8 @@ import CreateNewPassword from './pages/Authentication/ForgotPassword/CreateNewPa
 
 
 
+import ErrorPage from './pages/ErrorPage.jsx'
+import DashboardLayout from "./components/layouts/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -56,27 +57,43 @@ const router = createBrowserRouter([
     element: <CreateNewPassword />
   },
   {
-    path: '/dashboard',
-    element: <Dashboard />
-  },
-  {
-    path: '/exercise-create',
-    element: <CreateExercise />
-  },
-  {
-    path: '/exercise-edit',
-    element: <EditExercise />
-  },
-  {
-    path: '/exercise-delete',
-    element: <DeleteExercise />
-  },
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />
+      }
+      // ,
+      // {
+      //   path: "/1",
+      //   element: <Dashboard1 />
+      // }
+  ]},
+  // {
+  //   path: "/exercise",
+  //   element: <Exercise />,
+  //   loader: exerciseLoader,
+  // },
+  // {
+  //   path: '/exercise-create',
+  //   element: <CreateExercise />
+  // },
+  // {
+  //   path: '/exercise-edit',
+  //   element: <EditExercise />
+  // },
+  // {
+  //   path: '/exercise-delete',
+  //   element: <DeleteExercise />
+  // },
   {
     path: '/history',
     element: <History />
-  }
+  } 
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+    <RouterProvider router={router} />
 )
