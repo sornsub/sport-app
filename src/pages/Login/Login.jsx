@@ -1,6 +1,6 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { StyledEngineProvider } from '@mui/material/styles';
+
 import { 
-      // Avatar,
          Button, 
          CssBaseline,
          TextField,
@@ -67,9 +67,12 @@ const Login = () => {
   })
 
   return (
+    <StyledEngineProvider injectFirst>
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
+
+        
         <Grid
           item
           xs={false}
@@ -145,6 +148,7 @@ const Login = () => {
               >
                 Login
               </Button>
+              <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Default</button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -163,6 +167,8 @@ const Login = () => {
         </Grid>
       </Grid>
     </ThemeProvider>
+    </StyledEngineProvider>
+
   )
 }
 
