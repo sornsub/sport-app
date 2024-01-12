@@ -1,175 +1,123 @@
-import { StyledEngineProvider } from '@mui/material/styles';
-
 import { 
-         Button, 
-         CssBaseline,
-         TextField,
-         FormControlLabel,
-         Checkbox,
-         Link,
-         Paper,
-         Box,
-         Grid,
-         Typography,
-         createTheme,
-         ThemeProvider
-       } from "@mui/material"
-       
-
-import LoginImg from "/images/login.jpg"
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://bobtail-soda.com/">
-        Bobtail Soda
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  )
-}
-
-const Login = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
-  }
-
-  const defaultTheme = createTheme({
-    palette:{
-      primary: {
-        light: '#E76F6D',
-        main: '#E76F6D',
-        dark: '#002884',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#ff7961',
-        main: '#f44336',
-        dark: '#ba000d',
-        contrastText: '#000',
-      },
-      otherColor:{
-        main:"#999"
-      }
-    }
-  })
-
-  return (
-    <StyledEngineProvider injectFirst>
-    <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <CssBaseline />
-
-        
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+    Box,
+    Container,
+    Grid,
+    Typography,
+    createTheme,
+    IconButton,
+    ThemeProvider,
+    Stack
+  } from "@mui/material"
+  
+  import LoginImg from "/images/login.jpg"
+  import { theme } from "../../theme"
+  
+  // const defaultTheme = createTheme(theme);
+  
+  const Login = () => {
+  
+    return (
+      <>
+      <ThemeProvider theme={ theme }>
+        <Container
           sx={{
-            backgroundImage: `url(${LoginImg})`,
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            height: '100vh',          
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
           <Box
             sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              width: 760,
+              height: 480,
+              borderRadius: '20px',
+              // border: 2,
+              // borderColor: 'primary.main',
+              bgcolor: 'primary.white',
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(2, 1fr)',
             }}
-          >
-            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
-            <Typography variant="h5" component="h1">
-              Login
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Username or email"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                sx={{ mt: 3, mb: 2 , 
-                  ":hover": {
-                  bgcolor: "#d94643",
-                  color: "white"
-                }}}
-              >
-                Login
-              </Button>
-              <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Default</button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
+  
+            <Grid
+              item
+              xs={false}
+              sm={4}
+              md={7}
+              sx={{
+                backgroundImage: `url(${LoginImg})`,
+                backgroundRepeat: "no-repeat",
+                backgroundColor: (t) =>
+                  t.palette.mode === "light"
+                    ? t.palette.grey[50]
+                    : t.palette.grey[900],
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                width: 380,
+                height: 480,
+                borderRadius: '18px 0 0 18px',
+              }}
+            />
+  
+  
+
+
+
+            <Grid item xs={false} sm={4} md={7} 
+              sx={{
+                fontFamily: 'Inter',
+                textAlign: 'center',
+                alignItems: 'center',
+                border: 2,
+                borderLeft: 0,
+                borderColor: 'primary.main',
+                borderRadius: '0 18px 18px 0',
+                // height: 480,
+                p: 4,
+              }}>
+                <Typography variant="h5" component="h1" >
+                  Login
+                </Typography>
+              <form className="max-w-sm mx-auto">
+                <div className="mb-5">
+                  <label htmlFor="email" 
+                         className="text-left block mb-3 mt-6 text-sm text-gray-900 dark:text-white"
+                  >
+                         Username or email
+                  </label>
+                  <input type="email" id="email" 
+                         className="pl-5 placeholder-white border-transparent rounded-4xl bg-blue bg-gray-50 text-black text-sm block w-full p-2.5" 
+                         placeholder="Username or email" required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" 
+                         className="text-left block mb-3 text-sm text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <input type="password" id="password" 
+                         className="pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                         placeholder="Password" required />
+                </div>
+                <div className="flex items-start mb-10">
+                  <p className="text-pink text-sm text-gray-900 dark:text-gray-300"><a href="#">Forgot password?</a></p>
+                </div>
+                <div className="mb-5">
+                  <button type="submit" 
+                          className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
+                          >
+                            Login
+                  </button>
+                </div>
+                <p className="text-sm text-gray-900 dark:text-gray-300">Don’t have an account ? <a href="#" className="text-pink">Sign up</a></p>
+              </form>
+            </Grid>
           </Box>
-        </Grid>
-      </Grid>
-    </ThemeProvider>
-    </StyledEngineProvider>
-
-  )
-}
-
-export default Login
+        </Container>
+      </ThemeProvider>
+      </>
+    )
+  }
+  
+  export default Login
+  
