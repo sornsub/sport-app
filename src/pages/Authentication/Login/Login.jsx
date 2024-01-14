@@ -9,8 +9,9 @@ import {
     Stack
   } from "@mui/material"
   
-  import LoginImg from "/images/login.jpg"
-  import { theme } from "../../theme"
+import LoginImg from "/images/login.jpg"
+import { theme } from "../../../theme"
+import { Link } from "react-router-dom"
   
   // const defaultTheme = createTheme(theme);
   
@@ -100,16 +101,22 @@ import {
                          placeholder="Password" required />
                 </div>
                 <div className="flex items-start mb-10">
-                  <p className="text-pink text-sm text-gray-900 dark:text-gray-300"><a href="#">Forgot password?</a></p>
+                  <p className="text-pink text-sm text-gray-900 dark:text-gray-300">
+                    <Link to="/forgot-password">Forgot password?</Link>
+                  </p>
                 </div>
                 <div className="mb-5">
-                  <button type="submit" 
-                          className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
-                          >
-                            Login
-                  </button>
+                  
+                    <button type="submit" 
+                            className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
+                            >
+                            <Link to="/dashboard">
+                              Login
+                            </Link>
+                    </button>
+                  
                 </div>
-                <p className="text-sm text-gray-900 dark:text-gray-300">Don’t have an account ? <a href="#" className="text-pink">Sign up</a></p>
+                <p className="text-sm text-gray-900 dark:text-gray-300">Don’t have an account ? <Link to="/signup" className="text-pink">Sign up</Link></p>
               </form>
             </Grid>
           </Box>
