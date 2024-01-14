@@ -19,6 +19,7 @@ import EditExercise from './pages/Exercise/EditExercise/EditExercise.jsx';
 import DeleteExercise from './pages/Exercise/DeleteExercise/DeleteExercise.jsx';
 import History from './pages/History/History.jsx';
 import LandingPage from './pages/LandingPage/LandingPage.jsx';
+import EmailVerification from './pages/Authentication/ForgotPassword/EmailVerification.jsx';
 
 
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: '/activity-type',
     element: <ActivityType />
+  },
+  {
+    path: '/email-verification',
+    element: <EmailVerification />
   },
   {
     path: '/dashboard',
