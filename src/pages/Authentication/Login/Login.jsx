@@ -69,7 +69,7 @@ import { Link } from "react-router-dom"
                 <Box sx={{
                   width: '100%',
                 }}>
-                  <Typography variant="h5" component="h1" >
+                  <Typography variant="h5" component="h1" sx={{fontWeight: 'medium'}}>
                     Login
                   </Typography>
                   <form className="max-w-sm mx-auto">
