@@ -20,6 +20,8 @@ import DeleteExercise from './pages/Exercise/DeleteExercise/DeleteExercise.jsx';
 import History from './pages/History/History.jsx';
 import LandingPage from './pages/LandingPage/LandingPage.jsx';
 import EmailVerification from './pages/Authentication/ForgotPassword/EmailVerification.jsx';
+import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword.jsx';
+import CreateNewPassword from './pages/Authentication/ForgotPassword/CreateNewPassword.jsx';
 
 
 
@@ -38,12 +40,20 @@ const router = createBrowserRouter([
     element: <SignUp />
   },
   {
+    path: '/forgot-password',
+    element: <ForgotPassword />
+  },
+  {
     path: '/activity-type',
     element: <ActivityType />
   },
   {
     path: '/email-verification',
     element: <EmailVerification />
+  },
+  {
+    path: '/create-new-password',
+    element: <CreateNewPassword />
   },
   {
     path: '/dashboard',
