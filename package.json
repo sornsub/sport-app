@@ -15,14 +15,14 @@
     "@fontsource/inter": "^5.0.16",
     "@mui/base": "^5.0.0-beta.31",
     "@mui/icons-material": "^5.15.2",
-    "@mui/material": "^5.15.2",
+    "@mui/material": "^5.15.4",
     "@mui/styled-engine-sc": "^6.0.0-alpha.10",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "react": "^17.0.0 || ^18.2.0",
     "react-dom": "^17.0.0 || ^18.2.0",
     "react-router-dom": "^6.21.1",
-    "styled-components": "^6.1.6"
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

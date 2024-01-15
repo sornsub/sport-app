@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import Navbar from "./Nav";
-import Layout from "./Layout";
 
-const LandingPage6 = () => {
+const LandingPageStarted = () => {
   return (
-    <Layout>
+   
       <Box>
+        <Navbar />
         <div>
           <h1>Start Right now</h1>
           <p>
@@ -16,10 +16,10 @@ const LandingPage6 = () => {
           </p>
           <button>Get started now</button>
         </div>
-        <img src="./images/login.jpg" />
+        <img src="./images/landingPage5.jpg" />
       </Box>
-    </Layout>
+    
   );
 };
 
-export default LandingPage6;
+export default LandingPageStarted;
