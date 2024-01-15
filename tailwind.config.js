@@ -11,12 +11,10 @@ export default {
       'black': '#000',
       'white': '#fff'
     },
-    // fontFamily: {
-    //   sans: ['Inter', 'sans-serif',],
-    // },
     extend: {
       borderRadius: {
       '4xl': '2rem',
+      'otp': '15px'
     }},
   },
   plugins: [],
