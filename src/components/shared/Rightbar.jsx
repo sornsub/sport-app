@@ -1,76 +1,114 @@
 import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 import { 
   Box,
-  Container,
   Grid,
   Typography,
   ThemeProvider,
 } from "@mui/material"
 
 import AvatarImg from "/images/avatar.jpg"
+import { theme } from "./../../theme"
 
 
 const drawerWidth = 310;
 
 const Rightbar = () => {
   return (
-    <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="permanent"
-        anchor="right"
-      >
-        <Divider />
-        {/* <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
-        <Grid
-              item
-              xs={false}
-              sm={4}
-              md={7}
-              sx={{
-                backgroundImage: `url(${AvatarImg})`,
-                backgroundRepeat: "no-repeat",
-                backgroundColor: (t) =>
-                  t.palette.mode === "light"
-                    ? t.palette.grey[50]
-                    : t.palette.grey[900],
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: 273,
-              }}
-            />
-          <Typography variant="h5" component="h2" sx={{fontWeight: 'medium'}}>
-            Bobtail Soda
-          </Typography>
-        <Divider />
-    </Drawer>
+    <>
+      <ThemeProvider theme={ theme }>
+        <Drawer
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                boxSizing: 'border-box',
+                bgcolor: 'primary.main',
+              },
+            }}
+            variant="permanent"
+            anchor="right"
+          >
+            <Divider />
+            <Grid
+                  item
+                  xs={false}
+                  sm={4}
+                  md={7}
+                  sx={{
+                    backgroundImage: `url(${AvatarImg})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundColor: (t) =>
+                      t.palette.mode === "light"
+                        ? t.palette.grey[50]
+                        : t.palette.grey[900],
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: 273,
+                  }}
+                />
+                <Box sx={{m: 4, color: 'primary.black'}}>
+                  <Typography variant="h5" component="h2" 
+                    sx={{
+                      fontWeight: 'medium',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      mb: 2,
+                      
+                    }}>
+                    Bobtail Soda
+                  </Typography>
+
+                  <Typography variant="p" component="h2" 
+                    >
+                    Email: bobtailsoda@gmail.com
+                  </Typography>
+                  <Typography variant="p" component="h2" 
+                    >
+                    Date of Birth: 12/12/2000
+                  </Typography>
+                  <Typography variant="p" component="h2" 
+                    >
+                    Sex: Female
+                  </Typography>
+                  <Typography variant="p" component="h2" 
+                    >
+                    Height: 170 cm
+                  </Typography>
+                  <Typography variant="p" component="h2" 
+                    >
+                    Weight: 50 kg
+                  </Typography>
+              </Box>
+              <div className="mb-5 flex justify-center items-center">
+                <button className="font-semibold rounded-4xl p-2 text-center w-fit h-10 bg-white text-pink">Edit profile</button>
+              </div>
+            <Divider />
+            <Box sx={{m: 4, color: 'primary.black'}}>
+              <Typography variant="p" component="h2" sx={{mb: 2}}>
+                Favorite Activity
+              </Typography>
+            
+            <div className="flex-wrap gap-6 mb-3 flex text-black h-10 w-full">
+              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
+                Weight training
+              </div>
+              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
+                Yoga
+              </div>
+              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
+                Running
+              </div>
+              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
+                Walking
+              </div>
+            </div>
+            </Box>
+        </Drawer>
+      </ThemeProvider>
+    </>
   )
 }
 
