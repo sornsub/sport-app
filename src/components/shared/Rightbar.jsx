@@ -9,7 +9,18 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const drawerWidth = 240;
+import { 
+  Box,
+  Container,
+  Grid,
+  Typography,
+  ThemeProvider,
+} from "@mui/material"
+
+import AvatarImg from "/images/avatar.jpg"
+
+
+const drawerWidth = 310;
 
 const Rightbar = () => {
   return (
@@ -25,9 +36,8 @@ const Rightbar = () => {
         variant="permanent"
         anchor="right"
       >
-        <Toolbar />
         <Divider />
-        <List>
+        {/* <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -38,21 +48,29 @@ const Rightbar = () => {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
+        <Grid
+              item
+              xs={false}
+              sm={4}
+              md={7}
+              sx={{
+                backgroundImage: `url(${AvatarImg})`,
+                backgroundRepeat: "no-repeat",
+                backgroundColor: (t) =>
+                  t.palette.mode === "light"
+                    ? t.palette.grey[50]
+                    : t.palette.grey[900],
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: 273,
+              }}
+            />
+          <Typography variant="h5" component="h2" sx={{fontWeight: 'medium'}}>
+            Bobtail Soda
+          </Typography>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+    </Drawer>
   )
 }
 
