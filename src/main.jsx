@@ -19,7 +19,6 @@ import EditExercise from './pages/Exercise/EditExercise/EditExercise.jsx';
 import DeleteExercise from './pages/Exercise/DeleteExercise/DeleteExercise.jsx';
 import History from './pages/History/History.jsx';
 import LandingPage from './pages/LandingPage/LandingPage.jsx';
-import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword.jsx';
 import EmailVerification from './pages/Authentication/ForgotPassword/EmailVerification.jsx';
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword.jsx';
 import CreateNewPassword from './pages/Authentication/ForgotPassword/CreateNewPassword.jsx';
