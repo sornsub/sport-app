@@ -86,6 +86,22 @@ const router = createBrowserRouter([
     element: <LandingPageDesk3 />,
   },
   {
+    path: "/landingPageStarted",
+    element: <LandingPageStarted />,
+  },
+  {
+    path: "/landingPageDesk1",
+    element: <LandingPageDesk1 />,
+  },
+  {
+    path: "/landingPageDesk2",
+    element: <LandingPageDesk2 />,
+  },
+  {
+    path: "/landingPageDesk3",
+    element: <LandingPageDesk3 />,
+  },
+  {
     path: "/landingPageDesk4",
     element: <LandingPageDesk4 />,
   },
