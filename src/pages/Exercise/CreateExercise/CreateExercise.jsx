@@ -1,11 +1,5 @@
-import React from 'react'
-import { 
-  Box,
-  Container,
-  Grid,
-  Typography,
-  ThemeProvider,
-} from "@mui/material"
+import React from "react"
+import { Box, Container, Typography, ThemeProvider } from "@mui/material"
 
 import createExercise from "/images/createExercise.jpg"
 import { theme } from "../../../theme"
