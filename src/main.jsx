@@ -67,10 +67,6 @@ const router = createBrowserRouter([
     element: <CreateNewPassword />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
     path: "/landingPageStarted",
     element: <LandingPageStarted />,
   },
@@ -122,10 +118,6 @@ const router = createBrowserRouter([
   {
     path: "/activity-type",
     element: <ActivityType />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
   },
   {
     path: "/exercise-create",
