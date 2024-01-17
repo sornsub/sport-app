@@ -6,8 +6,6 @@ import Navbar from "../shared/Navbar";
 import Rightbar from "../shared/Rightbar";
 import Toolbar from '@mui/material/Toolbar';
 
-
-
 const DashboardLayout = () => {
 
   return (
