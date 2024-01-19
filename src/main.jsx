@@ -14,7 +14,8 @@ import SignUp from "./pages/SignUp/SignUp.jsx";
 import ActivityType from "./pages/ActivityType/ActivityType.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import CreateExercise from "./pages/Exercise/CreateExercise/CreateExercise.jsx";
-import RunTimeExercise from "./pages/Exercise/CreateExercise/RunTimeExercise.jsx";
+import RunTimeExercise from './pages/Exercise/CreateExercise/RunTimeExercise.jsx';
+import SummaryExercise from "./pages/Exercise/CreateExercise/SummaryExercise.jsx"
 import EditExercise from "./pages/Exercise/EditExercise/EditExercise.jsx";
 import DeleteExercise from "./pages/Exercise/DeleteExercise/DeleteExercise.jsx";
 import History from "./pages/History/History.jsx";
@@ -38,6 +39,7 @@ import Corousel from "./pages/LandingPage/Corousel.jsx";
 
 import ExerciseActivityLayout from "./components/layouts/ExerciseActivityLayout.jsx";
 import UserList from "./pages/User/List.jsx";
+import TrackingExerciseForm from "./pages/Exercise/CreateExercise/TrackingExerciseForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -93,22 +95,7 @@ const router = createBrowserRouter([
     element: <LandingPageDesk3 />,
   },
   {
-    path: "/landingPageStarted",
-    element: <LandingPageStarted />,
-  },
-  {
-    path: "/landingPageDesk1",
-    element: <LandingPageDesk1 />,
-  },
-  {
-    path: "/landingPageDesk2",
-    element: <LandingPageDesk2 />,
-  },
-  {
-    path: "/landingPageDesk3",
-    element: <LandingPageDesk3 />,
-  },
-  {
+
     path: "/landingPageDesk4",
     element: <LandingPageDesk4 />,
   },
@@ -160,7 +147,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/excercise-activity",
+    path: "/exercise-activity",
     element: <ExerciseActivityLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -169,12 +156,19 @@ const router = createBrowserRouter([
         element: <CreateExercise />,
       },
       {
-        path: "run-time",
-        element: <RunTimeExercise />,
+        path: "create-form",
+        element: <TrackingExerciseForm />,
       },
-    ],
-  },
-]);
+      {
+        path: "run-time",
+        element: <RunTimeExercise />
+      },
+      {
+        path: "summary",
+        element: <SummaryExercise />
+      }
+  ]}
+])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
