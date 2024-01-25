@@ -33,12 +33,9 @@ import LandingPageDesk4 from "./pages/LandingPage/LandingPageDesk4.jsx";
 import LandingPageDesk5 from "./pages/LandingPage/LandingPageDesk5.jsx";
 import ErrorPage from './pages/ErrorPage.jsx'
 import DashboardLayout from "./components/layouts/DashboardLayout";
-<<<<<<< HEAD
 import Corousel from "./pages/LandingPage/Corousel.jsx"
 
-=======
 import ExerciseActivityLayout from './components/layouts/ExerciseActivityLayout.jsx';
->>>>>>> develop
 const router = createBrowserRouter([
   {
     path: "/",
