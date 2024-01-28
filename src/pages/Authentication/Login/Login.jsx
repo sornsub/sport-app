@@ -67,7 +67,11 @@ import { Link } from "react-router-dom"
       email: email,
       password: password,
       };
-      const response = await API.post(`${authRoute}`, requestData);// [POST] https://localhost:5000/api/login , requestData
+      const response = await API.put(`${authRoute}`, requestData);// [POST] https://localhost:5000/api/login , requestData
+      const { token } = response.data;
+
+      // Store the tokens in localStorage or secure cookie for later use
+      localStorage.setItem('token', token);
 
       if (response.status === 200) {
       setReload(!reload);
