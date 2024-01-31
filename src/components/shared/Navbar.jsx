@@ -1,6 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
+import Navmenu from './Navmenu';
 
 
 const Navbar = ({drawerWidth}) => {
@@ -13,6 +14,7 @@ const Navbar = ({drawerWidth}) => {
             <Typography variant="h6" noWrap component="div">
             Permanent drawer
             </Typography>
+            <Navmenu/>
         </Toolbar>
     </AppBar>
   )
