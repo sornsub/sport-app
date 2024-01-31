@@ -42,7 +42,7 @@ import UserList from "./pages/User/List.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: <LandingPageDesk1 />,
   },
   {
     path: "/users",
