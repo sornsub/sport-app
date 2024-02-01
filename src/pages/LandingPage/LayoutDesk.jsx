@@ -9,8 +9,8 @@ import { Height } from "@mui/icons-material";
 
 export const LayoutDesk = ({ children }) => {
   return (
-    <Box className="container h-screen bg-red-400 text-white">
-      <Navbar />
+    <Box className="container h-screen bg-pink text-white">
+     
       <Box className="header h-2/5">
         <Box
           className="header-top mr-4"
