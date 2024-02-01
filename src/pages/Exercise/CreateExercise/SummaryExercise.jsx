@@ -16,11 +16,15 @@ const SummaryExercise = () => {
   const navigate = useNavigate();
 
   const [summaryData, setSummaryData] = useState({});
+  const [reload, setReload] = useState(false);
 
   //Modal popup
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setReload(!reload);
+  };
 
   const token = localStorage.getItem('token');
   const headers = {
@@ -43,13 +47,17 @@ const SummaryExercise = () => {
 
   useEffect(() => {
     getExerciseActivitiesByUserId();
-  }, []);
+  }, [reload]);
 
   //get Exercise Activities data
   const getExerciseActivitiesByUserId  = async () => {
       
     // const id = '65b9cf92703abf9fed197cb6';
     const id = localStorage.getItem('exercise_activity_id');
+    
+    if(localStorage.getItem('exercise_activity_id') === null){
+
+    }
 
     const response = await API.get(`${exerciseActivityRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/:user_id
     console.log("response: ", response.data.data)
@@ -77,8 +85,10 @@ const SummaryExercise = () => {
     console.log(requestData);
     const response = await API.put(`${exerciseActivityRoute}/${id}`, requestData, {headers: headers});// [PUT] https://localhost:5000/api/users , requestData
 
-    if (response.status === 201) {
+    if (response.statusText === "OK") {
     localStorage.setItem('exercise_activity_id', response.data.data._id);
+    console.log("id from update: ",response.data.data._id);
+    setReload(!reload);
     navigate("/exercise-activity/summary");
     }
     console.log(response);
@@ -213,7 +223,7 @@ console.log("id: ", id)
                     >
                       Update Tracking Exercise Activity
                     </Typography>
-                    <EditExercise update={updateExerciseActivity} summaryData={summaryData}/>
+                    <EditExercise update={updateExerciseActivity} summaryData={summaryData} handleClose={handleClose}/>
                   </Box>
                 </Container>
             </Modal>
