@@ -9,7 +9,7 @@ import { Box, Container, Typography, ThemeProvider, } from "@mui/material"
 
 
 
-const EditExercise = ({update, summaryData}) => {
+const EditExercise = ({update, summaryData, handleClose}) => {
 
   const navigate = useNavigate();
 
@@ -220,6 +220,9 @@ const EditExercise = ({update, summaryData}) => {
                   Update
                 {/* </Link> */}
               </button>
+
+              <button onClick={handleClose}>Close</button>
+
             </form>
           </Box>
         </Container>
