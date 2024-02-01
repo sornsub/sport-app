@@ -12,12 +12,15 @@ export default {
       'black': '#000',
       'white': '#fff',
       'grey': '#9D9D9D',
+      'red': '#FF0101'
     },
     extend: {
       borderRadius: {
       '4xl': '2rem',
       'otp': '15px',
-      'main': '20px'
+      'main': '20px',
+      'card': '20px 20px 0 0',
+      'summary': '0 0 17px 17px'
     }},
   },
   plugins: [    

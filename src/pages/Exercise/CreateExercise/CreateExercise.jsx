@@ -41,21 +41,27 @@ const CreateExercise = () => {
               <option value="Bicycle ride">Bicycle ride</option>
               <option value="Walking">Walking</option>
             </select>
-            <div className="flex flex-col w-full bg-white border border-grey rounded-card">
+            <div className="flex flex-col w-full bg-white border border-grey rounded-main">
+              <div className="text-pink font-semibold bold p-5 flex justify-start">
+              <label for="caption">Your caption</label>
+              </div>
               <textarea
-                id="message"
+                id="caption"
                 rows="1"
-                className="placeholder-black outline-0 block p-5 w-full text-sm rounded-text-top border-b border-grey"
+                className="resize-none placeholder-grey outline-0 block p-5 w-full text-sm rounded-card border-b border-grey"
                 placeholder="Type some caption here..."
               ></textarea>
               <div className="flex justify-center">
                 <img className="w-80 h-full object-cover" src={createExercise} alt="The group of women are running" />
               </div>
+              <div className="text-pink font-semibold bold p-5 flex justify-start">
+                <label for="description">Description</label>
+              </div>
               <textarea
-                id="message"
+                id="description"
                 rows="5"
-                className="placeholder-grey-dark outline-0 block p-5 w-full text-sm border-grey"
-                placeholder="Type some caption here..."
+                className="resize-none placeholder-grey-dark outline-0 block p-5 w-full text-sm border-grey"
+                placeholder="Type some description here..."
               ></textarea>
               <div className="text-sm text-grey-dark p-5 flex justify-end">
                 <p>2/2/2023</p>
@@ -77,7 +83,7 @@ const CreateExercise = () => {
             <button type="submit" 
               className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
               >
-              <Link href="/create-new-password" color='primary.white' underline="none">
+              <Link to="/exercise-activity/run-time" color='primary.white' underline="none">
                 Start
               </Link>
             </button>

@@ -1,19 +1,21 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import API from '../../../api/axios';
+import { Box, Container, Typography, ThemeProvider } from "@mui/material"
 import { useNavigate } from "react-router-dom";
-import { theme } from "../../../theme"
+
 import createExercise from "/images/createExercise.jpg"
+import { theme } from "../../../theme"
+import { Link } from "react-router-dom"
 
-
-import { Box, Container, Typography, ThemeProvider, } from "@mui/material"
-
-
-
-const EditExercise = ({update, summaryData}) => {
+const TrackingExerciseForm = () => {
 
   const navigate = useNavigate();
 
-  const [exerciseActivity, setExerciseActivity] = useState([]);
+  const [activitiesType, setActivitiesType] = useState([]);
+  const [reload, setReload] = useState(false);
+  const [isUpdate, setUpdate] = useState(false);
+  const [id, setId] = useState("");
+
   const exerciseActivityRoute = "api/exercise-activities";
 
   const token = localStorage.getItem('token');
@@ -23,18 +25,6 @@ const EditExercise = ({update, summaryData}) => {
   }
 
   const [formData, setFormData] = useState({
-    id: summaryData._id,
-    activity_type_id: summaryData.activity_type_id,
-    caption: summaryData.caption,
-    description: summaryData.description,
-    hour: summaryData.hour,
-    minute: summaryData.minute,
-    date: summaryData.date,
-    image: summaryData.image
-  });
-
-  const [formErrors, setFormErrors] = useState({
-    id: "",
     activity_type_id: "",
     caption: "",
     description: "",
@@ -44,20 +34,32 @@ const EditExercise = ({update, summaryData}) => {
     image: ""
   });
 
-  useEffect(() => {
-    getExerciseActivity();
-  }, []);
+  const [formErrors, setFormErrors] = useState({
+    activity_type_id: "",
+    caption: "",
+    description: "",
+    hour: "",
+    minute: "",
+    date: "",
+    image: ""
+  });
 
-  //get Activity type data
-  const getExerciseActivity  = async () => {
+  //TODO: Waitting for connect api Activity Type (master data)
+
+  // useEffect(() => {
+  //   getActivitiesType();
+  // }, [reload]);
+
+  // //get Activity type data
+  // const getActivitiesType  = async () => {
       
-    const response = await API.get(`${exerciseActivityRoute}`); // [GET] https://localhost:5000/api/activity-type
-    console.log("response: ", response.data.data)
-    // set member here
-    if (response.status === 200 && response.data.data) {
-      setExerciseActivity([...response.data.data]);
-    }
-  };
+  //   const response = await API.get(`${exerciseActivityRoute}`); // [GET] https://localhost:5000/api/activity-type
+  //   console.log("response: ", response.data.data)
+  //   // set member here
+  //   if (response.status === 200 && response.data.data) {
+  //     setActivitiesType([...response.data.data]);
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -108,15 +110,60 @@ const EditExercise = ({update, summaryData}) => {
     e.preventDefault();
 
     if (validateForm()) {
-      update(formData);
+      createExerciseActivity(formData);
       console.log("Form data submitted:", formData);
     } else {
       console.log(formErrors)
       console.log("Form submission failed due to validation errors.");
     }
   }
+
+      // Create Tracking Exercise Activity to api
+      const createExerciseActivity = async ({activity_type_id, caption, description, hour, minute, date, image}) => {
+        const requestData = {
+          activity_type_id: activity_type_id,
+          caption: caption,
+          description: description,
+          hour: hour,
+          minute: minute,
+          date: date,
+          image: image,
+        };
+        console.log(requestData);
+        const response = await API.post(`${exerciseActivityRoute}`, requestData, {headers: headers});// [POST] https://localhost:5000/api/users , requestData
+
+        if (response.status === 201) {
+        // setReload(!reload);
+        localStorage.setItem('exercise_activity_id', response.data.data._id);
+        navigate("/exercise-activity/summary");
+        }
+        console.log(response);
+    };
+
     
-     
+      // Update Tracking Exercise Activity to api
+    //   const updateExerciseActivity = async ({id, activity_type_id, caption, description, hour, minute, date, image}) => {
+    //     const id = '65b9fced5cfcc8eb551496b6';
+    //     const requestData = {
+    //       activity_type_id: activity_type_id,
+    //       caption: caption,
+    //       description: description,
+    //       hour: hour,
+    //       minute: minute,
+    //       date: date,
+    //       image: image,
+    //     };
+    //     console.log(requestData);
+    //     const response = await API.put(`${exerciseActivityRoute}/${id}`, requestData, {headers: headers});// [PUT] https://localhost:5000/api/users , requestData
+
+    //     if (response.status === 201) {
+    //     // setReload(!reload);
+    //     localStorage.setItem('exercise_activity_id', response.data.data._id);
+    //     navigate("/exercise-activity/summary");
+    //     }
+    //     console.log(response);
+    // };
+
 
   return (
 <>
@@ -144,7 +191,6 @@ const EditExercise = ({update, summaryData}) => {
             >
               Tracking Exercise Activity
             </Typography>
-            <input type="hidden" id="id" name="id" value={formData.id} />
             <form onSubmit={handleSubmit}>
               <select onChange={handleInputChange} name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value={formData.activity_type_id}>Running</option>
@@ -217,7 +263,7 @@ const EditExercise = ({update, summaryData}) => {
                 className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
                 >
                 {/* <Link href="/create-new-password" color='primary.white' underline="none"> */}
-                  Update
+                  Save
                 {/* </Link> */}
               </button>
             </form>
@@ -228,4 +274,4 @@ const EditExercise = ({update, summaryData}) => {
       )
 }
 
-export default EditExercise
+export default TrackingExerciseForm
