@@ -1,12 +1,12 @@
 import Layout from "./Layout"
 
 
-const LandingPage2 =() => {
+const LandingPage4 =() => {
     return (
        <Layout sx={{ height: "100%" }}>
-        <img src="./images/landingPage1.jpg"/>
+        <img src="./images/landingPage4.jpg"/>
        </Layout>
     )
 }
 
-export default LandingPage2;
+export default LandingPage4;
