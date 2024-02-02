@@ -25,8 +25,8 @@ export const LayoutDesk = ({ children }) => {
           <Box className="flex w-6/12 place-content-end gap-x-8 items-center">
             {/* Profile and Signin register and seach bar */}
 
-            <a href="#">Register</a>
-            <a href="#">Sign in</a>
+            <a href="/signup">Register</a>
+            <a href="/login">Sign in</a>
 
             <TextField
               id="outlined-basic"
