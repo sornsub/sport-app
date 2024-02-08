@@ -10,8 +10,9 @@ import { Link } from "react-router-dom"
 const TrackingExerciseForm = () => {
 
   const navigate = useNavigate();
-
+//  use state activity type backup
   const [activitiesType, setActivitiesType] = useState([]);
+  // const [selectedActivityType, setSelectedActivityType] = useState([]);
   const [reload, setReload] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
   const [id, setId] = useState("");
@@ -43,6 +44,20 @@ const TrackingExerciseForm = () => {
     date: "",
     image: ""
   });
+
+  // const activitiesType = [
+  //   { id: 1, name: 'Running', unavailable: false },
+  //   { id: 2, name: 'Weight training', unavailable: false },
+  //   { id: 3, name: 'Hike', unavailable: false },
+  //   { id: 4, name: 'Yoga', unavailable: false },
+  //   { id: 5, name: 'Swimming', unavailable: false },
+  //   { id: 6, name: 'Bicycle ride', unavailable: false },
+  //   { id: 7, name: 'Walking', unavailable: false },
+  // ]
+
+  // function SelectActivityType() {
+  //   const [selectedActivityType, setSelectedActivityType] = useState(activitiesType[0])
+  // }
 
   //TODO: Waitting for connect api Activity Type (master data)
 
@@ -192,15 +207,47 @@ const TrackingExerciseForm = () => {
               Tracking Exercise Activity
             </Typography>
             <form onSubmit={handleSubmit}>
-              <select onChange={handleInputChange} name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
-                <option value={formData.activity_type_id}>Running</option>
-                <option value="Weight training">Weight training</option>
-                <option value="Hike">Hike</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Swimming">Swimming</option>
-                <option value="Bicycle ride">Bicycle ride</option>
-                <option value="Walking">Walking</option>
-              </select>
+
+            {/* <select onChange={(ev) => getDataById(ev.target.value)}>
+            {activitiesType.map((activityType) => (
+              <option value={activitiesType.id}>
+                {activitiesType.name}
+              </option>
+              ))}
+            </select> */}
+
+              {/* <select value={selectedActivityType} onChange={setSelectedActivityType} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
+                     {selectedActivityType.name}
+                      {activitiesType.map((activityType) => (
+                        <option
+                          key={activityType.id}
+                          value={activityType}
+                          disabled={activityType.unavailable}
+                        >
+                          {activityType.name}
+                        </option>
+                      ))} */}
+
+                  {/* <option value={formData.activity_type_id}>Running</option>
+                  <option value="Weight training">Weight training</option>
+                  <option value="Hike">Hike</option>
+                  <option value="Yoga">Yoga</option>
+                  <option value="Swimming">Swimming</option>
+                  <option value="Bicycle ride">Bicycle ride</option>
+                  <option value="Walking">Walking</option> */}
+                {/* </select> */}
+
+
+            {/* select back up */}
+                <select onChange={handleInputChange} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
+                  <option value={formData.activity_type_id}>Running</option>
+                  <option value="Weight training">Weight training</option>
+                  <option value="Hike">Hike</option>
+                  <option value="Yoga">Yoga</option>
+                  <option value="Swimming">Swimming</option>
+                  <option value="Bicycle ride">Bicycle ride</option>
+                  <option value="Walking">Walking</option>
+                </select>
 
                {/* TODO: connect api */}
               {/* <select onChange={handleInputChange}>
@@ -225,9 +272,23 @@ const TrackingExerciseForm = () => {
                   value={formData.caption} onChange={handleInputChange}
                 ></textarea>
                 <span className="error text-red">{formErrors.caption}</span>
-                <div className="flex justify-center">
-                  <img className="w-80 h-full object-cover" src={createExercise} alt="The group of women are running" />
+
+                <div className="flex items-center justify-center w-full">
+                  <label htmlFor="dropzone-file" className="m-8 flex flex-col items-center justify-center w-full h-64 border-2 border-pink border-dashed rounded-4xl cursor-pointer hover:bg-pink-light">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg className="w-8 h-8 mb-4 text-pink" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                      </svg>
+                      <p className="mb-2 text-sm"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                      <p className="text-xs text-grey">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                    </div>
+                    <input id="dropzone-file" type="file" className="hidden" />
+                  </label>
                 </div>
+
+                {/* <div className="flex justify-center">
+                  <img className="w-80 h-full object-cover" src={createExercise} alt="The group of women are running" />
+                </div> */}
                 <div className="text-pink font-semibold bold p-5 flex justify-start">
                   <label for="description">Description</label>
                 </div>
@@ -243,18 +304,18 @@ const TrackingExerciseForm = () => {
               </div>
 
               <div className="gap-2 mt-5 mb-5 flex justify-center">
-                <label htmlFor="duration">Duration: </label>
-                <input type="number" name="hour" placeholder="Hour" className="border" 
+                <label htmlFor="duration" className="text-pink font-semibold bold">Duration </label>
+                <input type="number" name="hour" placeholder="Hour (0-23)" className="focus:outline-pink border-grey border rounded-main pl-3 w-40" min="0" max="23"
                 value={formData.hour} onChange={handleInputChange}/>
                 <span className="error text-red">{formErrors.hour}</span>
 
-                <input type="number" name="minute" placeholder="Minute" className="border" 
+                <input type="number" name="minute" placeholder="Minute (0-59)" className="focus:outline-pink border-grey border rounded-main pl-3 w-40" min="0" max="59"
                 value={formData.minute} onChange={handleInputChange}/>
                 <span className="error text-red">{formErrors.minute}</span>
               </div>
               <div className="gap-2 mb-5 flex justify-center">
-                <label htmlFor="date">Date: </label>
-                <input type="date" name="date" className="border" 
+                <label htmlFor="date" className="text-pink font-semibold bold">Date </label>
+                <input type="date" name="date" className="focus:outline-pink text-grey border-grey border rounded-main pl-3 pr-3" 
                        value={formData.date} onChange={handleInputChange} />
                 <span className="error text-red">{formErrors.date}</span>
               </div>

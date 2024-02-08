@@ -68,7 +68,7 @@ const Rightbar = () => {
                       mb: 2,
                       
                     }}>
-                    Bobtail Soda
+                    Hi, Bobtail Soda
                   </Typography>
 
                   <Typography variant="p" component="h2" 
