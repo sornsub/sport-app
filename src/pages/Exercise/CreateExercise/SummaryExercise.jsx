@@ -111,7 +111,6 @@ console.log("id: ", id)
       <ThemeProvider theme={theme}>
         <Container
           sx={{
-            height: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
