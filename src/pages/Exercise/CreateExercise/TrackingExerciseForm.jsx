@@ -313,6 +313,17 @@ const TrackingExerciseForm = () => {
                 value={formData.minute} onChange={handleInputChange}/>
                 <span className="error text-red">{formErrors.minute}</span>
               </div>
+              
+              {/* TODO: autocomplete function Calories */}
+{/* 
+              <div className="gap-2 mb-5 flex justify-center">
+                <label htmlFor="calories" className="text-pink font-semibold bold">Calories </label>
+                <input type="text" name="calories" className=" focus:outline-pink border-b border-grey  pl-3 w-40"
+                  value={formData.minute} onChange={handleInputChange}
+                  disabled />
+                  <span className="error text-red">{formErrors.minute}</span>
+              </div> */}
+
               <div className="gap-2 mb-5 flex justify-center">
                 <label htmlFor="date" className="text-pink font-semibold bold">Date </label>
                 <input type="date" name="date" className="focus:outline-pink text-grey border-grey border rounded-main pl-3 pr-3" 
