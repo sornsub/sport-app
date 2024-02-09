@@ -1,154 +1,369 @@
-import { 
-    // Avatar,
-       Button, 
-       CssBaseline,
-       TextField,
-       FormControlLabel,
-       Checkbox,
-       Link,
-       Paper,
-       Box,
-       Grid,
-       Typography,
-       createTheme,
-       ThemeProvider
-     } from "@mui/material"
-     
-  
-  import LoginImg from "/images/login.jpg"
-  import Copyright from '../../components/shared/Copyright';
-  
-  
-  
-  const HistoryB = () => {
-  const handleSubmit = (event) => {
-  event.preventDefault()
-  const data = new FormData(event.currentTarget)
-  console.log({
-    email: data.get("email"),
-    password: data.get("password"),
-  })
-  }
-  
-  const defaultTheme = createTheme({
-  palette:{
-    primary: {
-      light: '#E76F6D',
-      main: '#E76F6D',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-    otherColor:{
-      main:"#999"
-    }
-  }
-  })
-  
+import { useState, useEffect } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import CameraIcon from '@mui/icons-material/PhotoCamera';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import Navbar from '../../components/shared/Navbar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import API from '../../api/axios';
+// import UserCreate from './Create';
+
+// codeHistory
+function Copyright() {
   return (
-  <ThemeProvider theme={defaultTheme}>
-    <Grid container component="main" sx={{ height: "100vh" }}>
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+const HistoryB = () =>  {
+  const [exerciseActivities, setExerciseActivities] = useState([]);
+  const exerciseActivitiesRoute = "api/exercise-activities";
+  const user_id = "65bb1d09c078503306f1861f";
+  const token = localStorage.getItem('token');  // เก็บ token  login ค้างไว้
+
+  const headers = {
+      'Authorization': `Bearer ${token}`   // ขอ Token ก่อน
+    }
+
+  useEffect(() => {
+    getExerciseActivityByUserId();
+    }, []);
+  
+  //get user data
+  const getExerciseActivityByUserId = async () => {
+        
+    const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
+    console.log("response: ", response.data.data)
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setExerciseActivities([...response.data.data]);
+    }
+  };
+
+  return (
+    
+    <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: `url(${LoginImg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <AppBar position="relative">
+        <Toolbar>
+          <CameraIcon sx={{ mr: 2 }} />
+          <Typography variant="h6" color="inherit" noWrap>
+          <Navbar />
+            Album layout
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        {/* Hero unit */}
         <Box
           sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 6,
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
-          <Typography variant="h5" component="h1">
-            Login
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Username or email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              sx={{ mt: 3, mb: 2 , 
-                ":hover": {
-                bgcolor: "#d94643",
-                color: "white"
-              }}}
+          <Container maxWidth="sm">
+           
+        
+            <Stack
+              sx={{ pt: 4 }}
+              direction="row"
+              spacing={2}
+              justifyContent="center"
             >
-              Login
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
-          </Box>
+              <Button variant="contained">Delete</Button>
+              <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
+                <option value="Running">Running"</option>
+                <option value="Weight training">Weight training</option>
+                <option value="Hike">Hike</option>
+                <option value="Yoga">Yoga</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Bicycle ride">Bicycle ride</option>
+                <option value="Walking">Walking</option>
+              </select>
+              <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
+                <option value="Filter">Filter"</option>
+                <option value="Running">Running"</option>
+                <option value="Weight training">Weight training</option>
+                <option value="Hike">Hike</option>
+                <option value="Yoga">Yoga</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Bicycle ride">Bicycle ride</option>
+                <option value="Walking">Walking</option>
+              </select>
+            </Stack>
+          </Container>
         </Box>
-      </Grid>
-    </Grid>
-  </ThemeProvider>
-  )
-  }
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {exerciseActivities.map((exerciseActivity) => (
+              <Grid item key={exerciseActivity} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                  <CardMedia
+                    component="div"
+                    sx={{
+                      // 16:9
+                      pt: '56.25%',
+                    }}
+                    image="https://source.unsplash.com/random?wallpapers"
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Heading
+                    </Typography>
+                    <Typography>
+                    {exerciseActivity.activity_type_id}
+                    </Typography>
+                    <Typography>
+                     {exerciseActivity.caption}
+                    </Typography>
+                    <Typography>
+                      Descriptons
+                    </Typography>
+                    <Typography>
+                      Calroies
+                    </Typography>
+                    <Typography>
+                      Date
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">View</Button>
+                    <Button size="small">Edit</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </main>
+      {/* Footer */}
+      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+        <Typography variant="h6" align="center" gutterBottom>
+          Footer
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="text.secondary"
+          component="p"
+        >
+          Something here to give the footer a purpose!
+        </Typography>
+        <Copyright />
+      </Box>
+      {/* End footer */}
+    </ThemeProvider>
+  );
+}
+
+export default HistoryB
+
+import { useState, useEffect } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import CameraIcon from '@mui/icons-material/PhotoCamera';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import Navbar from '../../components/shared/Navbar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import API from '../../api/axios';
+// import UserCreate from './Create';
+
+// codeHistory
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+const History = () =>  {
+  const [exerciseActivities, setExerciseActivities] = useState([]);
+  const exerciseActivitiesRoute = "api/exercise-activities";
+  const user_id = "65bb1d09c078503306f1861f";
+  const token = localStorage.getItem('token');  // เก็บ token  login ค้างไว้
+
+  const headers = {
+      'Authorization': `Bearer ${token}`   // ขอ Token ก่อน
+    }
+
+  useEffect(() => {
+    getExerciseActivityByUserId();
+    }, []);
   
-  export default HistoryB
-  
+  //get user data
+  const getExerciseActivityByUserId = async () => {
+        
+    const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
+    console.log("response: ", response.data.data)
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setExerciseActivities([...response.data.data]);
+    }
+  };
+
+  return (
+    
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <CameraIcon sx={{ mr: 2 }} />
+          <Typography variant="h6" color="inherit" noWrap>
+          <Navbar />
+            Album layout
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        {/* Hero unit */}
+        <Box
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Container maxWidth="sm">
+            <Stack
+              sx={{ pt: 4 }}
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+            >
+              <Button variant="contained">Delete</Button>
+              <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
+                <option value="Running">Running"</option>
+                <option value="Weight training">Weight training</option>
+                <option value="Hike">Hike</option>
+                <option value="Yoga">Yoga</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Bicycle ride">Bicycle ride</option>
+                <option value="Walking">Walking</option>
+              </select>
+              <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
+                <option value="Filter">Filter"</option>
+                <option value="Running">Running"</option>
+                <option value="Weight training">Weight training</option>
+                <option value="Hike">Hike</option>
+                <option value="Yoga">Yoga</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Bicycle ride">Bicycle ride</option>
+                <option value="Walking">Walking</option>
+              </select>
+            </Stack>
+          </Container>
+        </Box>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {exerciseActivities.map((exerciseActivity) => (
+              <Grid item key={exerciseActivity} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                  <CardMedia
+                    component="div"
+                    sx={{
+                      // 16:9
+                      pt: '56.25%',
+                    }}
+                    image="https://source.unsplash.com/random?wallpapers"
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Heading
+                    </Typography>
+                    <Typography>
+                    {exerciseActivity.activity_type_id}
+                    </Typography>
+                    <Typography>
+                     {exerciseActivity.caption}
+                    </Typography>
+                    <Typography>
+                      Descriptons
+                    </Typography>
+                    <Typography>
+                      Calroies
+                    </Typography>
+                    <Typography>
+                      Date
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">View</Button>
+                    <Button size="small">Edit</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </main>
+      {/* Footer */}
+      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+        <Typography variant="h6" align="center" gutterBottom>
+          Footer
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="text.secondary"
+          component="p"
+        >
+          Something here to give the footer a purpose!
+        </Typography>
+        <Copyright />
+      </Box>
+      {/* End footer */}
+    </ThemeProvider>
+  );
+}
+
+export default History

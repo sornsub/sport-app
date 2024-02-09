@@ -17,6 +17,14 @@ import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Typography from '@mui/joy/Typography';
+
+
 import API from '../../api/axios';
 // import UserCreate from './Create';
 
@@ -37,7 +45,7 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const History = () =>  {
+const HistoryB3 = () =>  {
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
   const user_id = "65bb1d09c078503306f1861f";
@@ -77,7 +85,6 @@ const History = () =>  {
       </AppBar>
       <main>
         {/* Hero unit */}
-        
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -86,6 +93,8 @@ const History = () =>  {
           }}
         >
           <Container maxWidth="sm">
+           
+        
             <Stack
               sx={{ pt: 4 }}
               direction="row"
@@ -179,6 +188,8 @@ const History = () =>  {
       {/* End footer */}
     </ThemeProvider>
   );
+
+  
 }
 
-export default History
+export default HistoryB3
