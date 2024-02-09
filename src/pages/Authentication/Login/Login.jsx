@@ -155,7 +155,27 @@ import { Link } from "react-router-dom"
                              />
                       <span className="mt-1 text-sm block text-left error text-red">{formErrors.email}</span>
                     </div>
-                    <div className="mb-3">
+
+              <label htmlFor="password" 
+                     className="text-left block mb-3 mt-6 text-sm"
+              >
+                     Password
+              </label>
+              <div class="mb-3 relative w-full">
+                  <input type="password" id="password" name="password"
+                      className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue bg-gray-50 text-black text-sm block w-full p-2.5" 
+                      placeholder="Password" 
+                      value={formData.password} 
+                            onChange={handleInputChange} 
+                  />  
+                  <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-8">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 10a13.358 13.358 0 0 0 3 2.685M21 10a13.358 13.358 0 0 1-3 2.685m-8 1.624L9.5 16.5m.5-2.19a10.59 10.59 0 0 0 4 0m-4 0a11.275 11.275 0 0 1-4-1.625m8 1.624l.5 2.191m-.5-2.19a11.275 11.275 0 0 0 4-1.625m0 0l1.5 1.815M6 12.685L4.5 14.5"/>
+                      </svg>   
+                  </button>  
+              </div> 
+
+                    {/* <div className="mb-3">
                       <label htmlFor="password" 
                             className="text-left block mb-3 text-sm"
                       >
@@ -168,7 +188,7 @@ import { Link } from "react-router-dom"
                             onChange={handleInputChange}
                              />
                       <span className="mt-1 text-sm block text-left error text-red">{formErrors.password}</span>
-                    </div>
+                    </div> */}
                     <div className="flex items-start mb-8">
                       <p className="text-pink text-sm">
                         <Link to="/forgot-password">Forgot password?</Link>
