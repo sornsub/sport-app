@@ -9,7 +9,6 @@ const LineChart = ({selectedRange, userId, reload}) => {
   const [graphSummaryDatas, setGraphSummaryDatas] = useState([]);
   const [categoriesArray, setcategoriesArray] = useState([]);
   
-  
   const dashboardRoute = "api/dashboard";
 
   useEffect(() => {
@@ -27,9 +26,6 @@ const LineChart = ({selectedRange, userId, reload}) => {
     // }
     
   }, [reload]);
-
-
-
 
   //get Graph Summary data By User Id
   const getGraphSummaryByUserId  = async () => {
