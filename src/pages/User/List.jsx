@@ -5,7 +5,6 @@ import UserCreate from './Create';
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
-    const [reload, setReload] = useState(false);
     const userRoute = "api/users";
 
     const token = localStorage.getItem('token');
@@ -16,7 +15,7 @@ const UserList = () => {
 
     useEffect(() => {
         getUserData();
-      }, [reload]);
+      }, []);
     
     //get user data
     const getUserData = async () => {
