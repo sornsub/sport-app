@@ -17,14 +17,12 @@ import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
-import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-// import Button from '@mui/joy/Button';
-// import Card from '@mui/joy/Card';
-// import CardContent from '@mui/joy/CardContent';
-// import Typography from '@mui/joy/Typography';
+import Typography from '@mui/joy/Typography';
 
 
 import API from '../../api/axios';
@@ -47,10 +45,10 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const History = () =>  {
+const HistoryB3 = () =>  {
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
-  const user_id = "65c8f4fc9aa2f67b7fbd27a7";
+  const user_id = "65bb1d09c078503306f1861f";
   const token = localStorage.getItem('token');  // เก็บ token  login ค้างไว้
 
   const headers = {
@@ -63,11 +61,9 @@ const History = () =>  {
   
   //get user data
   const getExerciseActivityByUserId = async () => {
-    console.log("Fromgetexercise");
-   
-    // const response = await API.get(`http://localhost:5173/api/exercise-activities/user/65c8f4fc9aa2f67b7fbd27a7`, {headers: headers}); 
+        
     const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
-    console.log("response: ", response.data)
+    console.log("response: ", response.data.data)
     // set member here
     if (response.status === 200 && response.data.data) {
       setExerciseActivities([...response.data.data]);
@@ -75,7 +71,7 @@ const History = () =>  {
   };
 
   return (
-
+    
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <AppBar position="relative">
@@ -173,70 +169,6 @@ const History = () =>  {
             ))}
           </Grid>
         </Container>
-{/* 
-     <Card
-      size="lg"
-      variant="plain"
-      orientation="horizontal"
-      sx={{
-        textAlign: 'center',
-        maxWidth: '100%',
-        width: 393,
-        // to make the demo resizable
-        resize: 'horizontal',
-        // overflow: 'auto',
-      }}
-     >
-
-     <CardOverflow
-        variant="solid"
-        color="primary"
-        sx={{
-          flex: '0 0 200px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'left',
-          // px: 'var(--Card-padding)',
-        }}
-      >
-        <AspectRatio ratio="1" sx={{ width: 293 }}>
-          <img
-            src="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
-            srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
-            loading="lazy"
-            alt=""
-          />
-        </AspectRatio>
-      </CardOverflow>
-      <CardContent sx={{ gap: 1.5, minWidth: 200 }}>
-        <AspectRatio ratio="19/8" objectFit="contain" variant="plain">
-          <img
-            alt=""
-            src="https://static.vecteezy.com/system/resources/previews/006/409/485/original/people-thinking-to-make-decision-problem-solving-and-find-creative-ideas-with-question-mark-in-flat-cartoon-background-for-poster-illustration-vector.jpg"
-          />
-        </AspectRatio>
-        <CardContent>
-          <Typography level="title-lg">Need Some Help?</Typography>
-          <Typography fontSize="sm" sx={{ mt: 0.5 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor.
-          </Typography>
-        </CardContent>
-        <Button
-          variant="outlined"
-          color="primary"
-          sx={{
-            '--variant-borderWidth': '2px',
-            borderRadius: 40,
-            borderColor: 'primary.500',
-            mx: 'auto',
-          }}
-        >
-          See FAQ
-        </Button>
-      </CardContent>
-    </Card> */}
-
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
@@ -260,4 +192,4 @@ const History = () =>  {
   
 }
 
-export default History
+export default HistoryB3
