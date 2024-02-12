@@ -33,9 +33,8 @@ const Rightbar = () => {
 
 //get user data
 const getUserDataById = async () => {
-  const user_id = '65c63d76e63824aa00b3c573'; //TODO: Change user id
+  const user_id = '65b91eff0310083296392068'; //TODO: Change user id
   const response = await API.get(`${userRoute}/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/users
-  console.log("response: ", response.data.data)
   // set user here
   if (response.status === 200 && response.data.data) {
     setUser(response.data.data);
