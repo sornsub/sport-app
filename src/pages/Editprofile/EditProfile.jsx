@@ -15,10 +15,7 @@ import Navmenu from "../../components/shared/Navmenu";
 import Copyright from "../../components/shared/Copyright";
 import Navbar from "../../components/shared/Navbar";
 import API from "../../api/axios";
-<<<<<<< HEAD
 import UploadImage from "../../components/UploadImage/UploadImage";
-=======
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
 
 const SignUp = () => {
   const token = localStorage.getItem("token");
@@ -30,11 +27,6 @@ const SignUp = () => {
   const initialFormData = {
     email: "",
     firstname: "",
-<<<<<<< HEAD
-
-=======
-    lastname: "",
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
     password: "",
     confirmpassword: "",
     date_of_birth: "",
@@ -45,10 +37,7 @@ const SignUp = () => {
     image: "",
   };
   const [formData, setFormData] = useState(initialFormData);
-<<<<<<< HEAD
   const [image, setImage] = useState("");
-=======
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
   // const [userId, setUserId] = useState();
 
   //Set Email input
@@ -72,14 +61,6 @@ const SignUp = () => {
   const [fnamePassColorMsg, setFnameColorMsg] = useState("");
   const [fnameColorfield, setFnameColorfield] = useState("border-gray-800");
 
-<<<<<<< HEAD
-=======
-  //Set LastName input
-  const [lnameMsg, setLnameMsg] = useState("");
-  const [lnamePassColorMsg, setLnameColorMsg] = useState("");
-  const [lnameColorfield, setLnameColorfield] = useState("border-gray-800");
-
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
   //Set PhoneNumber input
   const [phoneMsg, setPhoneMsg] = useState("");
   const [phoneColorMsg, setPhoneColorMsg] = useState("");
@@ -249,7 +230,7 @@ const SignUp = () => {
 
         // ส่ง HTTP POST request ไปยัง backend
         const response = await API.post(
-          "/api/users/65c8f4fc9aa2f67b7fbd27a7",
+          updateUserRoute,
           requestData,
           {
             headers: headers,
@@ -505,40 +486,16 @@ const SignUp = () => {
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <button className="btn bg-[#d2fe71] hover:bg-[#a5cf4a]/80 w-full drop-shadow text-xl font-normal border-none">
-<<<<<<< HEAD
                           Done
-=======
-                          Sign Up
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
                         </button>
                       </div>
                       {/* Div เปล่า ทำให้ด้านข้างเสมอกันกับข้างล่าง */}
                       <div className="md:w-2/5"></div>
                     </div>
                   </div>
-<<<<<<< HEAD
 
                   <div className="md:w-1/5 flex flex-col justify-start">
                     <UploadImage setImage={setImage} />
-=======
-                  <div className="md:w-1/5 flex justify-center">
-                    <div className="justify-center bg-grey-lighter pt-10 md:p-24">
-                      <label className="w-48 h-48 md:h-36 md:w-36 flex flex-col items-center justify-center bg-gray-200 text-blue rounded-[40px] shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-[#8BCA00]">
-                        {/* <span className="material-symbols-outlined">
-                          photo_camera
-                        </span>
-                        <p className="mt-2 text-base text-center leading-normal">
-                          Select a Photo
-                        </p> */}
-                        <input
-                          type="file"
-                          accept=".jpg, .png, .jpeg"
-                          className="hidden"
-                          id="signup_photo"
-                        />
-                      </label>
-                    </div>
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
                   </div>
                 </div>
               </div>
