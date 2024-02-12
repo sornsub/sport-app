@@ -181,31 +181,6 @@ const SignUp = () => {
       }
     }
 
-<<<<<<< HEAD
-=======
-    //Check LastName
-    if (id === "lastname") {
-      const isAlphabet = isAlpha(value);
-      const isEmptyLastName = isEmpty(value);
-      const isLnameLength = isLength(value, { min: 2 });
-
-      if (isAlphabet && isLnameLength) {
-        setLnameMsg("Your name is valid");
-        setLnameColorMsg("text-[#8BCA00]");
-        setLnameColorfield("border-[#8BCA00]");
-      } else if (!isAlphabet) {
-        setLnameMsg("Your name is Invalid");
-        setLnameColorMsg("text-red-500");
-        setLnameColorfield("border-red-500");
-      }
-      if (isEmptyLastName) {
-        setLnameMsg("");
-        setLnameColorMsg("");
-        setLnameColorfield("border-gray-800");
-      }
-    }
-
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
     //Check PhoneNumber
     if (id === "phone_Number") {
       const phoneLength = isLength(value, { min: 10 });
@@ -235,11 +210,6 @@ const SignUp = () => {
     e.preventDefault();
     const validEmail = isEmail(formData.email);
     const isEmptyFirstName = isEmpty(formData.firstname);
-<<<<<<< HEAD
-
-=======
-    const isEmptyLastName = isEmpty(formData.lastname);
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
     // const strongPass = isStrongPassword(formData.password, { minSymbols: 0 });
     const strongPass = formData.password;
     const isPasswordMatch = equals(formData.confirmpassword, formData.password);
@@ -251,10 +221,6 @@ const SignUp = () => {
     if (
       validEmail &&
       !isEmptyFirstName &&
-<<<<<<< HEAD
-=======
-      !isEmptyLastName &&
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
       strongPass &&
       isPasswordMatch &&
       !isEmptyHeight &&
@@ -266,37 +232,22 @@ const SignUp = () => {
       // ทำอย่างอื่นต่อ เช่น ส่งข้่อมูลไป Back-end
       try {
         // Endpoint ของ backend API ที่คุณต้องการส่งข้อมูลไป
-<<<<<<< HEAD
         const updateUserRoute = `/api/users/${userId}`;
-=======
-        const updateUserRoute = `/api/users/edit-profile/${userId}`;
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
 
         // สร้าง object ที่มีข้อมูลทั้งหมดที่คุณต้องการส่งไปยัง backend
         const requestData = {
           email: formData.email,
           userName: formData.firstname,
-<<<<<<< HEAD
           login_password: formData.password,
-=======
-          signup_lastname: formData.lastname,
-          login_password: formData.password,
-          signup_date: toDate(formData.date_of_birth),
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
           signup_gender: formData.gender,
           signup_height: toInt(formData.height),
           signup_weight: toInt(formData.weight),
           phone: formData.phone_Number,
-<<<<<<< HEAD
           avatar: image,
-=======
-          image: formData.image,
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
           // เพิ่ม property ต่อไปตามต้องการ
         };
 
         // ส่ง HTTP POST request ไปยัง backend
-<<<<<<< HEAD
         const response = await API.post(
           "/api/users/65c8f4fc9aa2f67b7fbd27a7",
           requestData,
@@ -304,11 +255,6 @@ const SignUp = () => {
             headers: headers,
           }
         );
-=======
-        const response = await API.post(updateUserRoute, requestData, {
-          headers: headers,
-        });
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
 
         // ตรวจสอบ response จาก backend
         if (response.status === 200) {
@@ -365,7 +311,6 @@ const SignUp = () => {
                       {/* Div เปล่า ทำให้ด้านข้างเสมอกันกับข้างล่าง */}
                       <div className="md:w-2/5"></div>
                     </div>
-<<<<<<< HEAD
 
                     <div className="md:flex justify-evenly mb-10">
                       <div className="md:w-2/5 mb-10 md:mb-0">
@@ -389,8 +334,6 @@ const SignUp = () => {
                       <div className="md:w-2/5"></div>
                     </div>
 
-=======
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
@@ -442,48 +385,6 @@ const SignUp = () => {
                       </div>
                     </div>
 
-<<<<<<< HEAD
-=======
-                    <div className="md:flex justify-evenly mb-10">
-                      <div className="md:w-2/5 mb-10 md:mb-0">
-                        <label
-                          className="font-medium text-xl text-gray-800"
-                          htmlFor="First Name"
-                        >
-                          First Name
-                        </label>
-                        <input
-                          className={`w-full p-2 bg-transparent border-b-2 ${fnameColorfield} focus:outline-none placeholder-gray-700`}
-                          type="text"
-                          placeholder="First Name"
-                          id="firstname"
-                          onChange={handleInputChange}
-                        />
-                        <div className={`${fnamePassColorMsg} text-sm md:w-72`}>
-                          {fnameMsg}
-                        </div>
-                      </div>
-                      <div className="md:w-2/5 mb-10">
-                        <label
-                          className="font-medium text-xl text-gray-800"
-                          htmlFor="Last Name"
-                        >
-                          Last Name
-                        </label>
-                        <input
-                          className={`w-full p-2 bg-transparent border-b-2 ${lnameColorfield} focus:outline-none placeholder-gray-700`}
-                          type="text"
-                          placeholder="Last Name"
-                          id="lastname"
-                          onChange={handleInputChange}
-                        />
-                        <div className={`${lnamePassColorMsg} text-sm md:w-72`}>
-                          {lnameMsg}
-                        </div>
-                      </div>
-                    </div>
-
->>>>>>> 0252e212163799be9c2073e4ba18d5cacf54fd28
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
