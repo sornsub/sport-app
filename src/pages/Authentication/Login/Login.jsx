@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import API from '../../../api/axios';
 
-
 import { 
     Box,
     Container,
@@ -17,7 +16,7 @@ import { Link } from "react-router-dom"
     
   const Login = () => {
     const navigate = useNavigate();
-    const authRoute = "login";
+    const authRoute = "api/authen/login";
     
     const [formData, setFormData] = useState({
       email: "",
@@ -73,9 +72,10 @@ import { Link } from "react-router-dom"
       const response = await API.post(`${authRoute}`, requestData);// [POST] https://localhost:5000/login , requestData
 
       if (response.status === 200) {
-        const { token } = response.data;
+        const { token, userId } = response.data;
         // Store the tokens in localStorage or secure cookie for later use
         localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
         navigate("/dashboard");
       }
   };
