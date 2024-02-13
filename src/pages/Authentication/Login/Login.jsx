@@ -17,7 +17,7 @@ import { Link } from "react-router-dom"
     
   const Login = () => {
     const navigate = useNavigate();
-    const authRoute = "login";
+    const authRoute = "api/authen/login";
     
     const [formData, setFormData] = useState({
       email: "",
