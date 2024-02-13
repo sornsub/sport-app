@@ -39,7 +39,7 @@ const DonutChart = ({selectedRange, userId, reload}) => {
 
   activitiesTypeData.map((activity) => (
     seriesArray.push(activity.count),
-    labelsArray.push(activity.activity_type)
+    labelsArray.push(activity.activity_type_name)
   ))
   
     const chartData = {
