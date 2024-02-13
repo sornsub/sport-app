@@ -22,8 +22,6 @@ const EmailVerification = () => {
     
     const verifyCodeRoute = "api/authen";
     const email = localStorage.getItem('email');
-
-
     const requestData = {
     email: email,
     code: code
@@ -34,7 +32,24 @@ const EmailVerification = () => {
     if (response.status === 200) {
     navigate("/create-new-password");
     }
-};
+  };
+
+  const resendVerifyCode = async () => {
+    
+    const verifyCodeRoute = "api/authen";
+    const email = localStorage.getItem('email');
+    const requestData = {
+      email: email
+    };
+
+    const response = await API.post(`${verifyCodeRoute}/resend-code`, requestData);// [POST] https://localhost:5000/api/authen/resend-code, requestData
+
+    if (response.status === 200) {
+      //TODO: alert 3 sec for show msg resend successfully
+    }else if (response.status === 400) {
+      //TODO: alert fail msg
+    }
+  };
 
   return (
     <>
@@ -84,7 +99,9 @@ const EmailVerification = () => {
                           <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
                           <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required /> */}
                         </div>
-                        <Link href="#" color='primary.black'> 
+                        <Link href="#" color='primary.black'
+                              onClick={() => resendVerifyCode()}
+                        > 
                           Resend code
                         </Link>
                         <button type="submit" 
