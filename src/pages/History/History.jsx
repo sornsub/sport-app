@@ -185,9 +185,6 @@ const History = () =>  {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
                     {exerciseActivity.activity_type_id}
                     </Typography>
                     <Typography>
