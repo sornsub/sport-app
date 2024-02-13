@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import API from '../../../api/axios';
+import { useNavigate } from "react-router-dom";
+
 
 import { 
     Box,
@@ -11,9 +13,10 @@ import {
 
 import ForgotPasswordImg from "/images/forgotpassword.jpg"
 import { theme } from "../../../theme"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -55,20 +58,22 @@ const ForgotPassword = () => {
   }
 
       // forgot password to api
-      const forgotPassword = async (email) => {
+      const forgotPassword = async ({email}) => {
+        console.log("email: ", email)
+
         const requestData = {
         email: email,
         };
-        console.log(requestData);
+
         const response = await API.post(`${authRoute}/forgot-password`, requestData);// [POST] https://localhost:5000/api/users , requestData
 
-        if (response.status === 201) {
-        setReload(!reload);
+        if (response.status === 200) {
+        // setLocalStorage email
+        // Store the tokens in localStorage or secure cookie for later use
+        localStorage.setItem('email', email);
+        navigate("/email-verification");
         }
-
-        console.log(response);
     };
-
 
   return (
           <>
@@ -148,9 +153,9 @@ const ForgotPassword = () => {
                           <button type="submit" 
                                   className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
                                   >
-                                  <Link to="/email-verification">
+                                  {/* <Link to="/email-verification"> */}
                                     Send
-                                  </Link>
+                                  {/* </Link> */}
                           </button>
                       </div>
                       <p className="text-sm text-gray-900 dark:text-gray-300">Back to <Link to="/signup" className="text-pink">Sign up</Link></p>
