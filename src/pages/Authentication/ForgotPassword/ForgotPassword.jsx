@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import API from '../../../api/axios';
+import { useNavigate } from "react-router-dom";
+
+
 import { 
     Box,
     Container,
@@ -9,9 +13,68 @@ import {
 
 import ForgotPasswordImg from "/images/forgotpassword.jpg"
 import { theme } from "../../../theme"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+  });
+
+  const authRoute = "api/authen";
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      forgotPassword(formData);
+      console.log("Form data submitted:", formData);
+    } else {
+      console.log("Form submission failed due to validation errors.");
+    }
+  }
+
+      // forgot password to api
+      const forgotPassword = async ({email}) => {
+        console.log("email: ", email)
+
+        const requestData = {
+        email: email,
+        };
+
+        const response = await API.post(`${authRoute}/forgot-password`, requestData);// [POST] https://localhost:5000/api/users , requestData
+
+        if (response.status === 200) {
+        // setLocalStorage email
+        // Store the tokens in localStorage or secure cookie for later use
+        localStorage.setItem('email', email);
+        navigate("/email-verification");
+        }
+    };
+
   return (
           <>
           <ThemeProvider theme={ theme }>
@@ -72,24 +135,27 @@ const ForgotPassword = () => {
                     <Typography variant="h5" component="h1" sx={{fontWeight: 'medium'}}>
                         Forgot Password
                     </Typography>
-                    <form className="max-w-sm mx-auto">
+                    <form className="max-w-sm mx-auto" onSubmit={handleForgotPassword}>
                       <div className="pb-5 mb-5">
                         <label htmlFor="email" 
                               className="text-left block mb-3 mt-6 text-sm text-gray-900 dark:text-white"
                         >
                               Enter your email address
                         </label>
-                        <input type="email" id="email" 
+                        <input type="text" name="email" placeholder="Email"
+                              value={formData.email}
+                              onChange={handleInputChange}
                               className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue bg-gray-50 text-black text-sm block w-full p-2.5" 
-                              placeholder="Email" required />
+                        />
+                        <span className="error">{formErrors.email}</span>
                       </div>                  
                       <div className="mb-5 pb-2">
                           <button type="submit" 
                                   className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
                                   >
-                                  <Link to="/email-verification">
+                                  {/* <Link to="/email-verification"> */}
                                     Send
-                                  </Link>
+                                  {/* </Link> */}
                           </button>
                       </div>
                       <p className="text-sm text-gray-900 dark:text-gray-300">Back to <Link to="/signup" className="text-pink">Sign up</Link></p>
