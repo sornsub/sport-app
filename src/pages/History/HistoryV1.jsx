@@ -47,7 +47,7 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const Historyv1 = () =>  {
+const History1 = () =>  {
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
   const user_id = "65c8f4fc9aa2f67b7fbd27a7";
@@ -260,4 +260,4 @@ const Historyv1 = () =>  {
   
 }
 
-export default Historyv1
+export default History1
