@@ -160,7 +160,7 @@ const History = () =>  {
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
                   <CardActions>
-                  <Button size="small">View</Button>           
+                  <Button size="small">View</Button>       
                   <Button size="small">Delete</Button>
 
                   <input type="hidden" id="id" value={exerciseActivity} />
