@@ -24,7 +24,7 @@ import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
 import DeleteButton from "./DeleteButton";
 
-const SignUp = () => {
+const EditProfile = () => {
   // token
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -523,4 +523,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default EditProfile;
