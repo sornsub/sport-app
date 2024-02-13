@@ -48,10 +48,14 @@ function Copyright() {
 const defaultTheme = createTheme();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const History1 = () =>  {
 =======
 const Historyv1 = () =>  {
 >>>>>>> 2b96c38 (History mockup v.4)
+=======
+const History1 = () =>  {
+>>>>>>> 820fd88 (History mockup delete)
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
   const user_id = "65c8f4fc9aa2f67b7fbd27a7";
@@ -265,7 +269,11 @@ const Historyv1 = () =>  {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default History1
 =======
 export default Historyv1
 >>>>>>> 2b96c38 (History mockup v.4)
+=======
+export default History1
+>>>>>>> 820fd88 (History mockup delete)
