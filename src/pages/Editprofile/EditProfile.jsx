@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import validator from "validator";
+import {useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
@@ -9,22 +8,14 @@ import isStrongPassword from "validator/lib/isStrongPassword";
 import isNumeric from "validator/lib/isNumeric";
 import toDate from "validator/lib/toDate";
 import toInt from "validator/lib/toInt";
-import axios, { isCancel, AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import Navmenu from "../../components/shared/Navmenu";
-import Copyright from "../../components/shared/Copyright";
 import Navbar from "../../components/shared/Navbar";
 import API from "../../api/axios";
 import UploadImage from "../../components/UploadImage/UploadImage";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { useNavigate } from "react-router-dom";
 import DeleteButton from "./DeleteButton";
 
-const SignUp = () => {
+const EditProfile = () => {
   // token
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -523,4 +514,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default EditProfile;
