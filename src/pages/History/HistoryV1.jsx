@@ -52,6 +52,7 @@ const defaultTheme = createTheme();
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const History1 = () =>  {
 =======
 const Historyv1 = () =>  {
@@ -59,6 +60,9 @@ const Historyv1 = () =>  {
 =======
 const History1 = () =>  {
 >>>>>>> 820fd88 (History mockup delete)
+=======
+const History1 = () =>  {
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
   const user_id = "65c8f4fc9aa2f67b7fbd27a7";
@@ -273,6 +277,7 @@ const History1 = () =>  {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default History1
 =======
 export default Historyv1
@@ -280,3 +285,6 @@ export default Historyv1
 =======
 export default History1
 >>>>>>> 820fd88 (History mockup delete)
+=======
+export default History1
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594

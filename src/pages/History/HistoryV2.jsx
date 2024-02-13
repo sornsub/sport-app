@@ -1,14 +1,20 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 820fd88 (History mockup delete)
 =======
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
 // can delete 
 // mockup with db
 
 
+<<<<<<< HEAD
 >>>>>>> 2946063 (History Mockup v3)
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
 import { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
@@ -28,6 +34,9 @@ import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
 
 
 import * as React from 'react';
@@ -143,6 +152,7 @@ const History2 = () =>  {
               <Button variant="contained">Delete</Button>
               <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value="Running">Running"</option>
+<<<<<<< HEAD
 =======
 //Guild สำหรับปั่นงาน
 
@@ -356,6 +366,8 @@ const History2 = () =>  {
               <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value="Running">Running"</option>
 >>>>>>> 820fd88 (History mockup delete)
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
                 <option value="Weight training">Weight training</option>
                 <option value="Hike">Hike</option>
                 <option value="Yoga">Yoga</option>
@@ -365,8 +377,11 @@ const History2 = () =>  {
               </select>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 820fd88 (History mockup delete)
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
               <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value="Filter">Filter"</option>
                 <option value="Running">Running"</option>
@@ -388,6 +403,9 @@ const History2 = () =>  {
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
                 >
                   <CardActions>
                   <Button size="small">View</Button>       
@@ -524,6 +542,7 @@ const History2 = () =>  {
 }
 
 export default History2
+<<<<<<< HEAD
 =======
 
                {/* TODO: connect api */}
@@ -720,3 +739,5 @@ export default EditExercise888
 =======
 export default History2
 >>>>>>> 820fd88 (History mockup delete)
+=======
+>>>>>>> 28310586810eb5457b05990a9d03e0a0ec7be594
