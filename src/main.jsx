@@ -2,6 +2,7 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+
 // font inter
 import "@fontsource/inter/300.css";
 import "@fontsource/inter/400.css";
@@ -41,6 +42,7 @@ import Corousel from "./pages/LandingPage/Corousel.jsx";
 import ExerciseActivityLayout from "./components/layouts/ExerciseActivityLayout.jsx";
 import UserList from "./pages/User/List.jsx";
 import TrackingExerciseForm from "./pages/Exercise/CreateExercise/TrackingExerciseForm.jsx";
+
 
 const router = createBrowserRouter([
   {
