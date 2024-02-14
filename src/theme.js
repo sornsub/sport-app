@@ -22,7 +22,13 @@ export const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Inter',
+    fontFamily:{ sans: [
+      '"Inter", Domaine Sans Display',
+      {
+        fontFeatureSettings: '"cv11", "ss01"',
+        fontVariationSettings: '"opsz" 32'
+      },
+    ],}
   },
   components: {
     MuiCssBaseline: {

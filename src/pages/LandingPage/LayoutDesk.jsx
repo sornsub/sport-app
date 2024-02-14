@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 
 import Swipers from "./Swipers";
+// import LayoutStyle from 'LayoutStyle.css'
 
 export const LayoutDesk = ({ children }) => {
   return (
@@ -26,23 +27,23 @@ export const LayoutDesk = ({ children }) => {
         <Box className="flex gap-x-10 items-center p-5">
           <button
             type="submit"
-            className="shadow-lg outline-0 w-[150px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
+            className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
           >
             <a href="/signup">Register</a>
           </button>
           <button
             type="submit"
-            className="shadow-lg outline-0 w-[180px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
+            className="shadow-lg outline-0 w-[100px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
           >
             <a href="/login">Sign in</a>
           </button>
         </Box>
       </div>
       {/* ปลุกใจในตัวคุณ */}
-      <div className="flex flex-col ml-40">
-        <span className="">พร้อมสู้</span>
-        <span>กายพร้อม ใจพร้อม</span>
-        <span>เราทำได้</span>
+      <div className="flex flex-col ml-40 mt-10">
+        <span className="text-7xl font-serif">BE READY</span>
+        <span className="text-7xl">AND GO </span>
+        <span className="text-7xl">FOR YOUR LIFE</span>
       </div>
       {/* Swiper */}
       <Box>
