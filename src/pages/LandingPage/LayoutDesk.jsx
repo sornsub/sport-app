@@ -1,17 +1,17 @@
 import { Box } from "@mui/material";
 
 import Swipers from "./Swipers";
-// import LayoutStyle from 'LayoutStyle.css'
+import "./LandingPage.css";
 
 export const LayoutDesk = ({ children }) => {
   return (
     <div className="bg-pink h-full text-white">
       <div className="flex h-[200px] justify-between">
-        <Box className="mr-[20px]">
+        <Box className="ml-2 ">
           {/* picture */}
           <img
             src="images/logoRemoveBg.png"
-            className="size-52 pl-6 object-cover"
+            className="w-full h-[200px] pl-6 object-cover"
           />
         </Box>
         {/* Intro nav menu */}
@@ -24,16 +24,16 @@ export const LayoutDesk = ({ children }) => {
           <a href="#">Review</a>
         </Box>
         {/* Register and Sign in button */}
-        <Box className="flex gap-x-10 items-center p-5">
+        <Box className="flex gap-x-10 items-center p-10">
           <button
             type="submit"
-            className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
+            className="shadow-lg outline-0 w-[300px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
           >
             <a href="/signup">Register</a>
           </button>
           <button
             type="submit"
-            className="shadow-lg outline-0 w-[100px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
+            className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
           >
             <a href="/login">Sign in</a>
           </button>
@@ -41,9 +41,9 @@ export const LayoutDesk = ({ children }) => {
       </div>
       {/* ปลุกใจในตัวคุณ */}
       <div className="flex flex-col ml-40 mt-10">
-        <span className="text-7xl font-serif">BE READY</span>
-        <span className="text-7xl">AND GO </span>
-        <span className="text-7xl">FOR YOUR LIFE</span>
+        <span className="text-7xl Font-second">BE READY</span>
+        <span className="text-7xl Font-second">AND GO </span>
+        <span className="text-7xl Font-second">FOR YOUR LIFE</span>
       </div>
       {/* Swiper */}
       <Box>
