@@ -11,7 +11,7 @@ import { ServiceData } from "./constants";
 
 const Swipers = () => {
   return (
-    <div className="flex items-center justify-center flex-col h-[900px] bg-pink">
+    <div className="flex items-center justify-center flex-col h-[700px] bg-pink">
       <Swiper
         breakpoints={{
           340: {
