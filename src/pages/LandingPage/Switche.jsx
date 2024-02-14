@@ -9,15 +9,15 @@ import Typography from "@mui/material/Typography";
 const IOSSwitch = styled((props) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
-  width: 65,
+  width: 80,
   height: 50,
   padding: 0,
   "& .MuiSwitch-switchBase": {
-    padding: 0,
+    padding: 2,
     margin: 2,
-    transitionDuration: "300ms",
+    transitionDuration: "400ms",
     "&.Mui-checked": {
-      transform: "translateX(16px)",
+      transform: "translateX(29px)",
       color: "#fff",
       "& + .MuiSwitch-track": {
         backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
@@ -53,7 +53,7 @@ const IOSSwitch = styled((props) => (
     backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
     opacity: 1,
     transition: theme.transitions.create(["background-color"], {
-      duration: 500,
+      duration: 400,
     }),
   },
 }));
