@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 
+import Switche from "./Switche";
 import Swipers from "./Swipers";
 import "./LandingPage.css";
 
 export const LayoutDesk = ({ children }) => {
   return (
     <div className="bg-pink h-full text-white">
-      <div className="flex h-[200px] bg-red justify-between">
+      <div className="flex h-[200px]  justify-between">
         <Box className="ml-2 w-1/3 ">
           {/* picture */}
           <img src="images/logoRemoveBg.png" className=" pl-6 object-cover" />
@@ -41,7 +42,9 @@ export const LayoutDesk = ({ children }) => {
       <Box className="flex mx-50 h-97 justify-center">
         <div className="flex flex-col  mt-10 gap-10">
           <span className="text-7xl Font-second">BE READY</span>
-          <span className="text-7xl Font-second">AND GO </span>
+          <span className="text-7xl Font-second">
+            <Switche className="size-20 h-20" /> AND GO
+          </span>
           <span className="text-7xl Font-second">FOR YOUR LIFE</span>
         </div>
         <img
