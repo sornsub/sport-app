@@ -30,7 +30,8 @@ const EmailVerification = () => {
     const response = await API.post(`${verifyCodeRoute}/verify`, requestData);// [POST] https://localhost:5000/api/authen/verify, requestData
 
     if (response.status === 200) {
-    navigate("/create-new-password");
+      localStorage.setItem('userId', response.data.data);
+      navigate("/create-new-password");
     }
   };
 
