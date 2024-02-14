@@ -1,58 +1,37 @@
-import React from "react";
-import Navbar from "./Nav";
 import { Box } from "@mui/material";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Corousel from "./Corousel";
-import { Height } from "@mui/icons-material";
+
+import Swipers from "./Swipers";
 
 export const LayoutDesk = ({ children }) => {
   return (
-    <Box className="container h-screen bg-pink text-white">
-     
-      <Box className="header h-2/5">
-        <Box
-          className="header-top mr-4"
-          sx={{ display: "flex", flexDirection: "row" }}
-        >
-          <Box className="w-6/12">
+    <Box className="container h-full w-auto bg-pink text-white">
+      <Box className="">
+        <Box className="mx-4">
+          <Box className="">
             <img
               src="images/logoFitness.jpg"
               className="size-28 pl-6 object-cover"
             />
           </Box>
-          <Box className="flex w-6/12 place-content-end gap-x-8 items-center">
-            {/* Profile and Signin register and seach bar */}
-
-            <a href="/signup">Register</a>
-            <a href="/login">Sign in</a>
-
-            <TextField
-              id="outlined-basic"
-              label="Search"
-              variant="outlined"
-              className="text-white"
-            />
-            <img src="./images/landingPage1.jpg" className="size-28 " />
+          <Box className="flex gap-x-10 items-center ">
+            <button
+              type="submit"
+              className="outline-0 pl-5 border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5"
+            >
+              <a href="/signup">Register</a>
+            </button>
+            <button
+              type="submit"
+              className="outline-0 pl-5 border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5"
+            >
+              <a href="/signup">Sign in</a>
+            </button>
           </Box>
         </Box>
-        <Box className="header-bottom h-auto flex items-center ">
-          <Stack spacing={2} direction="row" className="p-6 ml-9">
-           {/* <button className="bg-white hover:bg-red-400 text-black p-4 rounded-lg shadow-lg text-sm 
-
-"> Weight Training</button> */}
-            <Button variant="contained">Weight Training</Button>
-            <Button variant="contained">Yoga</Button>
-            <Button variant="contained">Running</Button>
-          </Stack>
-        </Box>
       </Box>
-      <div className="">
-        <Corousel />
-      </div>
-      
-
+      <Box>
+        <Swipers />
+      </Box>
     </Box>
   );
 };
