@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Joi from 'joi';
+import axios from 'axios'; // Import Axios
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -57,14 +58,8 @@ function Register() {
         }
     
         try {
-            const response = await fetch("{{sport environment host}}/api/users/create", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(inputs)
-            });
-            const result = await response.json();
+            const response = await axios.post("{{sport environment host}}/api/users/create", inputs); // Axios POST request
+            const result = response.data;
             if (result.status === 'ok') {
                 Swal.fire({
                     position: "center",
