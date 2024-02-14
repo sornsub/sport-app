@@ -1,7 +1,5 @@
-
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
 
 // font inter
 import "@fontsource/inter/300.css";
@@ -15,39 +13,35 @@ import SignUp from "./pages/SignUp/SignUp.jsx";
 import ActivityType from "./pages/ActivityType/ActivityType.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import CreateExercise from "./pages/Exercise/CreateExercise/CreateExercise.jsx";
-import RunTimeExercise from './pages/Exercise/CreateExercise/RunTimeExercise.jsx';
-import SummaryExercise from "./pages/Exercise/CreateExercise/SummaryExercise.jsx"
+import RunTimeExercise from "./pages/Exercise/CreateExercise/RunTimeExercise.jsx";
+import SummaryExercise from "./pages/Exercise/CreateExercise/SummaryExercise.jsx";
 import EditExercise from "./pages/Exercise/EditExercise/EditExercise.jsx";
 import DeleteExercise from "./pages/Exercise/DeleteExercise/DeleteExercise.jsx";
 import History from "./pages/History/History.jsx";
-import LandingPage from "./pages/LandingPage/LandingPage.jsx";
+
 import EmailVerification from "./pages/Authentication/ForgotPassword/EmailVerification.jsx";
 import ForgotPassword from "./pages/Authentication/ForgotPassword/ForgotPassword.jsx";
 import CreateNewPassword from "./pages/Authentication/ForgotPassword/CreateNewPassword.jsx";
-import LandingPage2 from "./pages/LandingPage/LandingPage2.jsx";
-import LandingPage3 from "./pages/LandingPage/LandingPage3.jsx";
-import LandingPage4 from "./pages/LandingPage/LandingPage4.jsx";
-import LandingPageStarted from "./pages/LandingPage/LandingPageStarted.jsx";
+
 import LandingPageDesk1 from "./pages/LandingPage/LandingPageDesk1.jsx";
-import LandingPageDesk2 from "./pages/LandingPage/LandingPageDesk2.jsx";
-import LandingPageDesk3 from "./pages/LandingPage/LandingPageDesk3.jsx";
-import LandingPageDesk4 from "./pages/LandingPage/LandingPageDesk4.jsx";
-import LandingPageDesk5 from "./pages/LandingPage/LandingPageDesk5.jsx";
+
 import ErrorPage from "./pages/ErrorPage.jsx";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import EditProfile from "./pages/Editprofile/EditProfile.jsx";
 
-import Corousel from "./pages/LandingPage/Corousel.jsx";
-
 import ExerciseActivityLayout from "./components/layouts/ExerciseActivityLayout.jsx";
 import UserList from "./pages/User/List.jsx";
 import TrackingExerciseForm from "./pages/Exercise/CreateExercise/TrackingExerciseForm.jsx";
-
+import Swipers from "./pages/LandingPage/Swipers.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPageDesk1 />,
+  },
+  {
+    path: "/swiper",
+    element: <Swipers />,
   },
   {
     path: "/edit-profile",
@@ -56,18 +50,6 @@ const router = createBrowserRouter([
   {
     path: "/users",
     element: <UserList />,
-  },
-  {
-    path: "/landingPage2",
-    element: <LandingPage2 />,
-  },
-  {
-    path: "/landingPage3",
-    element: <LandingPage3 />,
-  },
-  {
-    path: "/landingPage4",
-    element: <LandingPage4 />,
   },
   {
     path: "/forgot-password",
@@ -86,33 +68,8 @@ const router = createBrowserRouter([
     element: <CreateNewPassword />,
   },
   {
-    path: "/landingPageStarted",
-    element: <LandingPageStarted />,
-  },
-  {
     path: "/landingPageDesk1",
     element: <LandingPageDesk1 />,
-  },
-  {
-    path: "/landingPageDesk2",
-    element: <LandingPageDesk2 />,
-  },
-  {
-    path: "/landingPageDesk3",
-    element: <LandingPageDesk3 />,
-  },
-  {
-
-    path: "/landingPageDesk4",
-    element: <LandingPageDesk4 />,
-  },
-  {
-    path: "/landingPageDesk5",
-    element: <LandingPageDesk5 />,
-  },
-  {
-    path: "/corousel",
-    element: <Corousel />,
   },
   {
     path: "/login",
@@ -168,14 +125,15 @@ const router = createBrowserRouter([
       },
       {
         path: "run-time",
-        element: <RunTimeExercise />
+        element: <RunTimeExercise />,
       },
       {
         path: "summary",
-        element: <SummaryExercise />
-      }
-  ]}
-])
+        element: <SummaryExercise />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
