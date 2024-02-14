@@ -10,10 +10,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import DeleteButton from "../Editprofile/DeleteButton";
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+// import Typography from '@mui/material/Typography';
+// import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Modal from "@mui/material/Modal";
 import Navbar from '../../components/shared/Navbar';
@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -35,6 +36,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 =======
 >>>>>>> ed42b90 (History_Mockup_View_V1)
 
+=======
+// ---use import for edit start
+
+import { Box, Container, Typography, Modal } from "@mui/material";
+
+//Component
+import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
+
+// ---use import for edit end
+
+
+// ---
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
 import * as React from 'react';
 <<<<<<< HEAD
 // import AspectRatio from '@mui/joy/AspectRatio';
@@ -81,6 +95,7 @@ import API from '../../api/axios';
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 45785d8 (History_Mockup_Edit_V1)
 =======
@@ -90,6 +105,8 @@ import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
 //Image
 import createExercise from "../../components/UploadImage/UploadImage.jsx";
 >>>>>>> ed42b90 (History_Mockup_View_V1)
+=======
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
 // codeHistory
 =======
 // //Component
@@ -114,10 +131,10 @@ function Copyright() {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-
 const History = () =>  {
   const [reload, setReload] = useState(false);
   const [exerciseActivities, setExerciseActivities] = useState([]);
+  const [updateExerciseActivities, setUpdateExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
 <<<<<<< HEAD
   const user_id = localStorage.getItem('userId');
@@ -157,8 +174,11 @@ const History = () =>  {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 45785d8 (History_Mockup_Edit_V1)
+=======
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
   // For Edit Process by sent api/post SummaryData to EditExercise.jsx ;
   const [summaryData, setSummaryData] = useState({});
     //Modal popup
@@ -168,6 +188,7 @@ const History = () =>  {
       setOpen(false);
       setReload(!reload);
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 9fb9e2c (History_Mockup_Edit_V1)
 =======
@@ -198,21 +219,35 @@ const History = () =>  {
   
   // const id = "65c9db8f4f0314251c487a0a";
 >>>>>>> ed42b90 (History_Mockup_View_V1)
+=======
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
 
   const token = localStorage.getItem('token');  // เก็บ token  login ค้างไว้
-
-
   const headers = {
-      'Authorization': `Bearer ${token}`   // ขอ Token ก่อน
-    }
+        'Authorization': `Bearer ${token}`   // ขอ Token ก่อน
+  }
+
+  // Modal popup style
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
 
   useEffect(() => {
     getExerciseActivityByUserId();
     }, [reload]);
   
-  //get user data
+  //get user data for show histoty 
   const getExerciseActivityByUserId = async () => {
-    console.log("Fromgetexercise");
+  
    
     // const response = await API.get(`http://localhost:5173/api/exercise-activities/user/65c8f4fc9aa2f67b7fbd27a7`, {headers: headers}); 
     const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
@@ -223,9 +258,45 @@ const History = () =>  {
     }
   };
 
+  
+    //click button to edit 1-exercise-id data 
+       // get user 1-exercise-id data 
+    const getExerciseActivityById = async () => {
+
+      const response = await API.get(`${exerciseActivityRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/:user_id    console.log("response: ", response.data)
+      // set member here
+      if (response.status === 200 && response.data.data) {
+        setEditExerciseActivities([...response.data.data]);
+      }
+    };
+    const updateExerciseActivity = async ({id, activity_type_id, caption, description, hour, minute, date, image}) => {
+      // const id = '65b9fced5cfcc8eb551496b6';
+      const requestData = {
+        id: id,
+        activity_type_id: activity_type_id,
+        caption: caption,
+        description: description,
+        hour: hour,
+        minute: minute,
+        date: date,
+        image: image,
+      };
+    console.log(requestData);
+    const response = await API.put(`${exerciseActivityRoute}/${id}`, requestData, {headers: headers});// [PUT] https://localhost:5000/api/users , requestData
+
+    if (response.statusText === "OK") {
+    localStorage.setItem('exercise_activity_id', response.data.data._id);
+    console.log("id from update: ",response.data.data._id);
+    setReload(!reload);//
+ //   navigate("/exercise-activity/summary");
+    }
+    console.log(response);
+  };
+
   // Delete data
       const removeData = async (id) => {
         console.log("id: ", id)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -253,6 +324,9 @@ const History = () =>  {
  
               const response = await API.delete(`${exerciseActivitiesRoute}/${id}`, {headers: headers})
 >>>>>>> ed42b90 (History_Mockup_View_V1)
+=======
+        const response = await API.delete(`${exerciseActivitiesRoute}/${id}`, {headers: headers})
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
           
               if (response.status === 200) {     // ถ้าลบสำเร็จ 105 จะช่วย reload
                  handleClose ();
@@ -461,8 +535,10 @@ const History = () =>  {
 
 >>>>>>> ed42b90 (History_Mockup_View_V1)
                
-                  {/* <button onClick={handleOpen} className="text-grey pr-5 flex justify-start items-center">
+                 {/* edit */}
+                <button onClick={handleOpen} className="text-grey pr-5 flex justify-start items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 0 0-1-1m-15 .76V17a1 1 0 0 0 1 1h4.24a1 1 0 0 0 .71-.29l6.92-6.93L21.71 8a1 1 0 0 0 0-1.42l-4.24-4.29a1 1 0 0 0-1.42 0l-2.82 2.83l-6.94 6.93a1 1 0 0 0-.29.71m10.76-8.35l2.83 2.83l-1.42 1.42l-2.83-2.83ZM8 13.17l5.93-5.93l2.83 2.83L10.83 16H8Z"/></svg>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 </button>
 >>>>>>> 45785d8 (History_Mockup_Edit_V1)
@@ -497,6 +573,9 @@ const History = () =>  {
 >>>>>>> 4e4fb34 (History_Mockup_View_V1)
 =======
                   </button> */}
+=======
+                </button>
+>>>>>>> 4a25d6c (History_Mockup_Edit_V1)
 
                        <Button size="small">Edit</Button>
                     </CardActions>
@@ -604,6 +683,39 @@ const History = () =>  {
           </Grid>
         </Container>
 
+            <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                <Container
+                  sx={{
+                    // height: "100vh",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "872px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      component="h1"
+                      sx={{ fontWeight: "medium",
+                            m:5,
+                    }}
+                    >
+                      Update Tracking Exercise Activity
+                    </Typography>
+                    <EditExercise update={updateExerciseActivity} summaryData={summaryData} handleClose={handleClose}/>
+                  </Box>
+                </Container>
+              </Modal>
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
@@ -623,8 +735,6 @@ const History = () =>  {
       {/* End footer */}
     </ThemeProvider>
   );
-
-  
 }
 
 export default History
