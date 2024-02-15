@@ -278,17 +278,17 @@ const EditProfile = () => {
 
               <div className="flex flex-col md:flex-row justify-center bg-[rgb(255,255,255)]/75 ">
                 <div className="md:w-4/5 flex flex-col md:flex-row justify-center">
-                  <div className="pt-10 md:pt-24 p-10">
-                    <div className="md:flex md:justify-evenly justify-center ">
-                      <div className="md:w-2/5">
-                        {/* prototype for label css */}
+                  <div className="">
+                    {/* email */}
+                    {/* <div className="md:flex justify-evenly ">
+                      <div className="flex flex-col justify-end md:w-2/5 ">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
                           htmlFor="Email"
                         >
                           Email
                         </label>
-                        {/* prototype for input css */}
+
                         <input
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="email"
@@ -301,11 +301,35 @@ const EditProfile = () => {
                           {emailMsg}
                         </div>
                       </div>
-                      {/* Div เปล่า ทำให้ด้านข้างเสมอกันกับข้างล่าง */}
+                      <div className="md:w-2/5"></div>
+                    </div> */}
+
+                    {/* fake email input */}
+                    <div className="md:flex justify-evenly ">
+                      <div className="flex flex-col justify-end md:w-2/5 ">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="Email"
+                        >
+                          Email
+                        </label>
+                        <input
+                          className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+                          type="email"
+                          placeholder="Email Address"
+                          value={email}
+                          id="email"
+                          onChange={handleInputChange}
+                        />
+                        <div className={`${emailMsgColor} text-sm md:w-72`}>
+                          {emailMsg}
+                        </div>
+                      </div>
                       <div className="md:w-2/5"></div>
                     </div>
 
-                    <div className="md:flex justify-evenly mb-10">
+                    {/* username */}
+                    <div className="md:flex justify-evenly ">
                       <div className="md:w-2/5 mb-10 md:mb-0">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -327,7 +351,8 @@ const EditProfile = () => {
                       </div>
                       <div className="md:w-2/5"></div>
                     </div>
-                    {/* password input */}
+
+                    {/* change pass */}
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
@@ -339,13 +364,10 @@ const EditProfile = () => {
                         <button className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center">
                           <a href="">Change Password</a>
                         </button>
-                        
                       </div>
-                      <div className="md:w-2/5">
-
-                      </div>
+                      <div className="md:w-2/5"></div>
                     </div>
-
+                    {/* password input */}
                     {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
