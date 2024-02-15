@@ -23,20 +23,21 @@ const EditProfile = () => {
     Authorization: `Bearer ${token}`,
   };
   const [field, setField] = useState([]);
-  
+
   //useEffect
   useEffect(() => {
     const getData = async () => {
-      const response = await API.get(
-        `api/users/${userId}`, {headers: headers}
-      );
+      const response = await API.get(`api/users/${userId}`, {
+        headers: headers,
+      });
       setField(response.data.data);
     };
 
     getData();
   }, []);
-  console.log('This is field: ',field);
-  const {email, userName, date_of_birth, height, weight, gender,  phone} = field;
+  console.log("This is field: ", field);
+  const { email, userName, date_of_birth, height, weight, gender, phone } =
+    field;
   const initialFormData = {
     email: "",
     firstname: "",
@@ -326,7 +327,25 @@ const EditProfile = () => {
                       </div>
                       <div className="md:w-2/5"></div>
                     </div>
-                {/* password input */}
+                    {/* password input */}
+                    <div className="md:flex md:justify-evenly">
+                      <div className="md:w-2/5">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="Password"
+                        >
+                          Password
+                        </label>
+                        <button className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center">
+                          <a href="">Change Password</a>
+                        </button>
+                        
+                      </div>
+                      <div className="md:w-2/5">
+
+                      </div>
+                    </div>
+
                     {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
