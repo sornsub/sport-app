@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import API from '../../../api/axios';
 import { Box, Container, Typography, ThemeProvider } from "@mui/material"
@@ -21,6 +22,7 @@ const TrackingExerciseForm = () => {
   const [met, setMet] = useState(3);
 
   const exerciseActivityRoute = "api/exercise-activities";
+  const activityTypeRoute = "api/activity-type";
 
   const token = localStorage.getItem('token');
 
@@ -57,55 +59,59 @@ const TrackingExerciseForm = () => {
   useEffect(() => {
     getActivitiesTypeList();
     calculateCaloriesFunc();
-  }, [weight, hour, minute, met]);
+    getMetById()
+  }, [weight, hour, minute, met, selectedActivityType]);
   
-  
-
   // //get Activity type data
   const getActivitiesTypeList  = async () => {
-    const activitiesTypeDatas = [
-      { id: 0, name: 'Select', met:0, unavailable: false },
-      { id: 1, name: 'Running', met:3, unavailable: false },
-      { id: 2, name: 'Weight training', met:5,  unavailable: false },
-      { id: 3, name: 'Hike', met:5,  unavailable: false },
-      { id: 4, name: 'Yoga', met:2.5,  unavailable: false },
-      { id: 5, name: 'Swimming', met:3,  unavailable: false },
-      { id: 6, name: 'Bicycle ride', met:5,  unavailable: false },
-      { id: 7, name: 'Walking', met:2.5,  unavailable: false },
-    ];
-    setActivitiesTypeList(activitiesTypeDatas);
-      
-  //   const response = await API.get(`${exerciseActivityRoute}`); // [GET] https://localhost:5000/api/activity-type
-  //   console.log("response: ", response.data.data)
-  //   // set member here
-  //   if (response.status === 200 && response.data.data) {
-  //     setActivitiesTypeList([...response.data.data]);
-  //   }
+
+    const response = await API.get(`${activityTypeRoute}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setActivitiesTypeList([...response.data.data]);
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // setDuration(((parseInt(formData.hour) * 60) + parseInt(formData.minute)));
     if (name === 'weight') {
       setWeight(70);
     } else if (name === 'hour' ) {
       setHour(value);
     } else if (name === 'minute' ) {
       setMinute(value);
-    } else if (name === 'met') {
-      setMet(3);
-      // const met =  getMetFromActivityTypes();
-      // setMet(met);
+    } else if (name === 'activity_type_id') {
+      setSelectedActivityType(value);
     }
- 
+    // คำนวณแคลอรี่โดยไม่ต้องรอค่า met ใหม่
+    calculateCaloriesFunc();
   };
+
+  // const handleInputChange = async (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  //   // setDuration(((parseInt(formData.hour) * 60) + parseInt(formData.minute)));
+  //   if (name === 'weight') {
+  //     setWeight(70);
+  //   } else if (name === 'hour' ) {
+  //     setHour(value);
+  //   } else if (name === 'minute' ) {
+  //     setMinute(value);
+  //   } else if (name === 'activity_type_id') {
+  //     setSelectedActivityType(value);
+  //     await getMetById();
+  //     // const met =  getMetFromActivityTypes();
+  //     // setMet(met);
+  //   }
+ 
+  // };
 
 
   // Function to calculate calories
   const calculateCaloriesFunc = () => {
     // Formula to calculate calories burned: Calories = MET * weight(kg) * time(hours) and /1000 for Kcal
-    let result = ((met * weight * ((parseInt(hour) * 60) + parseInt(minute)))/1000); // duration is in minutes, convert it to hours
+    let result = ((0.0175* met * weight * ((parseInt(hour) * 60) + parseInt(minute))).toFixed(2)); // duration is in minutes, convert it to hours
     setCalories(result);
   };
 
@@ -185,7 +191,21 @@ const TrackingExerciseForm = () => {
         localStorage.setItem('exercise_activity_id', response.data.data._id);
         navigate("/exercise-activity/summary");
         }
+        if (response.status === 500) {
+          setMet(0)
+        }
     };
+    
+  const getMetById = async () => {
+
+    const id = selectedActivityType;
+    
+    const response = await API.get(`${activityTypeRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setMet(response.data.data.met);
+    }
+  };
 
   return (
   <>
@@ -205,10 +225,10 @@ const TrackingExerciseForm = () => {
             <form onSubmit={handleSubmit}>
               <select onChange={handleInputChange} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
                 {activitiesTypeList.map((activitiesType) => (
-                  <option value={activitiesType.id}>
+                  <option value={activitiesType._id}>
                     {activitiesType.name}
                   </option>
-                ))}                 
+                ))}
               </select>
               <span className="error text-red">{formErrors.activity_type_id}</span>
               <div className="flex flex-col w-full bg-white border border-grey rounded-main">
