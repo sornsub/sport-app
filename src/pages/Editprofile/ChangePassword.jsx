@@ -57,7 +57,7 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
         const response = await API.post(changePassword, request, {
           headers: headers,
         });
-        if (response.status === 200) console.log('change password success');
+        if (response.status === 200) console.log("change password success");
       } else {
         alert("Failed to change password");
       }
@@ -68,12 +68,23 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
     // navigate("/login");
   };
   return (
-    <button
-      onClick={handleSubmitChangePassword}
-      className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
-    >
-      Change Password
-    </button>
+    <div className="md:flex justify-evenly ">
+      <div className="md:w-2/5 mb-10 md:mb-0">
+        <label
+          className="text-left block mb-3 mt-6 text-sm"
+          htmlFor="First Name"
+        >
+          Username
+        </label>
+        <button
+          onClick={handleSubmitChangePassword}
+          className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
+        >
+          Done
+        </button>
+      </div>
+      <div className="md:w-2/5"></div>
+    </div>
   );
 };
 
@@ -87,9 +98,9 @@ const ChangePassword = () => {
   return (
     <div className="flex justify-center">
       <button
-        onClick={handleOpen} 
+        onClick={handleOpen}
         className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
-        >
+      >
         Change Password
       </button>
       <Modal
@@ -103,20 +114,44 @@ const ChangePassword = () => {
           sx={style}
           className="rounded-4xl text-black bg-red text-sm w-full px-5 py-2.5 text-center"
         >
-          <input
-            className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-            type="text"
-            placeholder="old password"
-            value={oldPassword}
-            onChange={(ev) => setOldPassword(ev.target.value)}
-          />
-          <input
-            className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-            type="text"
-            placeholder="new password"
-            value={newPassword}
-            onChange={(ev) => setNewPassword(ev.target.value)}
-          />
+          <div className="md:flex justify-evenly ">
+            <div className="md:w-2/5 mb-10 md:mb-0">
+              <label
+                className="text-left block mb-3 mt-6 text-sm"
+                htmlFor="First Name"
+              >
+                Username
+              </label>
+              <input
+                className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+                type="text"
+                placeholder="old password"
+                value={oldPassword}
+                onChange={(ev) => setOldPassword(ev.target.value)}
+              />
+            </div>
+            <div className="md:w-2/5"></div>
+          </div>
+
+          <div className="md:flex justify-evenly ">
+            <div className="md:w-2/5 mb-10 md:mb-0">
+              <label
+                className="text-left block mb-3 mt-6 text-sm"
+                htmlFor="First Name"
+              >
+                Username
+              </label>
+              <input
+                className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+                type="text"
+                placeholder="new password"
+                value={newPassword}
+                onChange={(ev) => setNewPassword(ev.target.value)}
+              />
+            </div>
+            <div className="md:w-2/5"></div>
+          </div>
+
           <ChangePasswordNested
             oldPassword={oldPassword}
             newPassword={newPassword}

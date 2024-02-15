@@ -346,7 +346,18 @@ const EditProfile = () => {
                     </div> */}
 
                     {/* button from ChangePassword */}
-                    <ChangePassword />
+                    <div className="md:flex justify-evenly ">
+                      <div className="md:w-2/5 mb-10 md:mb-0">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="First Name"
+                        >
+                          Username
+                        </label>
+                        <ChangePassword />
+                      </div>
+                      <div className="md:w-2/5"></div>
+                    </div>
 
                     {/* password input */}
                     {/* <div className="md:flex md:justify-evenly">
