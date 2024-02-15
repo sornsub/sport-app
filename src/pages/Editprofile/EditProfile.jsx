@@ -280,31 +280,7 @@ const EditProfile = () => {
                 <div className="md:w-4/5 flex flex-col md:flex-row justify-center">
                   <div className="">
                     {/* email */}
-                    {/* <div className="md:flex justify-evenly ">
-                      <div className="flex flex-col justify-end md:w-2/5 ">
-                        <label
-                          className="text-left block mb-3 mt-6 text-sm"
-                          htmlFor="Email"
-                        >
-                          Email
-                        </label>
-
-                        <input
-                          className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                          type="email"
-                          placeholder="Email Address"
-                          value={email}
-                          id="email"
-                          onChange={handleInputChange}
-                        />
-                        <div className={`${emailMsgColor} text-sm mb-10`}>
-                          {emailMsg}
-                        </div>
-                      </div>
-                      <div className="md:w-2/5"></div>
-                    </div> */}
-
-                    {/* fake email input */}
+                    
                     <div className="md:flex justify-evenly ">
                       <div className="flex flex-col justify-end md:w-2/5 ">
                         <label
