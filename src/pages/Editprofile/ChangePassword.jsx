@@ -38,23 +38,23 @@ const style = {
 const ChangePasswordNested = ({ oldPassword, newPassword }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const user_id = localStorage.getItem("userId");
   const headers = {
     Authorization: `Bearer ${token}`,
   };
 
   const handleSubmitChangePassword = async (e) => {
     e.preventDefault();
-    const request = { oldPassword, newPassword };
-    const checkOldPassword = `/api/authen/check-password/${userId}`;
-    const changePassword = `/api/users/${userId}`;
+    const request = { oldPassword, password: newPassword };
+    const checkOldPassword = `/api/authen/check-password/${user_id}`;
+    const changePassword = `api/authen/${user_id}/create-new-password`;
     try {
-      const response = await API.post(checkOldPassword, request, {
+      const response = await API.patch(checkOldPassword, request, {
         headers: headers,
       });
       // ตรวจสอบ response จาก backend
       if (response.status === 200) {
-        const response = await API.post(changePassword, request, {
+        const response = await API.patch(changePassword, request, {
           headers: headers,
         });
         if (response.status === 200) console.log("change password success");
@@ -73,9 +73,7 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
         <label
           className="text-left block mb-3 mt-6 text-sm"
           htmlFor="First Name"
-        >
-          Username
-        </label>
+        ></label>
         <button
           onClick={handleSubmitChangePassword}
           className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
@@ -120,7 +118,7 @@ const ChangePassword = () => {
                 className="text-left block mb-3 mt-6 text-sm"
                 htmlFor="First Name"
               >
-                Username
+                Old Password
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
@@ -139,7 +137,7 @@ const ChangePassword = () => {
                 className="text-left block mb-3 mt-6 text-sm"
                 htmlFor="First Name"
               >
-                Username
+                New Password
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
