@@ -73,9 +73,7 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
         <label
           className="text-left block mb-3 mt-6 text-sm"
           htmlFor="First Name"
-        >
-          Username
-        </label>
+        ></label>
         <button
           onClick={handleSubmitChangePassword}
           className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
@@ -120,7 +118,7 @@ const ChangePassword = () => {
                 className="text-left block mb-3 mt-6 text-sm"
                 htmlFor="First Name"
               >
-                Username
+                Old Password
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
@@ -139,7 +137,7 @@ const ChangePassword = () => {
                 className="text-left block mb-3 mt-6 text-sm"
                 htmlFor="First Name"
               >
-                Username
+                New Password
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
