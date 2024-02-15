@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-key */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect } from 'react'
 import API from '../../../api/axios';
 import { Box, Container, Typography, ThemeProvider } from "@mui/material"
@@ -15,7 +13,7 @@ const TrackingExerciseForm = () => {
   const navigate = useNavigate();
 //  use state activity type backup
   const [activitiesTypeList, setActivitiesTypeList] = useState([]);
-  // const [selectedActivityType, setSelectedActivityType] = useState()
+  const [selectedActivityType, setSelectedActivityType] = useState()
   const [image, setImage] = useState("");
   const [calories, setCalories] = useState(0);
   const [weight, setWeight] = useState(60);
@@ -61,14 +59,13 @@ const TrackingExerciseForm = () => {
   useEffect(() => {
     getActivitiesTypeList();
     calculateCaloriesFunc();
-  }, [weight, hour, minute, met]);
-  
+    getMetById()
+  }, [weight, hour, minute, met, selectedActivityType]);
   
   // //get Activity type data
   const getActivitiesTypeList  = async () => {
 
     const response = await API.get(`${activityTypeRoute}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
-    console.log("response: ", response.data.data)
     // set member here
     if (response.status === 200 && response.data.data) {
       setActivitiesTypeList([...response.data.data]);
@@ -78,26 +75,43 @@ const TrackingExerciseForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // setDuration(((parseInt(formData.hour) * 60) + parseInt(formData.minute)));
     if (name === 'weight') {
       setWeight(70);
     } else if (name === 'hour' ) {
       setHour(value);
     } else if (name === 'minute' ) {
       setMinute(value);
-    } else if (name === 'met') {
-      setMet(3);
-      // const met =  getMetFromActivityTypes();
-      // setMet(met);
+    } else if (name === 'activity_type_id') {
+      setSelectedActivityType(value);
     }
- 
+    // คำนวณแคลอรี่โดยไม่ต้องรอค่า met ใหม่
+    calculateCaloriesFunc();
   };
+
+  // const handleInputChange = async (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  //   // setDuration(((parseInt(formData.hour) * 60) + parseInt(formData.minute)));
+  //   if (name === 'weight') {
+  //     setWeight(70);
+  //   } else if (name === 'hour' ) {
+  //     setHour(value);
+  //   } else if (name === 'minute' ) {
+  //     setMinute(value);
+  //   } else if (name === 'activity_type_id') {
+  //     setSelectedActivityType(value);
+  //     await getMetById();
+  //     // const met =  getMetFromActivityTypes();
+  //     // setMet(met);
+  //   }
+ 
+  // };
 
 
   // Function to calculate calories
   const calculateCaloriesFunc = () => {
     // Formula to calculate calories burned: Calories = MET * weight(kg) * time(hours) and /1000 for Kcal
-    let result = ((met * weight * ((parseInt(hour) * 60) + parseInt(minute)))/1000); // duration is in minutes, convert it to hours
+    let result = ((0.0175* met * weight * ((parseInt(hour) * 60) + parseInt(minute))).toFixed(2)); // duration is in minutes, convert it to hours
     setCalories(result);
   };
 
@@ -177,7 +191,21 @@ const TrackingExerciseForm = () => {
         localStorage.setItem('exercise_activity_id', response.data.data._id);
         navigate("/exercise-activity/summary");
         }
+        if (response.status === 500) {
+          setMet(0)
+        }
     };
+    
+  const getMetById = async () => {
+
+    const id = selectedActivityType;
+    
+    const response = await API.get(`${activityTypeRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setMet(response.data.data.met);
+    }
+  };
 
   return (
   <>
@@ -200,7 +228,7 @@ const TrackingExerciseForm = () => {
                   <option value={activitiesType._id}>
                     {activitiesType.name}
                   </option>
-                ))}                 
+                ))}
               </select>
               <span className="error text-red">{formErrors.activity_type_id}</span>
               <div className="flex flex-col w-full bg-white border border-grey rounded-main">

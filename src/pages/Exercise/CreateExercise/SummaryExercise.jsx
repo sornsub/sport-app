@@ -113,7 +113,6 @@ const SummaryExercise = () => {
     }
   };
 
-
   return (
     <>
       <ThemeProvider theme={theme}>
