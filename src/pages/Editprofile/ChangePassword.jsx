@@ -38,23 +38,23 @@ const style = {
 const ChangePasswordNested = ({ oldPassword, newPassword }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const user_id = localStorage.getItem("userId");
   const headers = {
     Authorization: `Bearer ${token}`,
   };
 
   const handleSubmitChangePassword = async (e) => {
     e.preventDefault();
-    const request = { oldPassword, newPassword };
-    const checkOldPassword = `/api/authen/check-password/${userId}`;
-    const changePassword = `/api/users/${userId}`;
+    const request = { oldPassword, password: newPassword };
+    const checkOldPassword = `/api/authen/check-password/${user_id}`;
+    const changePassword = `api/authen/${user_id}/create-new-password`;
     try {
-      const response = await API.post(checkOldPassword, request, {
+      const response = await API.patch(checkOldPassword, request, {
         headers: headers,
       });
       // ตรวจสอบ response จาก backend
       if (response.status === 200) {
-        const response = await API.post(changePassword, request, {
+        const response = await API.patch(changePassword, request, {
           headers: headers,
         });
         if (response.status === 200) console.log("change password success");
