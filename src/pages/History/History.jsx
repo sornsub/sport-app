@@ -16,20 +16,20 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
 import { useNavigate } from "react-router-dom";
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import * as React from 'react';
 
 import API from '../../api/axios';
-// import UserCreate from './Create';
+// // import UserCreate from './Create';
 
-//Component
-import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
+// //Component
+// import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
 
-//Image
-import createExercise from "../../components/UploadImage/UploadImage.jsx";
-// codeHistory
+// //Image
+// import createExercise from "../../components/UploadImage/UploadImage.jsx";
+// // codeHistory
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -207,23 +207,32 @@ const History = () =>  {
                     image="https://source.unsplash.com/random?wallpapers"
                      />
                     <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
+                    {/* <Typography gutterBottom variant="h5" component="h2">
                     {exerciseActivity.activity_type_id}
+                    </Typography> */}
+                    {/* <Typography >
+                      <img src={exerciseActivity.image} alt="The group of women are running" />
+                    </Typography>
+                    <Card sx={{ height: '20%', display: 'flex', flexDirection: 'column' }}>
+                    <img src={exerciseActivity.image} alt="The group of women are running" />
+                     </Card>  */}
+                    <Typography>
+                    Caption: {exerciseActivity.caption}
                     </Typography>
                     <Typography>
-                    {exerciseActivity.caption}
+                    Description: {exerciseActivity.description}
                     </Typography>
                     <Typography>
-                    {exerciseActivity.description}
+                    Type: {exerciseActivity.activity_type_id}
                     </Typography>
                     <Typography>
-                      Calroies
+                    Duration: {exerciseActivity.hour}:{exerciseActivity.minute}
                     </Typography>
                     <Typography>
-                    {exerciseActivity.date}
+                    Calories: {exerciseActivity.calories}
+                    </Typography>
+                    <Typography>
+                    Date: {exerciseActivity.date}
                     </Typography>
                     </CardContent>
              
