@@ -80,7 +80,7 @@ const DeleteButton = () => {
     <div className="flex justify-center">
       <button
         onClick={handleOpen}
-        className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
+        className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 mx-8 text-center"
       >
         Delete Account
       </button>

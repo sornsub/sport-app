@@ -278,8 +278,7 @@ const EditProfile = () => {
 
               <div className="flex flex-col md:flex-row justify-center bg-[rgb(255,255,255)]/75 ">
                 <div className="md:w-4/5 flex flex-col md:flex-row justify-center gap-10">
-                  <div className="">
-
+                  <div className="w-2/5">
                     {/* email */}
                     <div className="md:flex justify-evenly ">
                       <div className="flex flex-col justify-end md:w-2/5 ">
