@@ -45,15 +45,11 @@ const History = () =>  {
   const [reload, setReload] = useState(false);
   const [exerciseActivities, setExerciseActivities] = useState([]);
   const exerciseActivitiesRoute = "api/exercise-activities";
+  const [activitiesTypeData, setActivitiesTypeData] = useState([]);
+  const activityTypeRoute = "api/activity-type";
   const user_id = localStorage.getItem('userId');
   const navigate = useNavigate();
-  
-  // //Moral
-  // const [open, setOpen] = React.useState(false);
-  // const handleClose = () => setOpen(false);
-  // const handleOpen = () => setOpen(true);
-
-  
+    
   //Handle Modal popup
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,8 +70,7 @@ const History = () =>  {
     p: 4,
   };
     
-  // const id = "65c9db8f4f0314251c487a0a";
-
+ 
   const token = localStorage.getItem('token');  // เก็บ token  login ค้างไว้
 
 
@@ -83,8 +78,12 @@ const History = () =>  {
       'Authorization': `Bearer ${token}`   // ขอ Token ก่อน
     }
 
-  useEffect(() => {
-    getExerciseActivityByUserId();
+  // useEffect(() => {
+  //   getExerciseActivityByUserId();
+  //   }, [reload]);
+    useEffect(() => {
+      getExerciseActivityByUserId();
+      getActivitiesTypeById();
     }, [reload]);
   
   //get user data
@@ -97,6 +96,18 @@ const History = () =>  {
     // set member here
     if (response.status === 200 && response.data.data) {
       setExerciseActivities([...response.data.data]);
+    }
+  };
+
+  const getActivitiesTypeById = async () => {
+
+    // const id = summaryData.activity_type_id;
+    
+    const response = await API.get(`${activityTypeRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    console.log("response: ", response.data.data)
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setActivitiesTypeData(response.data.data);
     }
   };
 
@@ -163,7 +174,7 @@ const History = () =>  {
               justifyContent="center"
             >
               <Button variant="contained">Delete</Button>
-              <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
+              {/* <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value="Running">Running"</option>
                 <option value="Weight training">Weight training</option>
                 <option value="Hike">Hike</option>
@@ -181,7 +192,7 @@ const History = () =>  {
                 <option value="Swimming">Swimming</option>
                 <option value="Bicycle ride">Bicycle ride</option>
                 <option value="Walking">Walking</option>
-              </select>
+              </select> */}
             </Stack>
           </Container>
         </Box>
@@ -198,7 +209,8 @@ const History = () =>  {
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
                     <CardActions>
-                    <input type="hidden" id="id" value={exerciseActivity} />
+                    <input type="hidden" id="id" value={exerciseActivity._id} />
+                    {/* <input type="hidden" id="id" value={activitiesTypeData} /> */}
                        <Button size="small">View</Button>                       
                        <button onClick={() => pathView(exerciseActivity._id)} className="text-grey pr-5 flex justify-start items-center">
                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21 12a1 1 0 0 0-1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-6a1 1 0 0 0-1-1m-15 .76V17a1 1 0 0 0 1 1h4.24a1 1 0 0 0 .71-.29l6.92-6.93L21.71 8a1 1 0 0 0 0-1.42l-4.24-4.29a1 1 0 0 0-1.42 0l-2.82 2.83l-6.94 6.93a1 1 0 0 0-.29.71m10.76-8.35l2.83 2.83l-1.42 1.42l-2.83-2.83ZM8 13.17l5.93-5.93l2.83 2.83L10.83 16H8Z"/></svg>
@@ -251,7 +263,7 @@ const History = () =>  {
           {/* <DeleteButtonNested /> */}
         </Box>
       </Modal>
-                            </CardActions>
+                    </CardActions>
 
                     <CardMedia
                     component="div"
@@ -273,16 +285,16 @@ const History = () =>  {
                     Description: {exerciseActivity.description}
                     </Typography>
                     <Typography>
-                    Type: {exerciseActivity.activity_type_id}
+                    Type: {exerciseActivity._id}       
                     </Typography>
                     <Typography>
                     Duration: {exerciseActivity.hour}:{exerciseActivity.minute}
                     </Typography>
                     <Typography>
-                    Distance: 
+                    Distance: {exerciseActivity.distance}
                     </Typography>
                     <Typography>
-                    Calories: 
+                    Calories: {exerciseActivity.calories}
                     </Typography>
                     <Typography>
                     Date: {exerciseActivity.date}
