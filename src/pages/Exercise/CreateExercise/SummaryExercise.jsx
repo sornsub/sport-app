@@ -13,6 +13,7 @@ const SummaryExercise = () => {
 
   const [summaryData, setSummaryData] = useState({});
   const [reload, setReload] = useState(false);
+  const [activitiesTypeData, setActivitiesTypeData] = useState([]);
 
   //Handle Modal popup
   const [open, setOpen] = useState(false);
@@ -27,6 +28,7 @@ const SummaryExercise = () => {
     'Authorization': `Bearer ${token}`
   }
   const exerciseActivityRoute = "api/exercise-activities";
+  const activityTypeRoute = "api/activity-type";
 
   //Modal popup style
   const style = {
@@ -43,7 +45,8 @@ const SummaryExercise = () => {
 
   useEffect(() => {
     getExerciseActivitiesById();
-  }, [reload]);
+    getActivitiesTypeById();
+  }, [reload, summaryData._id]);
 
   //get Exercise Activities data
   const getExerciseActivitiesById  = async () => {
@@ -86,6 +89,29 @@ const SummaryExercise = () => {
         navigate("/dashboard");        
       }
     };
+
+      // //get Activity type data
+  // const getActivitiesTypeList  = async () => {
+    
+  //   const response = await API.get(`${activityTypeRoute}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+  //   console.log("response: ", response.data.data)
+  //   // set member here
+  //   if (response.status === 200 && response.data.data) {
+  //     setActivitiesTypeList([...response.data.data]);
+  //   }
+  // };
+
+  const getActivitiesTypeById = async () => {
+
+    const id = summaryData.activity_type_id;
+    
+    const response = await API.get(`${activityTypeRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    console.log("response: ", response.data.data)
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setActivitiesTypeData(response.data.data);
+    }
+  };
 
 
   return (
@@ -155,7 +181,7 @@ const SummaryExercise = () => {
                 disabled
               />
               <div className="text-white rounded-summary bg-pink text-sm text-grey-dark p-5">
-                <p>Type: {summaryData.activity_type_id}</p>
+                <p>Type: {activitiesTypeData.name}</p>
                 <p>Duration: {`${summaryData.hour} hour ${summaryData.minute} minute`}</p>
                 <p>Distance: {`${summaryData.distance} km`}</p>
                 <p>Calories: {`${summaryData.calories} kcal`}</p>
