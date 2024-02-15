@@ -234,7 +234,8 @@ const History = () =>  {
           <input type="hidden" id="id" value={exerciseActivity} />
           <button
              onClick={() => removeData(exerciseActivity._id)}
-             className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
+            //  className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
+             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-pink text-white text-sm block w-full p-2.5"
             >
              Delete for sure
           </button>
@@ -243,7 +244,7 @@ const History = () =>  {
           </Typography>
           <button
              onClick={() => handleClose()}
-             className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
+             className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center mt-3"
             >
              Cancel
           </button>
