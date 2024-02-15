@@ -7,10 +7,6 @@ import API from '../../../api/axios';
 
 //Component
 import EditExercise from '../EditExercise/EditExercise.jsx'
-
-//Image
-import createExercise from "/images/createExercise.jpg"
-
 const SummaryExercise = () => {
 
   const navigate = useNavigate();
@@ -18,7 +14,7 @@ const SummaryExercise = () => {
   const [summaryData, setSummaryData] = useState({});
   const [reload, setReload] = useState(false);
 
-  //Modal popup
+  //Handle Modal popup
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -46,32 +42,22 @@ const SummaryExercise = () => {
   };
 
   useEffect(() => {
-    getExerciseActivitiesByUserId();
+    getExerciseActivitiesById();
   }, [reload]);
 
   //get Exercise Activities data
-  const getExerciseActivitiesByUserId  = async () => {
-      
-    // const id = '65b9cf92703abf9fed197cb6';
+  const getExerciseActivitiesById  = async () => {
     const id = localStorage.getItem('exercise_activity_id');
-    
-    if(localStorage.getItem('exercise_activity_id') === null){
-
-    }
-
-    const response = await API.get(`${exerciseActivityRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/:user_id
-    console.log("response: ", response.data.data)
+    // [GET] https://localhost:5000/api/exercise-activities/:id
+    const response = await API.get(`${exerciseActivityRoute}/${id}`, {headers: headers});
     // set Exercise Activities here
     if (response.data.data) {
       setSummaryData(response.data.data);
-      localStorage.removeItem('exercise_activity_id');
     }
-
   };
 
    // Update Tracking Exercise Activity to api
-   const updateExerciseActivity = async ({id, activity_type_id, caption, description, hour, minute, date, image}) => {
-    // const id = '65b9fced5cfcc8eb551496b6';
+   const updateExerciseActivity = async ({id, activity_type_id, caption, description, hour, minute, distance, date, image}) => {
     const requestData = {
       id: id,
       activity_type_id: activity_type_id,
@@ -79,35 +65,31 @@ const SummaryExercise = () => {
       description: description,
       hour: hour,
       minute: minute,
+      distance: distance,
       date: date,
       image: image,
     };
-    console.log(requestData);
-    const response = await API.put(`${exerciseActivityRoute}/${id}`, requestData, {headers: headers});// [PUT] https://localhost:5000/api/users , requestData
-
+    // [PUT] https://localhost:5000/api/exercise-activities/:id
+    const response = await API.put(`${exerciseActivityRoute}/${id}`, requestData, {headers: headers});
     if (response.statusText === "OK") {
-    localStorage.setItem('exercise_activity_id', response.data.data._id);
-    console.log("id from update: ",response.data.data._id);
-    setReload(!reload);
-    navigate("/exercise-activity/summary");
+      localStorage.setItem('exercise_activity_id', response.data.data._id);
+      setReload(!reload);
+      navigate("/exercise-activity/summary");
     }
-    console.log(response);
   };
 
     // Delete data
     const removeData = async (id) => {
-console.log("id: ", id)
+      // [DELETE] https://localhost:5000/api/exercise-activities/:id
       const response = await API.delete(`${exerciseActivityRoute}/${id}`, {headers: headers})
-  
-      if (response.status === 200) {
+      if (response.statusText === "OK") {
         navigate("/dashboard");        
-        console.log(response);
       }
     };
 
 
   return (
-<>
+    <>
       <ThemeProvider theme={theme}>
         <Container
           sx={{
@@ -141,7 +123,7 @@ console.log("id: ", id)
                 
                 {/* delete */}
                 <button onClick={() => removeData(summaryData._id)} className="text-grey pr-5 flex justify-start items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M9 2H7a.5.5 0 0 0-.5.5V3h3v-.5A.5.5 0 0 0 9 2m2 1v-.5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2V3H2.251a.75.75 0 0 0 0 1.5h.312l.317 7.625A3 3 0 0 0 5.878 15h4.245a3 3 0 0 0 2.997-2.875l.318-7.625h.312a.75.75 0 0 0 0-1.5zm.936 1.5H4.064l.315 7.562A1.5 1.5 0 0 0 5.878 13.5h4.245a1.5 1.5 0 0 0 1.498-1.438zm-6.186 2v5a.75.75 0 0 0 1.5 0v-5a.75.75 0 0 0-1.5 0m3.75-.75a.75.75 0 0 1 .75.75v5a.75.75 0 0 1-1.5 0v-5a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/></svg>                
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16"><path fill="currentColor" fillRule="evenodd" d="M9 2H7a.5.5 0 0 0-.5.5V3h3v-.5A.5.5 0 0 0 9 2m2 1v-.5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2V3H2.251a.75.75 0 0 0 0 1.5h.312l.317 7.625A3 3 0 0 0 5.878 15h4.245a3 3 0 0 0 2.997-2.875l.318-7.625h.312a.75.75 0 0 0 0-1.5zm.936 1.5H4.064l.315 7.562A1.5 1.5 0 0 0 5.878 13.5h4.245a1.5 1.5 0 0 0 1.498-1.438zm-6.186 2v5a.75.75 0 0 0 1.5 0v-5a.75.75 0 0 0-1.5 0m3.75-.75a.75.75 0 0 1 .75.75v5a.75.75 0 0 1-1.5 0v-5a.75.75 0 0 1 .75-.75" clipRule="evenodd"/></svg>                
                 </button>
                 {/* edit */}
                 <button onClick={handleOpen} className="text-grey pr-5 flex justify-start items-center">
@@ -175,7 +157,8 @@ console.log("id: ", id)
               <div className="text-white rounded-summary bg-pink text-sm text-grey-dark p-5">
                 <p>Type: {summaryData.activity_type_id}</p>
                 <p>Duration: {`${summaryData.hour} hour ${summaryData.minute} minute`}</p>
-                <p>Calories: xxx</p>
+                <p>Distance: {`${summaryData.distance} km`}</p>
+                <p>Calories: {`${summaryData.calories} kcal`}</p>
                 <p>Date: {summaryData.date}</p>
               </div>
             </div>
@@ -196,6 +179,7 @@ console.log("id: ", id)
               </Link>
             </button>
 
+            {/* Model Update Form */}
             <Modal
                   open={open}
                   onClose={handleClose}
@@ -204,6 +188,7 @@ console.log("id: ", id)
                 >
                 <Container
                   sx={{
+                    ...style,
                     // height: "100vh",
                     display: "flex",
                     alignItems: "center",
@@ -233,7 +218,7 @@ console.log("id: ", id)
         </Container>
       </ThemeProvider>
     </>
-      )
+  )
 }
 
 export default SummaryExercise
