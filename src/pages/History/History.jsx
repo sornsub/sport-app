@@ -20,15 +20,24 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 // ---use import for edit start
 
 import { Box, Container, Typography, Modal } from "@mui/material";
+=======
 
-//Component
-import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
+import * as React from 'react';
 
+import API from '../../api/axios';
+// // import UserCreate from './Create';
+>>>>>>> d69d1ef27edc546a117f21dd0699087679d25eb4
+
+// //Component
+// import EditExercise from '../Exercise/EditExercise/EditExercise.jsx';
+
+<<<<<<< HEAD
 // ---use import for edit end
 =======
 >>>>>>> d69d1ef (History_Mockup_V4)
@@ -51,6 +60,11 @@ import API from '../../api/axios';
 // import createExercise from "../../components/UploadImage/UploadImage.jsx";
 // // codeHistory
 >>>>>>> d69d1ef (History_Mockup_V4)
+=======
+// //Image
+// import createExercise from "../../components/UploadImage/UploadImage.jsx";
+// // codeHistory
+>>>>>>> d69d1ef27edc546a117f21dd0699087679d25eb4
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -74,6 +88,9 @@ const History = () =>  {
   const user_id = "65c8f4fc9aa2f67b7fbd27a7";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d69d1ef27edc546a117f21dd0699087679d25eb4
   const navigate = useNavigate();
   
   // const id = "65c9db8f4f0314251c487a0a";
