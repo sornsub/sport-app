@@ -14,6 +14,7 @@ import Navbar from "../../components/shared/Navbar";
 import API from "../../api/axios";
 import UploadImage from "../../components/UploadImage/UploadImage";
 import DeleteButton from "./DeleteButton";
+import ChangePassword from "./ChangePassword";
 
 const EditProfile = () => {
   // token
@@ -230,7 +231,7 @@ const EditProfile = () => {
         const requestData = {
           email: formData.email,
           userName: formData.firstname,
-          login_password: formData.password,
+          password: formData.password,
           date_of_birth: formData.date_of_birth,
           gender: formData.gender,
           height: toInt(formData.height),
@@ -327,8 +328,8 @@ const EditProfile = () => {
                       <div className="md:w-2/5"></div>
                     </div>
 
-                    {/* change pass */}
-                    <div className="md:flex md:justify-evenly">
+                    {/* change pass button */}
+                    {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -336,12 +337,17 @@ const EditProfile = () => {
                         >
                           Password
                         </label>
+
                         <button className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center">
                           <a href="">Change Password</a>
                         </button>
                       </div>
                       <div className="md:w-2/5"></div>
-                    </div>
+                    </div> */}
+
+                    {/* button from ChangePassword */}
+                    <ChangePassword />
+
                     {/* password input */}
                     {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">

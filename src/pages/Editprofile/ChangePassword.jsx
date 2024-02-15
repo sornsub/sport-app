@@ -35,55 +35,62 @@ const style = {
   p: 4,
 };
 
-const DeleteButtonNested = () => {
+const ChangePasswordNested = ({ oldPassword, newPassword }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  const handleSubmitDelete = async (e) => {
-    e.preventDefault();
 
-    const deleteUserRoute = `/api/users/${userId}`;
+  const handleSubmitChangePassword = async (e) => {
+    e.preventDefault();
+    const request = { oldPassword, newPassword };
+    const checkOldPassword = `/api/authen/check-password/${userId}`;
+    const changePassword = `/api/users/${userId}`;
     try {
-      const response = await API.delete(deleteUserRoute, {
+      const response = await API.post(checkOldPassword, request, {
         headers: headers,
       });
       // ตรวจสอบ response จาก backend
       if (response.status === 200) {
-        alert("Deleted ");
-        // ทำอย่างอื่นต่อ เช่น redirect หน้า, แสดงข้อความ, ฯลฯ
+        const response = await API.post(changePassword, request, {
+          headers: headers,
+        });
+        if (response.status === 200) console.log('change password success');
       } else {
-        alert("Failed to delete");
+        alert("Failed to change password");
       }
     } catch (error) {
-      console.error("Error sending delete request", error);
+      console.error("Error sending change password request", error);
       alert("An error occurred while sending data to the backend.");
     }
-    navigate("/login");
+    // navigate("/login");
   };
   return (
     <button
-      onClick={handleSubmitDelete}
+      onClick={handleSubmitChangePassword}
       className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 text-center"
     >
-      Delete for sure
+      Change Password
     </button>
   );
 };
 
-const DeleteButton = () => {
+const ChangePassword = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const [oldPassword, setOldPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+
   return (
     <div className="flex justify-center">
       <button
-        onClick={handleOpen}
-        className="rounded-4xl text-white bg-red text-sm w-full px-5 py-2.5 mx-8 text-center"
-      >
-        Delete Account
+        onClick={handleOpen} 
+        className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
+        >
+        Change Password
       </button>
       <Modal
         className="self-center"
@@ -96,18 +103,28 @@ const DeleteButton = () => {
           sx={style}
           className="rounded-4xl text-black bg-red text-sm w-full px-5 py-2.5 text-center"
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            You are going to delete accout
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Are you sure about this ?
-          </Typography>
-
-          <DeleteButtonNested />
+          <input
+            className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+            type="text"
+            placeholder="old password"
+            value={oldPassword}
+            onChange={(ev) => setOldPassword(ev.target.value)}
+          />
+          <input
+            className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+            type="text"
+            placeholder="new password"
+            value={newPassword}
+            onChange={(ev) => setNewPassword(ev.target.value)}
+          />
+          <ChangePasswordNested
+            oldPassword={oldPassword}
+            newPassword={newPassword}
+          />
         </Box>
       </Modal>
     </div>
   );
 };
 
-export default DeleteButton;
+export default ChangePassword;
