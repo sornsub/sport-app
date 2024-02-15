@@ -40,18 +40,30 @@ function Register() {
         lname: Joi.string().required().label('Last Name'),
         email: Joi.string().email({ tlds: false }).required().label('Email Address'),
         username: Joi.string().alphanum().min(3).max(30).required().label('Username'),
-        password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required().label('Password'),
+        password: Joi.string()
+            .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+            .required()
+            .label('Password')
+            .messages({
+                'string.pattern.base': 'Password must contain only letters and numbers and be between 3 and 30 characters long'
+            }),
         rePassword: Joi.string().valid(Joi.ref('password')).required().label('Re-Password').messages({
             'any.only': '{{#label}} does not match',
         })
     });
-
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationResult = schema.validate(inputs, { abortEarly: false });
         if (validationResult.error) {
+            const errorMessage = validationResult.error.details.map(detail => {
+                if (detail.context.key === 'password') {
+                    return `<div>Password must contain only letters and numbers and be between 3 and 30 characters long</div>`;
+                }
+                return `<div>${detail.message}</div>`;
+            }).join('');
             MySwal.fire({
-                html: `<i>Invalid input. Please check your details.</i>`,
+                html: errorMessage,
                 icon: 'error'
             });
             return;
