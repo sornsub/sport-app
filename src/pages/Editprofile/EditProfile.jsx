@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
@@ -14,6 +14,7 @@ import Navbar from "../../components/shared/Navbar";
 import API from "../../api/axios";
 import UploadImage from "../../components/UploadImage/UploadImage";
 import DeleteButton from "./DeleteButton";
+import ChangePassword from "./ChangePassword";
 
 const EditProfile = () => {
   // token
@@ -22,7 +23,22 @@ const EditProfile = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
+  const [field, setField] = useState([]);
 
+  //useEffect
+  useEffect(() => {
+    const getData = async () => {
+      const response = await API.get(`api/users/${userId}`, {
+        headers: headers,
+      });
+      setField(response.data.data);
+    };
+
+    getData();
+  }, []);
+  console.log("This is field: ", field);
+  const { email, userName, date_of_birth, height, weight, gender, phone } =
+    field;
   const initialFormData = {
     email: "",
     firstname: "",
@@ -37,7 +53,6 @@ const EditProfile = () => {
   };
   const [formData, setFormData] = useState(initialFormData);
   const [image, setImage] = useState("");
-  // const [userId, setUserId] = useState();
 
   //Set Email input
   const [emailMsg, setEmailMsg] = useState("");
@@ -184,8 +199,6 @@ const EditProfile = () => {
     }
   };
 
-  console.log("form data: ", formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validEmail = isEmail(formData.email);
@@ -218,12 +231,14 @@ const EditProfile = () => {
         const requestData = {
           email: formData.email,
           userName: formData.firstname,
-          login_password: formData.password,
-          signup_gender: formData.gender,
-          signup_height: toInt(formData.height),
-          signup_weight: toInt(formData.weight),
+          password: formData.password,
+          date_of_birth: formData.date_of_birth,
+          gender: formData.gender,
+          height: toInt(formData.height),
+          weight: toInt(formData.weight),
           phone: formData.phone_Number,
           avatar: image,
+
           // เพิ่ม property ต่อไปตามต้องการ
         };
 
@@ -252,9 +267,6 @@ const EditProfile = () => {
     console.log(toInt(formData.weight));
   };
 
-  
-  
-
   return (
     <>
       <div className="bg-[url('/moutain_pic.png')] bg-fixed bg-no-repeat bg-cover min-h-[1800px] md:min-h-[1100px] h-screen w-screen">
@@ -266,34 +278,34 @@ const EditProfile = () => {
               <Link to="/login"></Link>
 
               <div className="flex flex-col md:flex-row justify-center bg-[rgb(255,255,255)]/75 ">
-                <div className="md:w-4/5 flex flex-col md:flex-row justify-center">
-                  <div className="pt-10 md:pt-24 p-10">
-                    <div className="md:flex md:justify-evenly justify-center ">
-                      <div className="md:w-2/5">
-                        {/* prototype for label css */}
+                <div className="md:w-4/5 flex flex-col md:flex-row justify-center gap-10">
+                  <div className="w-2/5">
+                    {/* email */}
+                    <div className="md:flex justify-evenly ">
+                      <div className="flex flex-col justify-end md:w-2/5 ">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
                           htmlFor="Email"
                         >
                           Email
                         </label>
-                        {/* prototype for input css */}
                         <input
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="email"
                           placeholder="Email Address"
+                          value={email}
                           id="email"
                           onChange={handleInputChange}
                         />
-                        <div className={`${emailMsgColor} text-sm mb-10`}>
+                        <div className={`${emailMsgColor} text-sm md:w-72`}>
                           {emailMsg}
                         </div>
                       </div>
-                      {/* Div เปล่า ทำให้ด้านข้างเสมอกันกับข้างล่าง */}
                       <div className="md:w-2/5"></div>
                     </div>
 
-                    <div className="md:flex justify-evenly mb-10">
+                    {/* username */}
+                    <div className="md:flex justify-evenly ">
                       <div className="md:w-2/5 mb-10 md:mb-0">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -305,6 +317,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="text"
                           placeholder="Username"
+                          value={userName}
                           id="firstname"
                           onChange={handleInputChange}
                         />
@@ -315,7 +328,39 @@ const EditProfile = () => {
                       <div className="md:w-2/5"></div>
                     </div>
 
-                    <div className="md:flex md:justify-evenly">
+                    {/* change pass button */}
+                    {/* <div className="md:flex md:justify-evenly">
+                      <div className="md:w-2/5">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="Password"
+                        >
+                          Password
+                        </label>
+
+                        <button className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center">
+                          <a href="">Change Password</a>
+                        </button>
+                      </div>
+                      <div className="md:w-2/5"></div>
+                    </div> */}
+
+                    {/* button from ChangePassword */}
+                    <div className="md:flex justify-evenly ">
+                      <div className="md:w-2/5 mb-10 md:mb-0">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="First Name"
+                        >
+                          Username
+                        </label>
+                        <ChangePassword />
+                      </div>
+                      <div className="md:w-2/5"></div>
+                    </div>
+
+                    {/* password input */}
+                    {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -364,7 +409,7 @@ const EditProfile = () => {
                           {confirmPassMsg}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
@@ -378,6 +423,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           type="date"
                           id="date_of_birth"
+                          value={date_of_birth}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -394,6 +440,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="height"
                             placeholder="Height : cm"
+                            value={height}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -420,6 +467,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="weight"
                             placeholder="Weight : kg"
+                            value={weight}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -452,6 +500,7 @@ const EditProfile = () => {
                         <select
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           id="gender"
+                          value={gender}
                           onChange={handleInputChange}
                         >
                           <option
@@ -478,6 +527,7 @@ const EditProfile = () => {
                           id="phone_Number"
                           type="tel"
                           placeholder="000-000-0000"
+                          value={phone}
                           maxLength={10}
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           onChange={handleInputChange}

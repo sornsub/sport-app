@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import API from '../../../api/axios';
 import { useNavigate } from "react-router-dom";
 
-
 import { 
     Box,
     Container,
@@ -13,7 +12,7 @@ import {
 
 import ForgotPasswordImg from "/images/forgotpassword.jpg"
 import { theme } from "../../../theme"
-import { Link, Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

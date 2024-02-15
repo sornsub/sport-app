@@ -1,58 +1,65 @@
-import React from "react";
-import Navbar from "./Nav";
 import { Box } from "@mui/material";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Corousel from "./Corousel";
-import { Height } from "@mui/icons-material";
+
+import Switche from "./Switche";
+import Swipers from "./Swipers";
+import "./LandingPage.css";
 
 export const LayoutDesk = ({ children }) => {
   return (
-    <Box className="container h-screen bg-pink text-white">
-     
-      <Box className="header h-2/5">
-        <Box
-          className="header-top mr-4"
-          sx={{ display: "flex", flexDirection: "row" }}
-        >
-          <Box className="w-6/12">
-            <img
-              src="images/logoFitness.jpg"
-              className="size-28 pl-6 object-cover"
-            />
+    <Box className="bg-blue pl-20 pt-20">
+      <div className="bg-pink h-full text-white rounded-lg">
+        <div className="flex h-[200px]  justify-between">
+          <Box className="ml-2 w-1/3 ">
+            {/* picture */}
+            <img src="images/logoRemoveBg.png" className=" pl-6 object-cover" />
           </Box>
-          <Box className="flex w-6/12 place-content-end gap-x-8 items-center">
-            {/* Profile and Signin register and seach bar */}
 
-            <a href="/signup">Register</a>
-            <a href="/login">Sign in</a>
+          {/* Intro nav menu */}
+          {/* <Box className="flex gap-x-20 items-center pr-5 w-1/3">
+            <a href="#">
+              <strong>Service</strong>
+            </a>
+            <a href="#">Why us</a>
+            <a href="#">Pricing</a>
+            <a href="#">Review</a>
+          </Box> */}
 
-            <TextField
-              id="outlined-basic"
-              label="Search"
-              variant="outlined"
-              className="text-white"
-            />
-            <img src="./images/landingPage1.jpg" className="size-28 " />
+          {/* Register and Sign in button */}
+          <Box className="flex gap-x-10 items-center p-10 w-1/3">
+            <button
+              type="submit"
+              className="shadow-lg outline-0 w-[300px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
+            >
+              <a href="/signup">Register</a>
+            </button>
+            <button
+              type="submit"
+              className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
+            >
+              <a href="/login">Sign in</a>
+            </button>
           </Box>
+        </div>
+        {/* ปลุกใจในตัวคุณ */}
+        <Box className="flex mx-50 h-97 justify-center">
+          <div className="flex flex-col  mt-10 gap-10">
+            <span className="text-7xl Font-second">BE READY</span>
+            <span className="text-7xl Font-second">
+              <Switche className="size-20 h-20" /> AND GO
+            </span>
+            <span className="text-7xl Font-second">FOR YOUR LIFE</span>
+          </div>
+          <img
+            src="public\images\landing_woman-removebg.png"
+            className="object-cover"
+          />
         </Box>
-        <Box className="header-bottom h-auto flex items-center ">
-          <Stack spacing={2} direction="row" className="p-6 ml-9">
-           {/* <button className="bg-white hover:bg-red-400 text-black p-4 rounded-lg shadow-lg text-sm 
 
-"> Weight Training</button> */}
-            <Button variant="contained">Weight Training</Button>
-            <Button variant="contained">Yoga</Button>
-            <Button variant="contained">Running</Button>
-          </Stack>
+        {/* Swiper */}
+        <Box>
+          <Swipers />
         </Box>
-      </Box>
-      <div className="">
-        <Corousel />
       </div>
-      
-
     </Box>
   );
 };

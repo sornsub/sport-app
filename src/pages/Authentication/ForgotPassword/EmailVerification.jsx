@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import API from '../../../api/axios';
+import { useNavigate } from "react-router-dom";
+
 import { 
     Box,
     Container,
@@ -10,6 +13,45 @@ import {
 import { theme } from "../../../theme"
 
 const EmailVerification = () => {
+
+  const navigate = useNavigate();
+
+  const [code, setCode] = useState('');
+
+  const verifyCode = async ({code}) => {
+    
+    const verifyCodeRoute = "api/authen";
+    const email = localStorage.getItem('email');
+    const requestData = {
+    email: email,
+    code: code
+    };
+
+    const response = await API.post(`${verifyCodeRoute}/verify`, requestData);// [POST] https://localhost:5000/api/authen/verify, requestData
+
+    if (response.status === 200) {
+      localStorage.setItem('userId', response.data.data);
+      navigate("/create-new-password");
+    }
+  };
+
+  const resendVerifyCode = async () => {
+    
+    const verifyCodeRoute = "api/authen";
+    const email = localStorage.getItem('email');
+    const requestData = {
+      email: email
+    };
+
+    const response = await API.post(`${verifyCodeRoute}/resend-code`, requestData);// [POST] https://localhost:5000/api/authen/resend-code, requestData
+
+    if (response.status === 200) {
+      //TODO: alert 3 sec for show msg resend successfully
+    }else if (response.status === 400) {
+      //TODO: alert fail msg
+    }
+  };
+
   return (
     <>
           <ThemeProvider theme={ theme }>
@@ -50,22 +92,24 @@ const EmailVerification = () => {
                         </Box>
                         <p className="text-left mt-8 mb-8">Enter verification code</p>
                         <div className="flex justify-between gap-2 mb-6">
+                          <input onChange={(ev) => setCode(ev.target.value)} name="code"
+                          className="bg-blue text-center rounded-otp drop-shadow-md" type="text" maxLength={6} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
+                          {/* <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
                           <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
                           <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
                           <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
-                          <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
-                          <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
-                          <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required />
+                          <input className="bg-blue w-20 h-20 text-center rounded-otp drop-shadow-md" type="text" maxLength={1} pattern="[0-9]" inputMode="numeric" autoComplete="one-time-code" required /> */}
                         </div>
-                        <Link href="#" color='primary.black'> 
+                        <Link href="#" color='primary.black'
+                              onClick={() => resendVerifyCode()}
+                        > 
                           Resend code
                         </Link>
                         <button type="submit" 
                                   className="mt-8 rounded-4xl bg-pink text-sm w-full px-5 py-2.5 text-center"
-                                  >
-                                  <Link href="/create-new-password" color='primary.white' underline="none">
+                                  onClick={() => verifyCode(code)}
+                        >
                                     Submit
-                                  </Link>
                         </button>
                   </Box>
             </Container>
