@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
@@ -22,7 +22,21 @@ const EditProfile = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
+  const [field, setField] = useState([]);
+  
+  //useEffect
+  useEffect(() => {
+    const getData = async () => {
+      const response = await API.get(
+        `api/users/${userId}`, {headers: headers}
+      );
+      setField(response.data.data);
+    };
 
+    getData();
+  }, []);
+  console.log('This is field: ',field);
+  const {email, userName, date_of_birth, height, weight, gender,  phone} = field;
   const initialFormData = {
     email: "",
     firstname: "",
@@ -37,7 +51,6 @@ const EditProfile = () => {
   };
   const [formData, setFormData] = useState(initialFormData);
   const [image, setImage] = useState("");
-  // const [userId, setUserId] = useState();
 
   //Set Email input
   const [emailMsg, setEmailMsg] = useState("");
@@ -184,8 +197,6 @@ const EditProfile = () => {
     }
   };
 
-  console.log("form data: ", formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validEmail = isEmail(formData.email);
@@ -219,11 +230,13 @@ const EditProfile = () => {
           email: formData.email,
           userName: formData.firstname,
           login_password: formData.password,
-          signup_gender: formData.gender,
-          signup_height: toInt(formData.height),
-          signup_weight: toInt(formData.weight),
+          date_of_birth: formData.date_of_birth,
+          gender: formData.gender,
+          height: toInt(formData.height),
+          weight: toInt(formData.weight),
           phone: formData.phone_Number,
           avatar: image,
+
           // เพิ่ม property ต่อไปตามต้องการ
         };
 
@@ -252,9 +265,6 @@ const EditProfile = () => {
     console.log(toInt(formData.weight));
   };
 
-  
-  
-
   return (
     <>
       <div className="bg-[url('/moutain_pic.png')] bg-fixed bg-no-repeat bg-cover min-h-[1800px] md:min-h-[1100px] h-screen w-screen">
@@ -282,6 +292,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="email"
                           placeholder="Email Address"
+                          value={email}
                           id="email"
                           onChange={handleInputChange}
                         />
@@ -305,6 +316,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="text"
                           placeholder="Username"
+                          value={userName}
                           id="firstname"
                           onChange={handleInputChange}
                         />
@@ -314,8 +326,8 @@ const EditProfile = () => {
                       </div>
                       <div className="md:w-2/5"></div>
                     </div>
-
-                    <div className="md:flex md:justify-evenly">
+                {/* password input */}
+                    {/* <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -364,7 +376,7 @@ const EditProfile = () => {
                           {confirmPassMsg}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
@@ -378,6 +390,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           type="date"
                           id="date_of_birth"
+                          value={date_of_birth}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -394,6 +407,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="height"
                             placeholder="Height : cm"
+                            value={height}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -420,6 +434,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="weight"
                             placeholder="Weight : kg"
+                            value={weight}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -452,6 +467,7 @@ const EditProfile = () => {
                         <select
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           id="gender"
+                          value={gender}
                           onChange={handleInputChange}
                         >
                           <option
@@ -478,6 +494,7 @@ const EditProfile = () => {
                           id="phone_Number"
                           type="tel"
                           placeholder="000-000-0000"
+                          value={phone}
                           maxLength={10}
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           onChange={handleInputChange}

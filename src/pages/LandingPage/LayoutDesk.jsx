@@ -13,16 +13,17 @@ export const LayoutDesk = ({ children }) => {
             {/* picture */}
             <img src="images/logoRemoveBg.png" className=" pl-6 object-cover" />
           </Box>
-          {/* Intro nav menu */}
 
-          <Box className="flex gap-x-20 items-center pr-5 w-1/3">
+          {/* Intro nav menu */}
+          {/* <Box className="flex gap-x-20 items-center pr-5 w-1/3">
             <a href="#">
               <strong>Service</strong>
             </a>
             <a href="#">Why us</a>
             <a href="#">Pricing</a>
             <a href="#">Review</a>
-          </Box>
+          </Box> */}
+
           {/* Register and Sign in button */}
           <Box className="flex gap-x-10 items-center p-10 w-1/3">
             <button
