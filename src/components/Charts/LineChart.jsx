@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Chart from "react-apexcharts";
-import API from '../../api/axios';
+import DashboardAPI from '../../api/services/dashboard';
 
 import 'apexcharts/dist/apexcharts.css';
 
@@ -9,8 +9,6 @@ const LineChart = ({selectedRange, userId, reload}) => {
   const [graphSummaryDatas, setGraphSummaryDatas] = useState([]);
   const [categoriesArray, setcategoriesArray] = useState([]);
   
-  const dashboardRoute = "api/dashboard";
-
   useEffect(() => {
     getGraphSummaryByUserId();
 
@@ -29,13 +27,9 @@ const LineChart = ({selectedRange, userId, reload}) => {
 
   //get Graph Summary data By User Id
   const getGraphSummaryByUserId  = async () => {
-
-    const response = await API.get(`${dashboardRoute}/graph-summary/${userId}`, 
-                                    { params: { date_range: selectedRange } }
-                                    // ,{headers: headers}
-                                  ); // [GET] https://localhost:5000/api/dashboard/graph-summary/:id
-    if (response.data.data) {
-      setGraphSummaryDatas([...response.data.data.series]);
+    const response = await DashboardAPI.getGraphSummaryDataByUserId(userId, selectedRange)
+    if (response) {
+      setGraphSummaryDatas([...response.series]);
     }
   };
 
