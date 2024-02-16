@@ -1,25 +1,7 @@
-import { useEffect, useState } from "react";
-import validator from "validator";
-import isEmail from "validator/lib/isEmail";
-import isEmpty from "validator/lib/isEmpty";
-import isLength from "validator/lib/isLength";
-import isAlpha from "validator/lib/isAlpha";
-import equals from "validator/lib/equals";
-import isStrongPassword from "validator/lib/isStrongPassword";
-import isNumeric from "validator/lib/isNumeric";
-import toDate from "validator/lib/toDate";
-import toInt from "validator/lib/toInt";
-import axios, { isCancel, AxiosError } from "axios";
-import { Link } from "react-router-dom";
-import Navmenu from "../../components/shared/Navmenu";
-import Copyright from "../../components/shared/Copyright";
-import Navbar from "../../components/shared/Navbar";
+import { useState } from "react";
 import API from "../../api/axios";
-import UploadImage from "../../components/UploadImage/UploadImage";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +17,7 @@ const style = {
   p: 4,
 };
 
-const ChangePasswordNested = ({ oldPassword, newPassword }) => {
+const ChangePasswordNested = ({ oldPassword, newPassword, handleClose }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const user_id = localStorage.getItem("userId");
@@ -66,6 +48,7 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
       alert("An error occurred while sending data to the backend.");
     }
     // navigate("/login");
+    handleClose();
   };
   return (
     <div className="md:flex justify-evenly ">
@@ -122,7 +105,7 @@ const ChangePassword = () => {
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                type="text"
+                type="password"
                 placeholder="old password"
                 value={oldPassword}
                 onChange={(ev) => setOldPassword(ev.target.value)}
@@ -141,7 +124,7 @@ const ChangePassword = () => {
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                type="text"
+                type="password"
                 placeholder="new password"
                 value={newPassword}
                 onChange={(ev) => setNewPassword(ev.target.value)}
@@ -153,6 +136,7 @@ const ChangePassword = () => {
           <ChangePasswordNested
             oldPassword={oldPassword}
             newPassword={newPassword}
+            handleClose={handleClose}
           />
         </Box>
       </Modal>
