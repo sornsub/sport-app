@@ -26,18 +26,20 @@ export const LayoutDesk = ({ children }) => {
 
           {/* Register and Sign in button */}
           <Box className="flex gap-x-10 items-center p-10 w-1/3">
-            <button
+             <a href="/signup"><button
               type="submit"
               className="shadow-lg outline-0 w-[300px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
             >
-              <a href="/signup">Register</a>
+             Register
             </button>
-            <button
-              type="submit"
-              className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
-            >
-              <a href="/login">Sign in</a>
-            </button>
+            <a href="/login"></a>
+              <button
+                type="submit"
+                className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
+              >
+                Sign in
+              </button>
+            </a>
           </Box>
         </div>
         {/* ปลุกใจในตัวคุณ */}
