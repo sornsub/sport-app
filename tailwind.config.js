@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// tailwind.config.js
+
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -16,18 +17,18 @@ export default {
     },
     extend: {
       borderRadius: {
-      '4xl': '2rem',
-      'otp': '15px',
-      'main': '20px',
-      'card': '20px 20px 0 0',
-      'summary': '0 0 17px 17px'
-    }},
+        '4xl': '2rem',
+        'otp': '15px',
+        'main': '20px',
+        'card': '20px 20px 0 0',
+        'summary': '0 0 17px 17px'
+      }
+    },
   },
-  plugins: [    
+  plugins: [
     require("@tailwindcss/forms")({
-      strategy: 'base', // only generate global styles
-      strategy: 'class', // only generate classes
+      strategy: 'class', // You can choose either 'base' or 'class' strategy
     }),
-],
-}
-
+    require("daisyui"),
+  ],
+};
