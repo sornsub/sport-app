@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Joi from 'joi';
-import axios from 'axios'; // Import Axios
+import API from '../../api/axios';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,32 +14,34 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Phone } from '@mui/icons-material';
 
 const theme = createTheme();
 
-function Register() {
+function SignUp() {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
 
     const [inputs, setInputs] = useState({
-        fname: '',
-        lname: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        username: '',
+        userName: '',
+        phone: '',
         password: '',
         rePassword: ''
     });
 
-    const handleChange = (event, field) => {
-        const { value } = event.target;
-        setInputs(values => ({ ...values, [field]: value }));
+    const handleChange = (value, field) => {
+        setInputs(prevInputs => ({ ...prevInputs, [field]: value }));
     }
 
     const schema = Joi.object({
-        fname: Joi.string().required().label('First Name'),
-        lname: Joi.string().required().label('Last Name'),
+        firstName: Joi.string().required().label('First Name'),
+        lastName: Joi.string().required().label('Last Name'),
         email: Joi.string().email({ tlds: false }).required().label('Email Address'),
-        username: Joi.string().alphanum().min(3).max(30).required().label('Username'),
+        userName: Joi.string().alphanum().min(3).max(30).required().label('Username'),
+        phone: Joi.string().pattern(new RegExp('^[0-9]{9,10}$')).min(9).max(10).required().label('Phone'),
         password: Joi.string()
             .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
             .required()
@@ -51,7 +53,7 @@ function Register() {
             'any.only': '{{#label}} does not match',
         })
     });
-    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationResult = schema.validate(inputs, { abortEarly: false });
@@ -68,11 +70,19 @@ function Register() {
             });
             return;
         }
-    
         try {
-            const response = await axios.post("{{sport environment host}}/api/users/create", inputs); // Axios POST request
+            const authRoute = 'api/authen'
+            const requestData = {
+                firstName: inputs.firstName,
+                lastName: inputs.lastName,
+                email: inputs.email,
+                userName: inputs.userName,
+                password: inputs.password,
+                phone: inputs.phone
+            }
+            const response = await API.post(`${authRoute}/signup`, requestData); // Axios POST request
             const result = response.data;
-            if (result.status === 'ok') {
+            if (result.success === true) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -80,7 +90,7 @@ function Register() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    navigate('/');
+                    navigate('/login');
                 });
             } else if (result.error === 'duplicate') {
                 MySwal.fire({
@@ -96,8 +106,7 @@ function Register() {
         } catch (error) {
             console.error('Error:', error);
         }
-    }  
-
+    }
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -108,13 +117,13 @@ function Register() {
                     sm={4}
                     md={7}
                     sx={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-1545389336-cf090694435e?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: (t) =>
-                    t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    position: 'relative', // Relative positioning for absolute logo positioning
+                        backgroundImage: `url(https://images.unsplash.com/photo-1545389336-cf090694435e?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        position: 'relative', // Relative positioning for absolute logo positioning
                     }}
                 >
                 </Grid>
@@ -135,15 +144,15 @@ function Register() {
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
-                                        autoComplete="fname"
-                                        name="fname"
+                                        autoComplete="firstName"
+                                        name="firstName"
                                         required
                                         fullWidth
                                         id="firstName"
                                         label="First Name"
                                         autoFocus
-                                        value={inputs.fname}
-                                        onChange={(e) => handleChange(e, 'fname')}
+                                        value={inputs.firstName}
+                                        onChange={(e) => handleChange(e.target.value, 'firstName')}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -152,10 +161,10 @@ function Register() {
                                         fullWidth
                                         id="lastName"
                                         label="Last Name"
-                                        name="lname"
-                                        autoComplete="lname"
-                                        value={inputs.lname}
-                                        onChange={(e) => handleChange(e, 'lname')}
+                                        name="lastName"
+                                        autoComplete="lastName"
+                                        value={inputs.lastName}
+                                        onChange={(e) => handleChange(e.target.value, 'lastName')}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -167,19 +176,31 @@ function Register() {
                                         name="email"
                                         autoComplete="email"
                                         value={inputs.email}
-                                        onChange={(e) => handleChange(e, 'email')}
+                                        onChange={(e) => handleChange(e.target.value, 'email')}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         required
                                         fullWidth
-                                        id="username"
+                                        id="userName"
                                         label="Username"
-                                        name="username"
-                                        autoComplete="username"
-                                        value={inputs.username}
-                                        onChange={(e) => handleChange(e, 'username')}
+                                        name="userName"
+                                        autoComplete="userName"
+                                        value={inputs.userName}
+                                        onChange={(e) => handleChange(e.target.value, 'userName')}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="phone"
+                                        label="Phone"
+                                        name="phone"
+                                        autoComplete="phone"
+                                        value={inputs.phone}
+                                        onChange={(e) => handleChange(e.target.value, 'phone')}
                                     />
                                 </Grid>
                                 {schema.validate({ password: inputs.password }).error && ( // Hide password field if not valid
@@ -194,7 +215,7 @@ function Register() {
                                                 id="password"
                                                 autoComplete="new-password"
                                                 value={inputs.password}
-                                                onChange={(e) => handleChange(e, 'password')}
+                                                onChange={(e) => handleChange(e.target.value, 'password')}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -207,7 +228,7 @@ function Register() {
                                                 id="rePassword"
                                                 autoComplete="new-password"
                                                 value={inputs.rePassword}
-                                                onChange={(e) => handleChange(e, 'rePassword')}
+                                                onChange={(e) => handleChange(e.target.value, 'rePassword')}
                                             />
                                         </Grid>
                                     </>
@@ -223,7 +244,7 @@ function Register() {
                             </Button>
                             <Grid container justifyContent="flex-start">
                                 <Grid item>
-                                        Already have an account?{' '}
+                                    Already have an account?{' '}
                                     <Link href="/login" variant="body2">
                                         Sign in
                                     </Link>
@@ -236,5 +257,4 @@ function Register() {
         </ThemeProvider>
     );
 }
-
-export default Register;
+export default SignUp;
