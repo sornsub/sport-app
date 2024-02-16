@@ -3,8 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Box, Container, Typography, ThemeProvider, Modal } from "@mui/material";
 import { theme } from "../../../theme";
 import API from '../../../api/axios';
-
-
+import formatDate from '../../../utils/formatDate';
 
 //Component
 import EditExercise from '../EditExercise/EditExercise.jsx'
@@ -15,6 +14,7 @@ const SummaryExercise = () => {
   const [summaryData, setSummaryData] = useState({});
   const [reload, setReload] = useState(false);
   const [activitiesTypeData, setActivitiesTypeData] = useState([]);
+  const [exerciseActivityDate, setExerciseActivityDate] = useState();
 
   //Handle Modal popup
   const [open, setOpen] = useState(false);
@@ -57,6 +57,9 @@ const SummaryExercise = () => {
     // set Exercise Activities here
     if (response.data.data) {
       setSummaryData(response.data.data);
+      //Convert format date
+      const exerciseActivityDate = formatDate.convertDateFormat(summaryData.date);
+      setExerciseActivityDate(exerciseActivityDate);
     }
   };
 
@@ -194,7 +197,7 @@ const SummaryExercise = () => {
                 <p>Duration: {`${summaryData.hour} hour ${summaryData.minute} minute`}</p>
                 <p>Distance: {`${summaryData.distance} km`}</p>
                 <p>Calories: {`${summaryData.calories} kcal`}</p>
-                <p>Date: {summaryData.date}</p>
+                <p>Date: {exerciseActivityDate}</p>
               </div>
             </div>
 {/* 
