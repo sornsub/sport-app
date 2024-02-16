@@ -10,8 +10,7 @@ const Navbar = ({ drawerWidth }) => {
       sx={{ width: `calc(100% - ${drawerWidth}px)`, mr: `${drawerWidth}px` }}
     >
       <Toolbar className="flex justify-evenly">
-        {/* <img src="../public/images/logoRemoveBg.png" className="object-cover" /> */}
-        <Typography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component="div" >
           Permanent drawer
         </Typography>
         <Navmenu />
