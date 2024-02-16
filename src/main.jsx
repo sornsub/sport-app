@@ -130,7 +130,7 @@ const router = createBrowserRouter([
       {
         path: "summary",
         element: <SummaryExercise />,
-      },
+      },      
     ],
   },
 ]);

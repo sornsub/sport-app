@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
-
 import { Box, Container, Typography, ThemeProvider, Modal } from "@mui/material"
 import { theme } from "../../../theme"
 import API from '../../../api/axios';
@@ -86,8 +85,17 @@ const SummaryExercise = () => {
       // [DELETE] https://localhost:5000/api/exercise-activities/:id
       const response = await API.delete(`${exerciseActivityRoute}/${id}`, {headers: headers})
       if (response.statusText === "OK") {
-        navigate("/dashboard");        
+        navigate("/history");        
       }
+    };
+
+    // Delete data
+    const BackToHistory = async (id) => {
+      // [DELETE] https://localhost:5000/api/exercise-activities/:id
+      // const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
+      // if (response.statusText === "OK") {
+         navigate("/history");        
+      // }
     };
 
       // //get Activity type data
@@ -187,21 +195,19 @@ const SummaryExercise = () => {
                 <p>Date: {summaryData.date}</p>
               </div>
             </div>
-
+{/* 
             <button type="submit" 
               className="mb-6 text-white rounded-4xl bg-blue text-lg w-full py-1 text-center"
               >
               <Link href="/create-new-password" color='primary.white' underline="none">
                 Share
               </Link>
-            </button>
+            </button> */}
 
-            <button type="submit" 
+            <button onClick={() => BackToHistory(id)} type="submit" 
               className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
-              >
-              <Link href="/create-new-password" color='primary.white' underline="none">
-                Back to Dashboard
-              </Link>
+              >              
+              Back to History
             </button>
 
             {/* Model Update Form */}
