@@ -4,6 +4,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"; // เพิ่ม import Swal
+import validatePassword from "./validatePassword";
 
 const style = {
   position: "absolute",
@@ -30,6 +32,23 @@ const ChangePasswordNested = ({ oldPassword, newPassword, handleClose }) => {
     const request = { oldPassword, password: newPassword };
     const checkOldPassword = `/api/authen/check-password/${user_id}`;
     const changePassword = `api/authen/${user_id}/create-new-password`;
+
+    //////////////////////////////////////////////////////////////////////
+
+    // Validate password here
+
+    if (!oldPassword || !newPassword) {
+      handleClose();
+      oldPassword = await validatePassword(oldPassword);
+      newPassword = await validatePassword(newPassword);
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Please enter both old and new passwords",
+      });
+      return;
+    }
+
     try {
       const response = await API.patch(checkOldPassword, request, {
         headers: headers,
@@ -39,16 +58,40 @@ const ChangePasswordNested = ({ oldPassword, newPassword, handleClose }) => {
         const response = await API.patch(changePassword, request, {
           headers: headers,
         });
-        if (response.status === 200) console.log("change password success");
+        if (response.status === 200) {
+          console.log("change password success");
+          Swal.fire({
+            title: "Change Password Success.",
+            width: 600,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("./images/justdoit.gif")
+              left top
+              no-repeat
+            `,
+          });
+          handleClose(); // ปิด Modal เมื่อสำเร็จ
+        }
       } else {
-        alert("Failed to change password");
+        handleClose();
+        Swal.fire({
+          icon: "error",
+          title: "Failed to change password",
+          text: "Please try again later",
+        });
       }
     } catch (error) {
-      console.error("Error sending change password request", error);
-      alert("An error occurred while sending data to the backend.");
+      console.error("Error sending change password request", error.message);
+      handleClose();
+      Swal.fire({
+        icon: "error",
+        title: "An error occurred",
+        text: "Please try again later",
+      });
     }
-    // navigate("/login");
-    handleClose();
   };
   return (
     <div className="md:flex justify-evenly ">
@@ -73,8 +116,8 @@ const ChangePassword = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
-  const [oldPassword, setOldPassword] = useState();
-  const [newPassword, setNewPassword] = useState();
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   return (
     <div className="flex justify-center">

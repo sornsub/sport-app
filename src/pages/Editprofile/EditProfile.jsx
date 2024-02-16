@@ -352,7 +352,7 @@ const EditProfile = () => {
                           className="text-left block mb-3 mt-6 text-sm"
                           htmlFor="First Name"
                         >
-                          Username
+                          Change Password
                         </label>
                         <ChangePassword />
                       </div>
