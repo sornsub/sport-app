@@ -16,6 +16,9 @@ const EditExercise = ({update, summaryData, handleClose}) => {
   const [exerciseActivity, setExerciseActivity] = useState([]);
   const exerciseActivityRoute = "api/exercise-activities";
 
+  // For get Type Activity
+  const [activitiesTypeData, setActivitiesTypeData] = useState([]);
+  // const [reload, setReload] = useState(false);
   const token = localStorage.getItem('token');
 
   const headers = {
@@ -44,9 +47,16 @@ const EditExercise = ({update, summaryData, handleClose}) => {
     image: ""
   });
 
+  // useEffect(() => {
+  //   getExerciseActivity();
+  // }, []);
+
+    // For get Type Activity
   useEffect(() => {
     getExerciseActivity();
+    getActivitiesTypeById();
   }, []);
+
 
   //get Activity type data
   const getExerciseActivity  = async () => {
@@ -59,10 +69,29 @@ const EditExercise = ({update, summaryData, handleClose}) => {
     }
   };
 
+  const getActivitiesTypeById = async () => {
+
+    const id = summaryData.activity_type_id;
+    
+    const response = await API.get(`${activityTypeRoute}/${id}`, {headers: headers}); // [GET] https://localhost:5000/api/activity-type
+    console.log("response: ", response.data.data)
+    // set member here
+    if (response.status === 200 && response.data.data) {
+      setActivitiesTypeData(response.data.data);
+    }
+  };
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  // Link to History
+  // const BackToHistory = async (id) => {
+  //       navigate("/history");        
+  // };
+
 
   const validateForm = () => {
     let errors = {};
@@ -145,9 +174,10 @@ const EditExercise = ({update, summaryData, handleClose}) => {
               Tracking Exercise Activity
             </Typography>
             <input type="hidden" id="id" name="id" value={formData.id} />
+            <input type="hidden" id="id" name="id" value={activitiesTypeData.id} />
             <form onSubmit={handleSubmit}>
               <select onChange={handleInputChange} name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
-                <option value={formData.activity_type_id}>Running</option>
+                <option value={activitiesTypeData.name}>Running</option>
                 <option value="Weight training">Weight training</option>
                 <option value="Hike">Hike</option>
                 <option value="Yoga">Yoga</option>
@@ -164,7 +194,7 @@ const EditExercise = ({update, summaryData, handleClose}) => {
                 </option>
                 ))}
               </select> */}
-              <span className="error text-red">{formErrors.activity_type_id}</span>
+              <span className="error text-red">{activitiesTypeData.name}</span>
 
               <div className="flex flex-col w-full bg-white border border-grey rounded-main">
                 <div className="text-pink font-semibold bold p-5 flex justify-start">
@@ -180,7 +210,8 @@ const EditExercise = ({update, summaryData, handleClose}) => {
                 ></textarea>
                 <span className="error text-red">{formErrors.caption}</span>
                 <div className="flex justify-center">
-                  <img className="w-80 h-full object-cover" src={createExercise} alt="The group of women are running" />
+                 <img className="w-80 h-full object-cover" src={formData.image} alt="The group of women are running" /> 
+                  {/* <img className="w-80 h-full object-cover" src={createExercise} alt="The group of women are running" /> */}
                 </div>
                 <div className="text-pink font-semibold bold p-5 flex justify-start">
                   <label htmlFor="description">Description</label>
@@ -220,6 +251,11 @@ const EditExercise = ({update, summaryData, handleClose}) => {
                   Update
                 {/* </Link> */}
               </button>
+              {/* <button onClick={() => BackToHistory(id)} type="submit" 
+              className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
+              >              
+                  Update
+              </button> */}
 
               <button onClick={handleClose}>Close</button>
 
