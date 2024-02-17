@@ -78,11 +78,16 @@ const Rightbar = () => {
                 mb: 2,
               }}
             >
-              {`Hi, ${user.userName}`}
+              {`Hi, ${user.firstName} ${user.lastName}`}
+              <br />
+              {`@${user.userName}`}
             </Typography>
 
             <Typography variant="p" component="h2">
               Email: {user.email}
+            </Typography>
+            <Typography variant="p" component="h2">
+              Phone: {user.phone}
             </Typography>
             <Typography variant="p" component="h2">
               {`Date of Birth: ${dob}`}
