@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [selectedRange, setSelectedRange] = useState("today");
   const [reload, setReload] = useState([false]);
 
-  const userId = '65b91a5b49fd76a24e6f61d5';
+  const userId = localStorage.getItem("userId");
   
   const handleSelect = (valueSelectd) => {
     setSelectedRange(valueSelectd)
