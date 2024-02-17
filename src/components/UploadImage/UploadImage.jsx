@@ -36,10 +36,10 @@ const UploadImage = ({ setImage }) => {
     const requestData = {
       image: image,
     };
-    const response = UploadImageAPI.uploadImage(requestData)
-    
-    if (response.status === 200) {
-      let data = response.data.data;
+    const response = await UploadImageAPI.uploadImage(requestData)
+    console.log(response)
+    if (response.success === true) {
+      let data = response.data;
       setImage(data.url);
       setUploadStatus("Upload image succesfully!");
     }
