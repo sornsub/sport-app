@@ -10,7 +10,7 @@ const DonutChart = ({selectedRange, userId, reload}) => {
 
   useEffect(() => {
     getActivitiesTypeByUserId();
-  }, []);
+  }, [reload]);
 
   // get activities Type Data By User Id
   const getActivitiesTypeByUserId  = async () => {

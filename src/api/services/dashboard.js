@@ -8,8 +8,8 @@ const headers = {'Authorization': `Bearer ${token}`}
 // [GET] {hostName}/api/dashboard/summary-card/:id
 const getsummaryCardByUserId = async (userId, selectedRange) => {
     const response = await axios.get(`${dashboardRoute}/summary-card/${userId}`, 
-                                    { params: { date_range: selectedRange } }, 
-                                    {headers: headers}
+                                    // { headers: headers},
+                                    { params: { date_range: selectedRange } }
                                   ); 
     const data = response.data.data;
     return data;
@@ -19,8 +19,8 @@ const getsummaryCardByUserId = async (userId, selectedRange) => {
 // [GET] {hostName}/api/dashboard/activities-type/:id
 const getActivitiesTypeByUserId = async (userId, selectedRange) => {
     const response = await axios.get(`${dashboardRoute}/activities-type/${userId}`,
-                                    { params: { date_range: selectedRange } },
-                                    {headers: headers}
+                                    // { headers: headers},
+                                    { params: { date_range: selectedRange } }
                                   );
   const data = response.data.data;
   return data;
@@ -30,8 +30,8 @@ const getActivitiesTypeByUserId = async (userId, selectedRange) => {
 // [GET] {hostName}/api/dashboard/graph-summary/:id
 const getGraphSummaryDataByUserId = async (userId, selectedRange) => {
     const response = await axios.get(`${dashboardRoute}/graph-summary/${userId}`, 
-                                    { params: { date_range: selectedRange } },
-                                    {headers: headers}
+                                    // { headers: headers},
+                                    { params: { date_range: selectedRange } }
                                   ); 
     const data = response.data.data;
     return data;
