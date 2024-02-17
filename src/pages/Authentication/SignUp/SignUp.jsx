@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Joi from 'joi';
-import API from '../../api/axios';
+import API from '../../../api/axios';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
