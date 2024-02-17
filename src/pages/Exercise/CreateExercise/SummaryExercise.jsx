@@ -48,6 +48,8 @@ const SummaryExercise = () => {
     const response = await ExerciseActivityAPI.getExerciseActivityById(id);
     if (response) {
       setSummaryData(response);
+      const exerciseDate = formatDate.convertDateFormat(summaryData.date);
+      setExerciseActivityDate(exerciseDate);
     }
   };
 
