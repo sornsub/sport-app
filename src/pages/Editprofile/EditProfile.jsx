@@ -37,11 +37,13 @@ const EditProfile = () => {
     getData();
   }, []);
   console.log("This is field: ", field);
-  const { email, userName, date_of_birth, height, weight, gender, phone } =
+  const { email, userName, firstName, lastName, date_of_birth, height, weight, gender, phone } =
     field;
   const initialFormData = {
     email: "",
-    firstname: "",
+    firstName: "",
+    lastName: "",
+    userName: "",
     password: "",
     confirmpassword: "",
     date_of_birth: "",
@@ -155,7 +157,7 @@ const EditProfile = () => {
     }
 
     //Check FirstName
-    if (id === "firstname") {
+    if (id === "firstName") {
       const isAlphabet = isAlpha(value);
       const isEmptyFirstName = isEmpty(value);
       const isFnameLength = isLength(value, { min: 2 });
@@ -202,7 +204,7 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validEmail = isEmail(formData.email);
-    const isEmptyFirstName = isEmpty(formData.firstname);
+    const isEmptyFirstName = isEmpty(formData.firstName);
     // const strongPass = isStrongPassword(formData.password, { minSymbols: 0 });
     const strongPass = formData.password;
     const isPasswordMatch = equals(formData.confirmpassword, formData.password);
@@ -230,7 +232,9 @@ const EditProfile = () => {
         // สร้าง object ที่มีข้อมูลทั้งหมดที่คุณต้องการส่งไปยัง backend
         const requestData = {
           email: formData.email,
-          userName: formData.firstname,
+          userName: formData.userName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           password: formData.password,
           date_of_birth: formData.date_of_birth,
           gender: formData.gender,
@@ -318,7 +322,7 @@ const EditProfile = () => {
                           type="text"
                           placeholder="Username"
                           value={userName}
-                          id="firstname"
+                          id="usertname"
                           onChange={handleInputChange}
                         />
                         <div className={`${fnamePassColorMsg} text-sm md:w-72`}>
@@ -327,6 +331,55 @@ const EditProfile = () => {
                       </div>
                       <div className="md:w-2/5"></div>
                     </div>
+
+                     {/* firstname */}
+                     <div className="md:flex justify-evenly ">
+                      <div className="md:w-2/5 mb-10 md:mb-0">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="First Name"
+                        >
+                          Firstname
+                        </label>
+                        <input
+                          className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+                          type="text"
+                          placeholder="Firstname"
+                          value={firstName}
+                          id="firstName"
+                          onChange={handleInputChange}
+                        />
+                        <div className={`${fnamePassColorMsg} text-sm md:w-72`}>
+                          {fnameMsg}
+                        </div>
+                      </div>
+                      <div className="md:w-2/5"></div>
+                    </div>
+
+                     {/* lastname */}
+                     <div className="md:flex justify-evenly ">
+                      <div className="md:w-2/5 mb-10 md:mb-0">
+                        <label
+                          className="text-left block mb-3 mt-6 text-sm"
+                          htmlFor="Lastname"
+                        >
+                          Lastname
+                        </label>
+                        <input
+                          className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
+                          type="text"
+                          placeholder="Lastname"
+                          value={lastName}
+                          id="lastName"
+                          onChange={handleInputChange}
+                        />
+                        <div className={`${fnamePassColorMsg} text-sm md:w-72`}>
+                          {fnameMsg}
+                        </div>
+                      </div>
+                      <div className="md:w-2/5"></div>
+                    </div>
+
 
                     {/* change pass button */}
                     {/* <div className="md:flex md:justify-evenly">

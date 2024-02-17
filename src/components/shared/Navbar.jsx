@@ -12,7 +12,7 @@ const Navbar = ({ drawerWidth }) => {
       <Toolbar className="flex justify-evenly">
         {/* <img src="../public/images/logoRemoveBg.png" className="object-cover" /> */}
         <Typography variant="h6" noWrap component="div">
-          Permanent drawer
+          Sport App
         </Typography>
         <Navmenu />
       </Toolbar>
