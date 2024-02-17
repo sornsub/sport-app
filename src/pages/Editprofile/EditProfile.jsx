@@ -31,14 +31,24 @@ const EditProfile = () => {
       const response = await API.get(`api/users/${userId}`, {
         headers: headers,
       });
+      console.log(response.data.data);
       setField(response.data.data);
     };
 
     getData();
   }, []);
   console.log("This is field: ", field);
-  const { email, userName, firstName, lastName, date_of_birth, height, weight, gender, phone } =
-    field;
+  const {
+    email,
+    userName,
+    firstName,
+    lastName,
+    date_of_birth,
+    height,
+    weight,
+    gender,
+    phone,
+  } = field;
   const initialFormData = {
     email: "",
     firstName: "",
@@ -203,33 +213,37 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ตรวจสอบข้อมูลตามเงื่อนไขที่กำหนด
     const validEmail = isEmail(formData.email);
-    const isEmptyFirstName = isEmpty(formData.firstName);
-    // const strongPass = isStrongPassword(formData.password, { minSymbols: 0 });
-    const strongPass = formData.password;
-    const isPasswordMatch = equals(formData.confirmpassword, formData.password);
-    const isEmptyDate = isEmpty(formData.date_of_birth);
-    const isEmptyHeight = isEmpty(formData.height);
-    const isEmptyWeight = isEmpty(formData.weight);
-    const isPhoneNumLength = isLength(formData.phone_Number, { min: 10 });
+    const validFirstName =
+      !isEmpty(formData.firstName) && isAlpha(formData.firstName);
+    const validLastName =
+      !isEmpty(formData.lastName) && isAlpha(formData.lastName);
+    const validPassword = isStrongPassword(formData.password, {
+      minSymbols: 0,
+    });
+    const validConfirmPassword = equals(
+      formData.confirmpassword,
+      formData.password
+    );
+    const validDateOfBirth =
+      !isEmpty(formData.date_of_birth) &&
+      toDate(formData.date_of_birth) !== null;
+    const validHeight = !isEmpty(formData.height) && isNumeric(formData.height);
+    const validWeight = !isEmpty(formData.weight) && isNumeric(formData.weight);
+    const validPhone =
+      !isEmpty(formData.phone_Number) &&
+      isNumeric(formData.phone_Number) &&
+      isLength(formData.phone_Number, { min: 10 });
 
-    if (
-      validEmail &&
-      !isEmptyFirstName &&
-      strongPass &&
-      isPasswordMatch &&
-      !isEmptyHeight &&
-      !isEmptyWeight &&
-      !isEmptyDate &&
-      isPhoneNumLength
-    ) {
-      alert("Valid Data");
-      // ทำอย่างอื่นต่อ เช่น ส่งข้่อมูลไป Back-end
+    // ตรวจสอบว่าข้อมูลถูกต้องหรือไม่
+    if (true) {
+      // ทำอะไรก็ตามที่ต้องการเมื่อข้อมูลถูกต้อง
+
       try {
-        // Endpoint ของ backend API ที่คุณต้องการส่งข้อมูลไป
+        // ส่งข้อมูลไปยัง Backend
         const updateUserRoute = `/api/users/${userId}`;
-
-        // สร้าง object ที่มีข้อมูลทั้งหมดที่คุณต้องการส่งไปยัง backend
         const requestData = {
           email: formData.email,
           userName: formData.userName,
@@ -242,19 +256,15 @@ const EditProfile = () => {
           weight: toInt(formData.weight),
           phone: formData.phone_Number,
           avatar: image,
-
-          // เพิ่ม property ต่อไปตามต้องการ
         };
-
-        // ส่ง HTTP POST request ไปยัง backend
         const response = await API.post(updateUserRoute, requestData, {
           headers: headers,
         });
 
-        // ตรวจสอบ response จาก backend
+        // ตรวจสอบ response จาก Backend
         if (response.status === 200) {
           alert("Data successfully sent to the backend!");
-          // ทำอย่างอื่นต่อ เช่น redirect หน้า, แสดงข้อความ, ฯลฯ
+          // ทำอะไรต่อเมื่อส่งข้อมูลสำเร็จ เช่น รีเซ็ตฟอร์ม แสดงข้อความ เป็นต้น
         } else {
           alert("Failed to send data to the backend.");
         }
@@ -263,12 +273,9 @@ const EditProfile = () => {
         alert("An error occurred while sending data to the backend.");
       }
     } else {
+      // alert("Invalid Data");
       console.log("Invalid Data");
     }
-
-    console.log(toDate(formData.date_of_birth));
-    console.log(toInt(formData.height));
-    console.log(toInt(formData.weight));
   };
 
   return (
@@ -332,8 +339,8 @@ const EditProfile = () => {
                       <div className="md:w-2/5"></div>
                     </div>
 
-                     {/* firstname */}
-                     <div className="md:flex justify-evenly ">
+                    {/* firstname */}
+                    <div className="md:flex justify-evenly ">
                       <div className="md:w-2/5 mb-10 md:mb-0">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -356,8 +363,8 @@ const EditProfile = () => {
                       <div className="md:w-2/5"></div>
                     </div>
 
-                     {/* lastname */}
-                     <div className="md:flex justify-evenly ">
+                    {/* lastname */}
+                    <div className="md:flex justify-evenly ">
                       <div className="md:w-2/5 mb-10 md:mb-0">
                         <label
                           className="text-left block mb-3 mt-6 text-sm"
@@ -379,7 +386,6 @@ const EditProfile = () => {
                       </div>
                       <div className="md:w-2/5"></div>
                     </div>
-
 
                     {/* change pass button */}
                     {/* <div className="md:flex md:justify-evenly">
@@ -543,7 +549,7 @@ const EditProfile = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* gender */}
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
@@ -559,11 +565,7 @@ const EditProfile = () => {
                           value={gender}
                           onChange={handleInputChange}
                         >
-                          <option
-                            value="select"
-                          
-                            className="placeholder-white"
-                          >
+                          <option value="select" className="placeholder-white">
                             select
                           </option>
                           <option value="male">Male</option>
@@ -595,7 +597,10 @@ const EditProfile = () => {
                     </div>
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
-                        <button className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center">
+                        <button
+                          className="rounded-4xl text-white bg-pink text-sm w-full px-5 py-2.5 text-center"
+                          type="submit"
+                        >
                           Done
                         </button>
                       </div>
