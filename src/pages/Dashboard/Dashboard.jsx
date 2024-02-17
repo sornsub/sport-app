@@ -10,7 +10,7 @@ import {
 
 
 const Dashboard = () => {
-  const [selectedRange, setSelectedRange] = useState("today");
+  const [selectedRange, setSelectedRange] = useState("weekly");
   const [reload, setReload] = useState([false]);
 
   const userId = localStorage.getItem("userId");
@@ -24,10 +24,10 @@ const Dashboard = () => {
     <div className="ml-5 mb-5">
        <h1 className="text-lg font-semibold mr-5 inline w-fit">Statistics</h1> 
         <select className="outline-0 w-fit p-2.5 text-grey text-sm" onChange={(e) => handleSelect(e.target.value)}>
-          <option value="today">Today</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
+          {/* <option value="today">Today</option> */}
+          <option value="weekly">7 days ago</option>
+          <option value="monthly">This Month</option>
+          <option value="yearly">This Year</option>
         </select>
     </div>
     <Grid sx={{
