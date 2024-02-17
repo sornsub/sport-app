@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/shared/Navbar';
+import Nav from './Nav';
 import Header from './Header';
 import Contents from './contents';
 import Cards from './Cards';
@@ -7,7 +7,7 @@ import Cards from './Cards';
 const ActivityType = () => {
   return (
     <>
-      <Navbar />
+      <Nav />
       <Header />
       <Contents />
       <Cards />
