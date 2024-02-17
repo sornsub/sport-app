@@ -20,7 +20,7 @@ const CardSummary = ({selectedRange, userId, reload}) => {
   
   useEffect(() => {
     getDataByUserId();
-  }, []);
+  }, [reload]);
 
   //call api
   const getDataByUserId  = async () => {
