@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import API from "../../api/axios";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
@@ -7,12 +8,14 @@ import { Box, Typography, ThemeProvider } from "@mui/material";
 import AvatarImg from "/images/default_avatar.png";
 import { theme } from "./../../theme";
 import formatDate from '../../utils/formatDate';
+import ExerciseActivityAPI from '../../api/services/exerciseActivity';
 
 const drawerWidth = 310;
 
 const Rightbar = () => {
   const [user, setUser] = useState([]);
   const [dob, setDob] = useState();
+  const [favActivityTypes, setFavActivityTypes] = useState([]);
 
   const userRoute = "api/users";
   const token = localStorage.getItem("token");
@@ -22,6 +25,7 @@ const Rightbar = () => {
 
   useEffect(() => {
     getUserDataById();
+    getFavActivityTypeByUserId();
   }, []);
 
   //get user data
@@ -35,6 +39,14 @@ const Rightbar = () => {
       //Convert format date
       const dateOfBirth = formatDate.convertDateFormat(user.date_of_birth);
       setDob(dateOfBirth);
+    }
+  };
+  
+  const getFavActivityTypeByUserId = async () => {
+    const user_id = localStorage.getItem('userId');
+    const response = await ExerciseActivityAPI.getFavoriteActivityTypeByUserId(user_id);
+    if (response.success === true && response.data) {
+      setFavActivityTypes(response.data);
     }
   };
 
@@ -116,18 +128,13 @@ const Rightbar = () => {
             </Typography>
             {/* TODO: waitting for activity type api */}
             <div className="flex-wrap gap-6 mb-3 flex text-black h-10 w-full">
-              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
-                Weight training
-              </div>
-              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
-                Yoga
-              </div>
-              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
-                Running
-              </div>
-              <div className="whitespace-nowrap p-2 rounded-4xl bg-white">
-                Walking
-              </div>
+            {favActivityTypes.map((favActivityType,index) => (
+              <Link to="/activity-type">
+                <div key={index} className="whitespace-nowrap p-2 rounded-4xl bg-white">
+                  {favActivityType.activity_type_name}               
+                </div>
+              </Link>
+            ))}
             </div>
           </Box>
         </Drawer>
