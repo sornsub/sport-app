@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Container, Typography, ThemeProvider } from "@mui/material"
 import { useNavigate } from "react-router-dom";
+import Joi from 'joi';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import { theme } from "../../../theme"
 import UploadImage from '../../../components/UploadImage/UploadImage.jsx';
@@ -10,6 +13,7 @@ import ExerciseActivityAPI from '../../../api/services/exerciseActivity.js';
 import ActivityTypeAPI from '../../../api/services/activityType.js';
 
 const TrackingExerciseForm = () => {
+  const MySwal = withReactContent(Swal);
 
   const navigate = useNavigate();
   const [activitiesTypeList, setActivitiesTypeList] = useState([]);
@@ -28,19 +32,7 @@ const TrackingExerciseForm = () => {
     hour: "",
     minute: "",
     distance: "",
-    date: "",
-    image: ""
-  });
-
-  const [formErrors, setFormErrors] = useState({
-    activity_type_id: "",
-    caption: "",
-    description: "",
-    hour: "",
-    minute: "",
-    distance: "",
-    date: "",
-    image: ""
+    date: ""
   });
 
   useEffect(() => {
@@ -79,54 +71,41 @@ const TrackingExerciseForm = () => {
     setCalories(result);
   };
 
-  const validateForm = () => {
-    let errors = {};
-    let isValid = true;
+  const schema = Joi.object({
+    activity_type_id: Joi.string().required().label('Activity Type'),
+    caption: Joi.string().required().label('Caption'),
+    description: Joi.string().required().label('Description'),
+    hour: Joi.number().integer().min(0).max(23).required().label('Duration: hour')
+    .messages({'string.pattern.base': 'Hour must contain only number and be between 0 and 23'}),
+    minute: Joi.number().integer().min(0).max(59).required().label('Duration: minute')
+    .messages({'string.pattern.base': 'Minute must contain only number and be between 0 and 59'}),
+    distance: Joi.number().integer().min(0).required().label('Distance'),
+    date: Joi.date().required().label('Date'),
+  });
 
-    if (!formData.activity_type_id.trim()) {
-      errors.activity_type_id = "Activity Type is required";
-      isValid = false;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validationResult = schema.validate(formData, { abortEarly: false });
+    if (validationResult.error) {
+        const errorMessage = validationResult.error.details.map(detail => {
+            if (detail.context.key === 'hour') {
+                return `<div>Hour must contain only number and be between 0 and 23</div>`;
+            }
+            if(detail.context.key === 'minute'){
+              return `<div>Minute must contain only number and be between 0 and 59</div>`;
+            }
+            return `<div>${detail.message}</div>`;
+        }).join('');
+        MySwal.fire({
+            html: errorMessage,
+            icon: 'error'
+        });
+        return;
     }
-    if (!formData.caption.trim()) {
-      errors.caption = "Caption is required";
-      isValid = false;
-    }
-
-    if (!formData.description.trim()) {
-      errors.description = "Description is required";
-      isValid = false;
-    }
-
-    if (!formData.hour.trim()) {
-      errors.hour = "Hour is required";
-      isValid = false;
-    }
-
-    if (!formData.minute.trim()) {
-      errors.minute = "Minute is required";
-      isValid = false;
-    }
-    if (!formData.distance.trim()) {
-      errors.distance = "Distance is required";
-      isValid = false;
-    }
-    if (!formData.date.trim()) {
-      errors.date = "Date is required";
-      isValid = false;
-    }
-
-    setFormErrors(errors);
-    return isValid;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      createExerciseActivity(formData);
-    } else {
-      console.log(formErrors)
-      console.log("Form submission failed due to validation errors.");
+    try {
+        createExerciseActivity(formData);
+    } catch (error) {
+        console.error('Error:', error);
     }
   }
 
@@ -148,8 +127,26 @@ const TrackingExerciseForm = () => {
     const response = await ExerciseActivityAPI.createExerciseActivity(requestData);
     console.log("response: ", response)
     if (response.success === true) {
-    localStorage.setItem('exercise_activity_id', response.data._id);
-    navigate("/exercise-activity/summary");
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your exercise activity has been created",
+            showConfirmButton: false,
+            timer: 1500
+        }).then(() => {
+          localStorage.setItem('exercise_activity_id', response.data._id);
+          navigate("/exercise-activity/summary");
+        });
+    } else if (result.error === 'duplicate') {
+        MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: 'error'
+        });
+    } else {
+        MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: 'error'
+        });
     }
     if (response.status === 500) {
       setMet(0)
@@ -188,7 +185,6 @@ const TrackingExerciseForm = () => {
                   </option>
                 ))}
               </select>
-              <span className="error text-red">{formErrors.activity_type_id}</span>
               <div className="flex flex-col w-full bg-white border border-grey rounded-main">
                 <div className="text-pink font-semibold bold p-5 flex justify-start">
                   <label htmlFor="caption">Your caption</label>
@@ -201,7 +197,6 @@ const TrackingExerciseForm = () => {
                   placeholder="Type some caption here..."
                   value={formData.caption} onChange={handleInputChange}
                 />
-                <span className="error text-red">{formErrors.caption}</span>
                 {/* UploadImage Component */}
                 <UploadImage setImage={setImage}/>
                 <div className="text-pink font-semibold bold p-5 flex justify-start">
@@ -215,25 +210,21 @@ const TrackingExerciseForm = () => {
                   placeholder="Type some description here..."
                   value={formData.description} onChange={handleInputChange}
                 />
-                <span className="error text-red">{formErrors.description}</span>
               </div>
               <div className="gap-2 mt-5 mb-5 flex justify-center">
                 <label htmlFor="duration" className="text-pink font-semibold bold">Duration </label>
                 <input type="number" name="hour" placeholder="input number (0-23)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="23"
                 value={formData.hour} onChange={handleInputChange}/>
-                <span className="error text-red">{formErrors.hour}</span>
                 <p>hour </p>
                 <p> : </p>
                 <input type="number" name="minute" placeholder="input number (0-59)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="59"
                 value={formData.minute} onChange={handleInputChange}/>
-                <span className="error text-red">{formErrors.minute}</span>
                 <p>minute</p>
               </div>
               <div className="gap-2 mt-5 mb-5 flex justify-center">
                 <label htmlFor="distance" className="text-pink font-semibold bold">Distance </label>
                 <input type="number" name="distance" placeholder="input number..." className="focus:outline-pink border-grey border rounded-main pl-3 w-40" min="0"
                 value={formData.distance} onChange={handleInputChange}/>
-                <span className="error text-red">{formErrors.distance}</span>
                 km
               </div>
               {/* CalculateCalories Component */}
@@ -242,7 +233,6 @@ const TrackingExerciseForm = () => {
                 <label htmlFor="date" className="text-pink font-semibold bold">Date </label>
                 <input type="date" name="date" className="focus:outline-pink text-grey border-grey border rounded-main pl-3 pr-3" 
                        value={formData.date} onChange={handleInputChange} />
-                <span className="error text-red">{formErrors.date}</span>
               </div>
               <button type="submit" className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
                 >
