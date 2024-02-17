@@ -14,11 +14,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
+import Historypage from '../../components/shared/Historypage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import CardHistory from './CardHistory';
 
 import API from '../../api/axios';
+
 
 // codeHistory
 function Copyright() {
@@ -106,16 +108,16 @@ const History = () =>  {
 
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
+      {/* <AppBar position="relative"> */}
+        {/* <Toolbar> */}
+          {/* <CameraIcon sx={{ mr: 2 }} /> */}
+          {/* <Typography variant="h6" color="inherit" noWrap> */}
           <Navbar />
-          <DeleteButton />
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+          {/* <DeleteButton /> */}
+            
+          {/* </Typography> */}
+        {/* </Toolbar> */}
+      {/* </AppBar> */}
       <main>
         {/* Hero unit */}
         <Box
@@ -180,14 +182,14 @@ const History = () =>  {
           component="p"
         >
           Something here to give the footer a purpose!
+
         </Typography>
         <Copyright />
-      </Box>
+        <Historypage />
+      </Box> 
       {/* End footer */}
     </ThemeProvider>
-  );
-
-  
+  ); 
 }
 
 export default History
