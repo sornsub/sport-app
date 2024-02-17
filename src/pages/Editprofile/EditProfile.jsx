@@ -464,6 +464,7 @@ const EditProfile = () => {
                       </div>
                     </div> */}
 
+                    {/* date */}
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
@@ -481,6 +482,7 @@ const EditProfile = () => {
                         />
                       </div>
 
+                      {/* height */}
                       <div className="md:w-2/5 md:flex md:justify-between">
                         <div className="w-full md:w-2/5">
                           <label
@@ -541,7 +543,8 @@ const EditProfile = () => {
                         </div>
                       </div>
                     </div>
-
+                    
+                    {/* gender */}
                     <div className="md:flex md:justify-evenly">
                       <div className="md:w-2/5">
                         <label
@@ -558,7 +561,7 @@ const EditProfile = () => {
                         >
                           <option
                             value="select"
-                            selected
+                          
                             className="placeholder-white"
                           >
                             select
