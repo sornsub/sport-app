@@ -14,11 +14,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Navbar from '../../components/shared/Navbar';
+// import Historypage from '../../components/shared/Historypage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import CardHistory from './CardHistory';
 
 import API from '../../api/axios';
+
 
 // codeHistory
 function Copyright() {
@@ -47,7 +49,7 @@ const History = () =>  {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(false);
+    setOpen(true);
     setReload(!reload);
   };
 
@@ -106,16 +108,16 @@ const History = () =>  {
 
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
+      {/* <AppBar position="relative"> */}
+        {/* <Toolbar> */}
+          {/* <CameraIcon sx={{ mr: 2 }} /> */}
+          {/* <Typography variant="h6" color="inherit" noWrap> */}
           <Navbar />
-          <DeleteButton />
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+          {/* <DeleteButton /> */}
+            
+          {/* </Typography> */}
+        {/* </Toolbar> */}
+      {/* </AppBar> */}
       <main>
         {/* Hero unit */}
         <Box
@@ -131,10 +133,10 @@ const History = () =>  {
             <Stack
               sx={{ pt: 4 }}
               direction="row"
-              spacing={2}
+              spacing={1}
               justifyContent="center"
             >
-              <Button variant="contained">Delete</Button>
+              {/* <Button variant="contained">Delete</Button> */}
               {/* <select onChange="" name="activity_type_id" className="mb-10 outline-0 block w-full p-2.5 px-0.5 rounded-4xl bg-blue text-white pl-5 text-sm">
                 <option value="Running">Running"</option>
                 <option value="Weight training">Weight training</option>
@@ -180,14 +182,14 @@ const History = () =>  {
           component="p"
         >
           Something here to give the footer a purpose!
+
         </Typography>
         <Copyright />
-      </Box>
+
+      </Box> 
       {/* End footer */}
     </ThemeProvider>
-  );
-
-  
+  ); 
 }
 
 export default History

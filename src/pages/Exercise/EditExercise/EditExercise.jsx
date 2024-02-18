@@ -202,7 +202,7 @@ const EditExercise = ({update, summaryData, handleClose}) => {
               <span className="error text-red">{formErrors.date}</span>
             </div>
 
-            <button type="submit"className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center">
+            <button type="submit" className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center">
               Update
             </button>
             {/* <button onClick={() => BackToHistory(id)} type="submit" 
@@ -210,7 +210,15 @@ const EditExercise = ({update, summaryData, handleClose}) => {
             >              
                 Update
             </button> */}
-            <button onClick={handleClose}>Close</button>
+            {/* <button onClick={handleSubmit()} type="submit" 
+            className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
+            >              
+                Update
+            </button> */}
+            <button onClick={handleClose} className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center">
+              Close
+            </button>
+            {/* <button onClick={handleClose}>Close</button> */}
           </form>
         </Box>
       </Container>
