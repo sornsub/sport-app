@@ -20,6 +20,7 @@ function App() {
         </Route>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/activity-type" element={<ActivityType />} />
+        <Route path="/input-form" element={<ActivityType />} />
       </Routes>
     </BrowserRouter>
   )
