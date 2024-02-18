@@ -1,26 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
-function Nav() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.clear();
-
-    //after loged out show alert success.
-    Swal.fire({
-      icon: "success",
-      title: "Logged out successfully!",
-      timer: 1500,
-      timerProgressBar: true,
-      didClose: () => {
-        navigate("/login");
-      },
-    });
-  };
-
+function Nav2() {
   return (
     <div className="navbar px-20" style={{ backgroundColor: "#E76F6D" }}>
       <div className="flex-1">
@@ -45,7 +26,6 @@ function Nav() {
             <li>
               <a href="/edit-profile">Edit Profile</a>
             </li>
-            <button onClick={handleLogout}>Logout</button>
           </ul>
         </div>
         <div className="form-control h-10">
@@ -68,4 +48,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default Nav2;

@@ -4,7 +4,7 @@ import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
 import isAlpha from "validator/lib/isAlpha";
 import equals from "validator/lib/equals";
-
+import isStrongPassword from "validator/lib/isStrongPassword";
 import isNumeric from "validator/lib/isNumeric";
 import toDate from "validator/lib/toDate";
 import toInt from "validator/lib/toInt";
@@ -190,15 +190,15 @@ const EditProfile = () => {
     const validLastName =
       !isEmpty(formData.lastName) && isAlpha(formData.lastName);
 
-    // const validDateOfBirth =
-    //   !isEmpty(formData.date_of_birth) &&
-    //   toDate(formData.date_of_birth) !== null;
-    // const validHeight = !isEmpty(formData.height) && isNumeric(formData.height);
-    // const validWeight = !isEmpty(formData.weight) && isNumeric(formData.weight);
-    // const validPhone =
-    //   !isEmpty(formData.phone_Number) &&
-    //   isNumeric(formData.phone_Number) &&
-    //   isLength(formData.phone_Number, { min: 10 });
+    const validDateOfBirth =
+      !isEmpty(formData.date_of_birth) &&
+      toDate(formData.date_of_birth) !== null;
+    const validHeight = !isEmpty(formData.height) && isNumeric(formData.height);
+    const validWeight = !isEmpty(formData.weight) && isNumeric(formData.weight);
+    const validPhone =
+      !isEmpty(formData.phone_Number) &&
+      isNumeric(formData.phone_Number) &&
+      isLength(formData.phone_Number, { min: 10 });
 
     // ตรวจสอบว่าข้อมูลถูกต้องหรือไม่
     if (true) {
