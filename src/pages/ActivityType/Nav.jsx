@@ -27,7 +27,7 @@ function Nav() {
         <img
           style={{ width: "100px", height: "auto", maxWidth: "100%" }}
           alt="logo Navbar component"
-          src="public\images\logoRemoveBg.png"
+          src="images/logoRemoveBg.png"
         />
       </div>
       <div className="flex-none gap-2">
@@ -64,7 +64,7 @@ function Nav() {
           <div className="w-10 rounded-full">
             <img
               alt="Tailwind CSS Navbar component"
-              src="public/images/avatar.jpg"
+              src="images/avatar.jpg"
             />
           </div>
         </div>
