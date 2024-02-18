@@ -35,7 +35,10 @@ function Nav() {
                         <li><a href='/activity-type'>Classes</a></li>
                         <li><a href='/history'>History</a></li>
                         <li><a href='/edit-profile'>Edit Profile</a></li>
+<<<<<<< HEAD
                         <button onClick={handleLogout}>Logout</button>
+=======
+>>>>>>> 7b5a7987b1889593877867d23262b846a66d8400
                     </ul>
                 </div>
                 <div className="form-control h-10">

@@ -18,7 +18,11 @@ const Navbar = ({ drawerWidth }) => {
         </Typography>
         <Navmenu />
       </Toolbar> */}
+<<<<<<< HEAD
       <Nav />
+=======
+      <Nav2/>
+>>>>>>> 7b5a7987b1889593877867d23262b846a66d8400
     </AppBar>
   );
 };
