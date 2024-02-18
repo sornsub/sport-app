@@ -2,9 +2,34 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Navmenu from "./Navmenu";
+<<<<<<< HEAD
 import Nav from "../../pages/ActivityType/Nav"
+=======
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
+>>>>>>> c80e8f9 (Added Logout button in Navmenu & Show error message from api in login page & store email in locaStorage for verify function)
 
 const Navbar = ({ drawerWidth }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear(); // Clearing localStorage as an example
+
+    //after loged out show alert success.
+    Swal.fire({
+      icon: 'success',
+      title: 'Logged out successfully!',
+      timer: 1500,
+      timerProgressBar: true,
+      didClose: () => {
+        navigate("/login");
+      }
+    });
+
+  };
+
+
   return (
     <AppBar
       position="fixed"
@@ -19,6 +44,7 @@ const Navbar = ({ drawerWidth }) => {
         <Navmenu />
       </Toolbar> */}
       <Nav/>
+      <button onClick={handleLogout}>Logout</button>
     </AppBar>
   );
 };
