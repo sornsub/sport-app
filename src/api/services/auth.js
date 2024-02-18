@@ -24,7 +24,7 @@ const verify = async (requestData) => {
 }
 
 const createNewPassword = async (requestData) => {
-    const response = await axios.patch(`${authRoute}/verify`, requestData); 
+    const response = await axios.patch(`${authRoute}/create-new-password`, requestData); 
     return response;
 }
 
