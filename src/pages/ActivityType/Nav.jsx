@@ -40,12 +40,17 @@ function Nav() {
               <a href="/activity-type">Classes</a>
             </li>
             <li>
+              <a href="/exercise-activity/create-form">Exercise</a>
+            </li>
+            <li>
               <a href="/history">History</a>
             </li>
             <li>
               <a href="/edit-profile">Edit Profile</a>
             </li>
+            <li>
             <button onClick={handleLogout}>Logout</button>
+            </li>
           </ul>
         </div>
         <div className="form-control h-10">

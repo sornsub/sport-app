@@ -167,7 +167,7 @@ const TrackingExerciseForm = () => {
       <Container sx={{display: "flex",alignItems: "center",justifyContent: "center"}}>
         <Box sx={{ width: "872px", textAlign: "center" }}>
           <Typography variant="h5" component="h1" sx={{ fontWeight: "medium",m:5}}>
-            Edit Exercise Activity
+            Tracking Exercise Activity
           </Typography>
           <form onSubmit={handleSubmit}>
             <select onChange={handleInputChange} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
