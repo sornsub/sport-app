@@ -2,7 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Navmenu from "./Navmenu";
-import Nav from "../../pages/ActivityType/Nav"
+import Nav2 from "./Nav2";
 
 const Navbar = ({ drawerWidth }) => {
 
@@ -18,7 +18,7 @@ const Navbar = ({ drawerWidth }) => {
         </Typography>
         <Navmenu />
       </Toolbar> */}
-      <Nav/>
+      <Nav2/>
     </AppBar>
   );
 };
