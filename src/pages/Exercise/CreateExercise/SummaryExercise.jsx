@@ -29,11 +29,12 @@ const SummaryExercise = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
+    width: 800,
+    bgcolor: 'white',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    overflow: "scroll"
   };
 
   useEffect(() => {
@@ -190,10 +191,10 @@ const SummaryExercise = () => {
                 aria-describedby="modal-modal-description"
             >
               <Box
-                  // sx={style}
+                  sx={style}
                   // className="rounded-4xl text-black bg-white text-sm w-full px-5 py-2.5 text-left"
               >   
-                <EditExercise update={updateExerciseActivity} summaryData={summaryData} handleClose={handleClose}/>
+                <EditExercise update={updateExerciseActivity} summaryData={summaryData} handleClose={handleClose} reload={reload} setReload={setReload}/>
                     {/* <DeleteButtonNested /> */}
               </Box>
             </Modal>
