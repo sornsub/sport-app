@@ -25,6 +25,9 @@ function SignUp() {
     const [inputs, setInputs] = useState({
         firstName: '',
         lastName: '',
+        gender: '',
+        weight: '',
+        height: '',
         email: '',
         userName: '',
         phone: '',
@@ -39,6 +42,9 @@ function SignUp() {
     const schema = Joi.object({
         firstName: Joi.string().required().label('First Name'),
         lastName: Joi.string().required().label('Last Name'),
+        gender: Joi.string().required().label('Gender'),
+        weight: Joi.string().required().label('Weight'),
+        height: Joi.string().required().label('Height'),
         email: Joi.string().email({ tlds: false }).required().label('Email Address'),
         userName: Joi.string().alphanum().min(3).max(30).required().label('Username'),
         phone: Joi.string().pattern(new RegExp('^[0-9]{9,10}$')).min(9).max(10).required().label('Phone'),
@@ -75,6 +81,9 @@ function SignUp() {
             const requestData = {
                 firstName: inputs.firstName,
                 lastName: inputs.lastName,
+                gender: inputs.gender,
+                weight: inputs.weight,
+                height: inputs.height,
                 email: inputs.email,
                 userName: inputs.userName,
                 password: inputs.password,
@@ -166,6 +175,42 @@ function SignUp() {
                                         autoComplete="lastName"
                                         value={inputs.lastName}
                                         onChange={(e) => handleChange(e.target.value, 'lastName')}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="gender"
+                                        label="Gender"
+                                        name="gender"
+                                        autoComplete="gender"
+                                        value={inputs.gender}
+                                        onChange={(e) => handleChange(e.target.value, 'gender')}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="weight"
+                                        label="Weight(kg)"
+                                        name="weight"
+                                        autoComplete="weight"
+                                        value={inputs.weight}
+                                        onChange={(e) => handleChange(e.target.value, 'weight')}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="height"
+                                        label="Height(cm)"
+                                        name="height"
+                                        autoComplete="height"
+                                        value={inputs.height}
+                                        onChange={(e) => handleChange(e.target.value, 'height')}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

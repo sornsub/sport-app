@@ -77,7 +77,7 @@ function WeigtTraining () {
             </div>
             <div className="card-actions justify-center mt-14 mb-10">
                 <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg text-white" style={{backgroundColor: '#E76F6D'}}>
-                    <a href="/exercise-create">Get Stated</a>
+                    <a href="/exercise-activity/create-form">Get Stated</a>
                 </button>
             </div>
         </>
