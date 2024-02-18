@@ -33,6 +33,12 @@ import UserList from "./pages/User/List.jsx";
 import TrackingExerciseForm from "./pages/Exercise/CreateExercise/TrackingExerciseForm.jsx";
 import Swipers from "./pages/LandingPage/Swipers.jsx";
 
+import Running from "./pages/ActivityType/Running.jsx";
+import Walking from "./pages/ActivityType/Walking.jsx";
+import Yoga from "./pages/ActivityType/Yoga.jsx";
+import WeigtTraining from "./pages/ActivityType/WeightTraining.jsx";
+import Swimming from "./pages/ActivityType/swimming.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,6 +87,26 @@ const router = createBrowserRouter([
   {
     path: "/activity-type",
     element: <ActivityType />,
+  },
+  {
+    path: "/activity-running",
+    element: <Running />,
+  },
+  {
+    path: "/activity-walking",
+    element: <Walking />,
+  },
+  {
+    path: "/activity-swimming",
+    element: <Swimming />,
+  },
+  {
+    path: "/activity-weight-training",
+    element: <WeigtTraining />,
+  },
+  {
+    path: "/activity-yoga",
+    element: <Yoga />,
   },
   {
     path: "/exercise-create",
