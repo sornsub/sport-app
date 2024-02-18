@@ -91,7 +91,7 @@ function SignUp() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    navigate('/login');
+                    navigate('/email-verification/signup');
                 });
             } else if (result.error === 'duplicate') {
                 MySwal.fire({

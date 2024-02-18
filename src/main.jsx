@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     element: <ActivityType />,
   },
   {
-    path: "/email-verification",
+    path: "/email-verification/:source",
     element: <EmailVerification />,
   },
   {
