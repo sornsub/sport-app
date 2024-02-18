@@ -3,7 +3,8 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import History from './pages/History/History.jsx';
-import SignUp from './pages/SignUp/SignUp.jsx'
+import SignUp from './pages/Authentication/SignUp/SignUp.jsx';
+import ActivityType from "./pages/ActivityType/ActivityType.jsx";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           <Route index element={<History />} />
         </Route>
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/activity-type" element={<ActivityType />} />
+        <Route path="/input-form" element={<ActivityType />} />
       </Routes>
     </BrowserRouter>
   )

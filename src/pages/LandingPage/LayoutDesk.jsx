@@ -6,7 +6,7 @@ import "./LandingPage.css";
 
 export const LayoutDesk = ({ children }) => {
   return (
-    <Box className="bg-blue pl-20 pt-20">
+    <Box>
       <div className="bg-pink h-full text-white rounded-lg">
         <div className="flex h-[200px]  justify-between">
           <Box className="ml-2 w-1/3 ">
@@ -26,18 +26,22 @@ export const LayoutDesk = ({ children }) => {
 
           {/* Register and Sign in button */}
           <Box className="flex gap-x-10 items-center p-10 w-1/3">
-            <button
-              type="submit"
-              className="shadow-lg outline-0 w-[300px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
-            >
-              <a href="/signup">Register</a>
-            </button>
-            <button
-              type="submit"
-              className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
-            >
-              <a href="/login">Sign in</a>
-            </button>
+            <a href="/signup">
+              <button
+                type="submit"
+                className="shadow-lg outline-0 w-[300px] border-transparent rounded-4xl text-white block w-full p-2.5 bg-blue hover:opacity-70"
+              >
+                Register
+              </button>
+            </a>
+            <a href="/login">
+              <button
+                type="submit"
+                className="shadow-lg outline-0 w-[200px] border-transparent rounded-4xl bg-blue bg-gray-50 text-white block w-full p-2.5 hover:opacity-70"
+              >
+                Sign in
+              </button>
+            </a>
           </Box>
         </div>
         {/* ปลุกใจในตัวคุณ */}
@@ -50,7 +54,7 @@ export const LayoutDesk = ({ children }) => {
             <span className="text-7xl Font-second">FOR YOUR LIFE</span>
           </div>
           <img
-            src="public\images\landing_woman-removebg.png"
+            src="images/landing_woman-removebg.png"
             className="object-cover"
           />
         </Box>

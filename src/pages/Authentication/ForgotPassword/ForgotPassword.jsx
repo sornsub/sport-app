@@ -70,7 +70,7 @@ const ForgotPassword = () => {
         // setLocalStorage email
         // Store the tokens in localStorage or secure cookie for later use
         localStorage.setItem('email', email);
-        navigate("/email-verification");
+        navigate("/email-verification/forgot-password");
         }
     };
 

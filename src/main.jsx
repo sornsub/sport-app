@@ -9,14 +9,13 @@ import "@fontsource/inter/700.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Authentication/Login/Login.jsx";
-import SignUp from "./pages/SignUp/SignUp.jsx";
+import SignUp from "./pages/Authentication/SignUp/SignUp.jsx";
 import ActivityType from "./pages/ActivityType/ActivityType.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import CreateExercise from "./pages/Exercise/CreateExercise/CreateExercise.jsx";
 import RunTimeExercise from "./pages/Exercise/CreateExercise/RunTimeExercise.jsx";
 import SummaryExercise from "./pages/Exercise/CreateExercise/SummaryExercise.jsx";
 import EditExercise from "./pages/Exercise/EditExercise/EditExercise.jsx";
-import DeleteExercise from "./pages/Exercise/DeleteExercise/DeleteExercise.jsx";
 import History from "./pages/History/History.jsx";
 
 import EmailVerification from "./pages/Authentication/ForgotPassword/EmailVerification.jsx";
@@ -33,6 +32,12 @@ import ExerciseActivityLayout from "./components/layouts/ExerciseActivityLayout.
 import UserList from "./pages/User/List.jsx";
 import TrackingExerciseForm from "./pages/Exercise/CreateExercise/TrackingExerciseForm.jsx";
 import Swipers from "./pages/LandingPage/Swipers.jsx";
+
+import Running from "./pages/ActivityType/Running.jsx";
+import Walking from "./pages/ActivityType/Walking.jsx";
+import Yoga from "./pages/ActivityType/Yoga.jsx";
+import WeigtTraining from "./pages/ActivityType/WeightTraining.jsx";
+import Swimming from "./pages/ActivityType/swimming.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +65,7 @@ const router = createBrowserRouter([
     element: <ActivityType />,
   },
   {
-    path: "/email-verification",
+    path: "/email-verification/:source",
     element: <EmailVerification />,
   },
   {
@@ -84,16 +89,32 @@ const router = createBrowserRouter([
     element: <ActivityType />,
   },
   {
+    path: "/activity-running",
+    element: <Running />,
+  },
+  {
+    path: "/activity-walking",
+    element: <Walking />,
+  },
+  {
+    path: "/activity-swimming",
+    element: <Swimming />,
+  },
+  {
+    path: "/activity-weight-training",
+    element: <WeigtTraining />,
+  },
+  {
+    path: "/activity-yoga",
+    element: <Yoga />,
+  },
+  {
     path: "/exercise-create",
     element: <CreateExercise />,
   },
   {
     path: "/exercise-edit",
     element: <EditExercise />,
-  },
-  {
-    path: "/exercise-delete",
-    element: <DeleteExercise />,
   },
   {
     path: "/history",
@@ -130,7 +151,7 @@ const router = createBrowserRouter([
       {
         path: "summary",
         element: <SummaryExercise />,
-      },
+      },      
     ],
   },
 ]);

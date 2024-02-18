@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import TimerIcon from '@mui/icons-material/Timer';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import API from '../../api/axios';
+import DashboardAPI from '../../api/services/dashboard';
 
 import { 
   ThemeProvider,
@@ -18,31 +18,16 @@ const CardSummary = ({selectedRange, userId, reload}) => {
 
   const [summaryData, setSummaryData] = useState({});
   
-  const dashboardRoute = "api/dashboard";
-
-  const token = localStorage.getItem('token');
-
-  const headers = {
-      'Authorization': `Bearer ${token}`
-    }
-
   useEffect(() => {
     getDataByUserId();
-  }, []);
+  }, [reload]);
 
-  //get User data By User Id
+  //call api
   const getDataByUserId  = async () => {
-
-    const response = await API.get(`${dashboardRoute}/summary-card/${userId}`, 
-                                    { params: { date_range: selectedRange } }, 
-                                    {headers: headers}
-                                  ); // [GET] https://localhost:5000/api/dashboard/summary-card/:id
-    // set User data here
-    if (response.data.data) {
-      setSummaryData(response.data.data);
-      console.log("response.data.data: ", response.data.data)
+    const response = await DashboardAPI.getsummaryCardByUserId(userId, selectedRange)
+    if (response) {
+      setSummaryData(response);
     }
-
   };
 
   return (

@@ -1,27 +1,11 @@
-import { useEffect, useState } from "react";
-import validator from "validator";
-import isEmail from "validator/lib/isEmail";
-import isEmpty from "validator/lib/isEmpty";
-import isLength from "validator/lib/isLength";
-import isAlpha from "validator/lib/isAlpha";
-import equals from "validator/lib/equals";
-import isStrongPassword from "validator/lib/isStrongPassword";
-import isNumeric from "validator/lib/isNumeric";
-import toDate from "validator/lib/toDate";
-import toInt from "validator/lib/toInt";
-import axios, { isCancel, AxiosError } from "axios";
-import { Link } from "react-router-dom";
-import Navmenu from "../../components/shared/Navmenu";
-import Copyright from "../../components/shared/Copyright";
-import Navbar from "../../components/shared/Navbar";
+import { useState } from "react";
 import API from "../../api/axios";
-import UploadImage from "../../components/UploadImage/UploadImage";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"; // เพิ่ม import Swal
+import validatePassword from "./validatePassword";
 
 const style = {
   position: "absolute",
@@ -35,7 +19,7 @@ const style = {
   p: 4,
 };
 
-const ChangePasswordNested = ({ oldPassword, newPassword }) => {
+const ChangePasswordNested = ({ oldPassword, newPassword, handleClose }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const user_id = localStorage.getItem("userId");
@@ -48,6 +32,23 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
     const request = { oldPassword, password: newPassword };
     const checkOldPassword = `/api/authen/check-password/${user_id}`;
     const changePassword = `api/authen/${user_id}/create-new-password`;
+
+    //////////////////////////////////////////////////////////////////////
+
+    // Validate password here
+
+    if (!oldPassword || !newPassword) {
+      handleClose();
+      oldPassword = await validatePassword(oldPassword);
+      newPassword = await validatePassword(newPassword);
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Please enter both old and new passwords",
+      });
+      return;
+    }
+
     try {
       const response = await API.patch(checkOldPassword, request, {
         headers: headers,
@@ -57,15 +58,40 @@ const ChangePasswordNested = ({ oldPassword, newPassword }) => {
         const response = await API.patch(changePassword, request, {
           headers: headers,
         });
-        if (response.status === 200) console.log("change password success");
+        if (response.status === 200) {
+          console.log("change password success");
+          Swal.fire({
+            title: "Change Password Success.",
+            width: 600,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("./images/justdoit.gif")
+              left top
+              no-repeat
+            `,
+          });
+          handleClose(); // ปิด Modal เมื่อสำเร็จ
+        }
       } else {
-        alert("Failed to change password");
+        handleClose();
+        Swal.fire({
+          icon: "error",
+          title: "Failed to change password",
+          text: "Please try again later",
+        });
       }
     } catch (error) {
-      console.error("Error sending change password request", error);
-      alert("An error occurred while sending data to the backend.");
+      console.error("Error sending change password request", error.message);
+      handleClose();
+      Swal.fire({
+        icon: "error",
+        title: "An error occurred",
+        text: "Please try again later",
+      });
     }
-    // navigate("/login");
   };
   return (
     <div className="md:flex justify-evenly ">
@@ -90,8 +116,8 @@ const ChangePassword = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
-  const [oldPassword, setOldPassword] = useState();
-  const [newPassword, setNewPassword] = useState();
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   return (
     <div className="flex justify-center">
@@ -122,7 +148,7 @@ const ChangePassword = () => {
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                type="text"
+                type="password"
                 placeholder="old password"
                 value={oldPassword}
                 onChange={(ev) => setOldPassword(ev.target.value)}
@@ -141,7 +167,7 @@ const ChangePassword = () => {
               </label>
               <input
                 className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                type="text"
+                type="password"
                 placeholder="new password"
                 value={newPassword}
                 onChange={(ev) => setNewPassword(ev.target.value)}
@@ -153,6 +179,7 @@ const ChangePassword = () => {
           <ChangePasswordNested
             oldPassword={oldPassword}
             newPassword={newPassword}
+            handleClose={handleClose}
           />
         </Box>
       </Modal>

@@ -1,13 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react";
-import API from "../../api/axios";
 import { useDropzone } from "react-dropzone";
+import UploadImageAPI from '../../api/services/uploadImage';
+
 
 const UploadImage = ({ setImage }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadStatus, setUploadStatus] = useState("");
   const [showDropzone, setShowDropzone] = useState(true);
-
-  const uploadImageRoute = "api/upload-image";
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -37,11 +36,10 @@ const UploadImage = ({ setImage }) => {
     const requestData = {
       image: image,
     };
-    const response = await API.post(`${uploadImageRoute}`, requestData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    if (response.status === 200) {
-      let data = response.data.data;
+    const response = await UploadImageAPI.uploadImage(requestData)
+    console.log(response)
+    if (response.success === true) {
+      let data = response.data;
       setImage(data.url);
       setUploadStatus("Upload image succesfully!");
     }
