@@ -1,5 +1,5 @@
-//import React from "react";
-//import { Typography } from "@mui/material";
+import React from "react";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -74,4 +74,3 @@ function Nav() {
 }
 
 export default Nav;
-
