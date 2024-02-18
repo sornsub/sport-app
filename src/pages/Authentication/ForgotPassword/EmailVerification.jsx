@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AuthAPI from '../../../api/services/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -15,6 +15,7 @@ import {
 import { theme } from "../../../theme"
 
 const EmailVerification = () => {
+  const { source } = useParams();
   const MySwal = withReactContent(Swal);
 
   const navigate = useNavigate();
@@ -38,7 +39,11 @@ const EmailVerification = () => {
           timer: 1500,
           timerProgressBar: true,
           didClose: () => {
-            navigate("/create-new-password");
+            if (source === "signup") {
+              navigate("/login");
+            } else if (source === "forgot-password") {
+              navigate("/create-new-password");
+            }
           }
         });
       }else{
