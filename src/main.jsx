@@ -38,7 +38,6 @@ import Walking from "./pages/ActivityType/Walking.jsx";
 import Yoga from "./pages/ActivityType/Yoga.jsx";
 import WeigtTraining from "./pages/ActivityType/WeightTraining.jsx";
 import Swimming from "./pages/ActivityType/swimming.jsx";
-import InputFrom from "./pages/Authentication/SignUp/InputFrom.jsx";
 
 const router = createBrowserRouter([
   {
