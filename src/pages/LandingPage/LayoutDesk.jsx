@@ -6,7 +6,7 @@ import "./LandingPage.css";
 
 export const LayoutDesk = ({ children }) => {
   return (
-    <Box className="bg-blue pl-20 pt-20">
+    <Box>
       <div className="bg-pink h-full text-white rounded-lg">
         <div className="flex h-[200px]  justify-between">
           <Box className="ml-2 w-1/3 ">
@@ -54,7 +54,7 @@ export const LayoutDesk = ({ children }) => {
             <span className="text-7xl Font-second">FOR YOUR LIFE</span>
           </div>
           <img
-            src="public\images\landing_woman-removebg.png"
+            src="images/landing_woman-removebg.png"
             className="object-cover"
           />
         </Box>
