@@ -2,19 +2,9 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Navmenu from "./Navmenu";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import Nav from "../../pages/ActivityType/Nav"
-=======
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
->>>>>>> c80e8f9 (Added Logout button in Navmenu & Show error message from api in login page & store email in locaStorage for verify function)
-=======
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-
->>>>>>> c80e8f98e5047000f574f2cac6211230d5dc2f3b
 
 const Navbar = ({ drawerWidth }) => {
   const navigate = useNavigate();
