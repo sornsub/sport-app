@@ -4,7 +4,7 @@ import isEmpty from "validator/lib/isEmpty";
 import isLength from "validator/lib/isLength";
 import isAlpha from "validator/lib/isAlpha";
 import equals from "validator/lib/equals";
-import isStrongPassword from "validator/lib/isStrongPassword";
+
 import isNumeric from "validator/lib/isNumeric";
 import toDate from "validator/lib/toDate";
 import toInt from "validator/lib/toInt";
@@ -24,7 +24,17 @@ const EditProfile = () => {
     Authorization: `Bearer ${token}`,
   };
   const [field, setField] = useState([]);
-
+  const initialFormData = {
+    email: "",
+    userName: "",
+    firstName: "",
+    lastName: "",
+    date_of_birth: "",
+    height: "",
+    weight: "",
+    gender: "",
+    phone: "",
+  };
   //useEffect
   useEffect(() => {
     const getData = async () => {
@@ -37,33 +47,15 @@ const EditProfile = () => {
 
     getData();
   }, []);
+
+  useEffect(() => {
+    setFormData(field);
+  }, [field]);
+
   console.log("This is field: ", field);
-  const {
-    email,
-    userName,
-    firstName,
-    lastName,
-    date_of_birth,
-    height,
-    weight,
-    gender,
-    phone,
-  } = field;
-  const initialFormData = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    userName: "",
-    password: "",
-    confirmpassword: "",
-    date_of_birth: "",
-    gender: "",
-    height: "",
-    weight: "",
-    phone_Number: "",
-    image: "",
-  };
+
   const [formData, setFormData] = useState(initialFormData);
+  console.log("this is form", formData);
   const [image, setImage] = useState("");
 
   //Set Email input
@@ -94,12 +86,10 @@ const EditProfile = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [id]: value,
-      // [id]:id === "height" || id === "weight" ? parseInt(value, 10) : value,
-      // [id]: id === "date_of_birth" ? new Date() : id === "height" || id === "weight" ? parseInt(value, 10) : value
-    });
+    }));
 
     //Check Email
     if (id === "email") {
@@ -123,27 +113,6 @@ const EditProfile = () => {
     }
 
     //Check password
-    if (id === "password") {
-      const isEmptyPass = isEmpty(value);
-      const strongPass = isStrongPassword(value, { minSymbols: 0 });
-
-      if (strongPass) {
-        setPassMsg("Password is valid");
-        setPassColorMsg("text-[#8BCA00]");
-        setPassColorfield("border-[#8BCA00]");
-      } else if (!strongPass) {
-        setPassMsg(
-          "Your password must contain 8 characters including 1 Lowercase, 1 Uppercase and 1 Numbers"
-        );
-        setPassColorMsg("text-red-500");
-        setPassColorfield("border-red-500");
-      }
-      if (isEmptyPass) {
-        setPassMsg("");
-        setPassColorMsg("");
-        setPassColorfield("border-gray-800");
-      }
-    }
 
     //Check Confirm password
     if (id === "confirmpassword") {
@@ -220,22 +189,16 @@ const EditProfile = () => {
       !isEmpty(formData.firstName) && isAlpha(formData.firstName);
     const validLastName =
       !isEmpty(formData.lastName) && isAlpha(formData.lastName);
-    const validPassword = isStrongPassword(formData.password, {
-      minSymbols: 0,
-    });
-    const validConfirmPassword = equals(
-      formData.confirmpassword,
-      formData.password
-    );
-    const validDateOfBirth =
-      !isEmpty(formData.date_of_birth) &&
-      toDate(formData.date_of_birth) !== null;
-    const validHeight = !isEmpty(formData.height) && isNumeric(formData.height);
-    const validWeight = !isEmpty(formData.weight) && isNumeric(formData.weight);
-    const validPhone =
-      !isEmpty(formData.phone_Number) &&
-      isNumeric(formData.phone_Number) &&
-      isLength(formData.phone_Number, { min: 10 });
+
+    // const validDateOfBirth =
+    //   !isEmpty(formData.date_of_birth) &&
+    //   toDate(formData.date_of_birth) !== null;
+    // const validHeight = !isEmpty(formData.height) && isNumeric(formData.height);
+    // const validWeight = !isEmpty(formData.weight) && isNumeric(formData.weight);
+    // const validPhone =
+    //   !isEmpty(formData.phone_Number) &&
+    //   isNumeric(formData.phone_Number) &&
+    //   isLength(formData.phone_Number, { min: 10 });
 
     // ตรวจสอบว่าข้อมูลถูกต้องหรือไม่
     if (true) {
@@ -252,9 +215,9 @@ const EditProfile = () => {
           password: formData.password,
           date_of_birth: formData.date_of_birth,
           gender: formData.gender,
-          height: toInt(formData.height),
-          weight: toInt(formData.weight),
-          phone: formData.phone_Number,
+          height: formData.height,
+          weight: formData.weight,
+          phone: formData.phone,
           avatar: image,
         };
         const response = await API.post(updateUserRoute, requestData, {
@@ -263,7 +226,7 @@ const EditProfile = () => {
 
         // ตรวจสอบ response จาก Backend
         if (response.status === 200) {
-          alert("Data successfully sent to the backend!");
+          alert("Data successfully sent");
           // ทำอะไรต่อเมื่อส่งข้อมูลสำเร็จ เช่น รีเซ็ตฟอร์ม แสดงข้อความ เป็นต้น
         } else {
           alert("Failed to send data to the backend.");
@@ -273,7 +236,7 @@ const EditProfile = () => {
         alert("An error occurred while sending data to the backend.");
       }
     } else {
-      // alert("Invalid Data");
+      alert("Invalid Data");
       console.log("Invalid Data");
     }
   };
@@ -304,10 +267,11 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="email"
                           placeholder="Email Address"
-                          value={email}
+                          value={formData.email}
                           id="email"
                           onChange={handleInputChange}
                         />
+
                         <div className={`${emailMsgColor} text-sm md:w-72`}>
                           {emailMsg}
                         </div>
@@ -328,8 +292,8 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="text"
                           placeholder="Username"
-                          value={userName}
-                          id="usertname"
+                          value={formData.userName}
+                          id="userName"
                           onChange={handleInputChange}
                         />
                         <div className={`${fnamePassColorMsg} text-sm md:w-72`}>
@@ -352,7 +316,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="text"
                           placeholder="Firstname"
-                          value={firstName}
+                          value={formData.firstName}
                           id="firstName"
                           onChange={handleInputChange}
                         />
@@ -376,7 +340,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
                           type="text"
                           placeholder="Lastname"
-                          value={lastName}
+                          value={formData.lastName}
                           id="lastName"
                           onChange={handleInputChange}
                         />
@@ -483,7 +447,7 @@ const EditProfile = () => {
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           type="date"
                           id="date_of_birth"
-                          value={date_of_birth}
+                          value={formData.date_of_birth}
                           onChange={handleInputChange}
                         />
                       </div>
@@ -501,7 +465,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="height"
                             placeholder="Height : cm"
-                            value={height}
+                            value={formData.height}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -528,7 +492,7 @@ const EditProfile = () => {
                             className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                             id="weight"
                             placeholder="Weight : kg"
-                            value={weight}
+                            value={formData.weight}
                             onChange={handleInputChange}
                           >
                             <option value="" selected>
@@ -562,7 +526,7 @@ const EditProfile = () => {
                         <select
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-white text-sm block w-full p-2.5"
                           id="gender"
-                          value={gender}
+                          value={formData.gender}
                           onChange={handleInputChange}
                         >
                           <option value="select" className="placeholder-white">
@@ -582,10 +546,10 @@ const EditProfile = () => {
                         </label>
                         <input
                           className="outline-0 pl-5 placeholder-white border-transparent rounded-4xl bg-blue text-black text-sm block w-full p-2.5"
-                          id="phone_Number"
+                          id="phone"
                           type="tel"
                           placeholder="000-000-0000"
-                          value={phone}
+                          value={formData.phone}
                           maxLength={10}
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           onChange={handleInputChange}
