@@ -8,7 +8,9 @@ export default function Cards() {
                         <h2 className="card-title">Running</h2>
                         <p>If you want to run, run a mile. if you want to experience a different life, run a marathon.</p>
                         <div className="card-actions justify-end">
-                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>Learn more</button>
+                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>
+                                <a href="/activity-running">Learn more</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -16,9 +18,11 @@ export default function Cards() {
                     <figure><img src="public/images/walking.jpg" alt="walking" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Walking</h2>
-                        <p>If you want to run, run a mile. if you want to experience a different life, run a marathon.</p>
+                        <p>Walking is a man’s best medicine.</p>
                         <div className="card-actions justify-end">
-                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>Learn more</button>
+                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>
+                                <a href="/activity-walking">Learn more</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -26,9 +30,11 @@ export default function Cards() {
                     <figure><img src="public/images/SwimmingImg.jpg" alt="swimming" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Swimming</h2>
-                        <p>If you want to run, run a mile. if you want to experience a different life, run a marathon.</p>
+                        <p>Swimming Toward Healing: Swimming can be therapeutic.</p>
                         <div className="card-actions justify-end">
-                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>Learn more</button>
+                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>
+                                <a href="/activity-swimming">Learn more</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -36,9 +42,11 @@ export default function Cards() {
                     <figure><img src="public/images/Weight.jpg" alt="Weight training" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Weight training</h2>
-                        <p>If you want to run, run a mile. if you want to experience a different life, run a marathon.</p>
+                        <p>The last three or four reps is what makes the muscle grow.</p>
                         <div className="card-actions justify-end">
-                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>Learn more</button>
+                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>
+                                <a href="/activity-weight-training">Learn more</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -46,9 +54,11 @@ export default function Cards() {
                     <figure><img src="public/images/yoga.jpg" alt="Yoga" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Yoga</h2>
-                        <p>If you want to run, run a mile. if you want to experience a different life, run a marathon.</p>
+                        <p>Yoga teaches you how to listen to your body.</p>
                         <div className="card-actions justify-end">
-                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>Learn more</button>
+                            <button className="btn text-white" style={{backgroundColor: '#E76F6D'}}>
+                                <a href="/activity-yoga">Learn more</a>
+                            </button>
                         </div>
                     </div>
                 </div>
