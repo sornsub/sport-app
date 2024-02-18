@@ -83,6 +83,7 @@ function SignUp() {
             const response = await API.post(`${authRoute}/signup`, requestData); // Axios POST request
             const result = response.data;
             if (result.success === true) {
+                localStorage.setItem('email', requestData.email);
                 Swal.fire({
                     position: "center",
                     icon: "success",

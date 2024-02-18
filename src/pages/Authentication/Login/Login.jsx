@@ -119,10 +119,12 @@ const Login = () => {
       }
     } catch (error) {
       //if login failed show alert error
+      const errorMessage = error.response.data.error.message ? error.response.data.error.message : 'Login failed';
+
       Swal.fire({
         icon: 'error',
         title: 'Login failed',
-        text: 'Invalid email or password. Please try again.',
+        text: errorMessage,
       });
     }
   };
