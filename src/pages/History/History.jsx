@@ -49,7 +49,7 @@ const History = () =>  {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(true);
+    setOpen(false);
     setReload(!reload);
   };
 
@@ -81,8 +81,11 @@ const History = () =>  {
     // const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
     const response = await API.delete(`${exerciseActivitiesRoute}/${id}`, {headers: headers})
     if (response.status === 200) {     // ถ้าลบสำเร็จ 105 จะช่วย reload
-      handleClose ();
+      // handleClose ();
       console.log(response);
+      handleClose();
+      setReload(!reload);
+
     }
   };
 

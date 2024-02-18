@@ -7,6 +7,7 @@ import UploadImage from '../../../components/UploadImage/UploadImage.jsx';
 import { Box, Container, Typography, ThemeProvider, Button, Modal } from "@mui/material"
 import ActivityTypeAPI from '../../../api/services/activityType';
 import moment from 'moment';
+import { sizing , height } from '@mui/system';
 
 const EditExercise = ({update, summaryData, handleClose, reload, setReload}) => {
   const navigate = useNavigate();
@@ -293,7 +294,7 @@ const EditExercise = ({update, summaryData, handleClose, reload, setReload}) => 
           onClose={handleDropZoneClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-        >
+S        >
           <Box sx={style}>  
             <UploadImage setImage={setImage}/>
           </Box>
