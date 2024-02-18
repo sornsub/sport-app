@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import API from '../../../api/axios';
 import { useNavigate } from "react-router-dom";
+import AuthAPI from '../../../api/services/auth';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import { 
     Box,
@@ -13,43 +15,75 @@ import {
 import { theme } from "../../../theme"
 
 const EmailVerification = () => {
+  const MySwal = withReactContent(Swal);
 
   const navigate = useNavigate();
 
   const [code, setCode] = useState('');
 
-  const verifyCode = async ({code}) => {
+  const verifyCode = async () => {
+    try {
+      const email = localStorage.getItem('email');
+      const requestData = {
+        email: email,
+        code: code
+      };
     
-    const verifyCodeRoute = "api/authen";
-    const email = localStorage.getItem('email');
-    const requestData = {
-    email: email,
-    code: code
-    };
+      const response = await AuthAPI.verify(requestData);
+      if (response.status === 200) {
+        localStorage.setItem('userId', response.data.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Verify code successfully!',
+          timer: 1500,
+          timerProgressBar: true,
+          didClose: () => {
+            navigate("/create-new-password");
+          }
+        });
+      }else{
+        throw new Error('Email verification failed.');
+      }   
+    } catch (error) {
+      const errorMessage = error.response.data.error.message ? error.response.data.error.message : 'Email verification failed.';
 
-    const response = await API.post(`${verifyCodeRoute}/verify`, requestData);// [POST] https://localhost:5000/api/authen/verify, requestData
-
-    if (response.status === 200) {
-      localStorage.setItem('userId', response.data.data);
-      navigate("/create-new-password");
+      MySwal.fire({
+        icon: 'error',
+        title: 'Email verification failed.',
+        text: errorMessage,
+      });
     }
   };
 
   const resendVerifyCode = async () => {
-    
-    const verifyCodeRoute = "api/authen";
-    const email = localStorage.getItem('email');
-    const requestData = {
-      email: email
-    };
+    try {
+      const email = localStorage.getItem('email');
+      const requestData = {
+        email: email
+      };
 
-    const response = await API.post(`${verifyCodeRoute}/resend-code`, requestData);// [POST] https://localhost:5000/api/authen/resend-code, requestData
+      const response = await AuthAPI.resendCode(requestData);
 
-    if (response.status === 200) {
-      //TODO: alert 3 sec for show msg resend successfully
-    }else if (response.status === 400) {
-      //TODO: alert fail msg
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Resend verify code successfully! Plese check your email.',
+          timer: 1500,
+          timerProgressBar: true,
+        });
+      }else{
+        throw new Error('Resend verify code failed.');
+      }  
+    } catch (error) {
+      const errorMessage = error.response.data.error.message ? error.response.data.error.message : 'Resend verify code failed.';
+
+      MySwal.fire({
+        icon: 'error',
+        title: 'Resend verify code failed.',
+        text: errorMessage,
+      });
     }
+ 
   };
 
   return (

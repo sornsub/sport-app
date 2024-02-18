@@ -3,28 +3,8 @@ import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Navmenu from "./Navmenu";
 import Nav from "../../pages/ActivityType/Nav"
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const Navbar = ({ drawerWidth }) => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.clear(); // Clearing localStorage as an example
-
-    //after loged out show alert success.
-    Swal.fire({
-      icon: 'success',
-      title: 'Logged out successfully!',
-      timer: 1500,
-      timerProgressBar: true,
-      didClose: () => {
-        navigate("/login");
-      }
-    });
-
-  };
-
 
   return (
     <AppBar
@@ -39,7 +19,6 @@ const Navbar = ({ drawerWidth }) => {
         <Navmenu />
       </Toolbar> */}
       <Nav/>
-      <button onClick={handleLogout}>Logout</button>
     </AppBar>
   );
 };
