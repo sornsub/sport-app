@@ -13,7 +13,7 @@ function Nav() {
                         <li><a href='/dashboard'>Home</a></li>
                         <li><a href='/activity-type'>Classes</a></li>
                         <li><a href='/history'>History</a></li>
-                        <li><a href='/edit-profile'>Setting</a></li>
+                        <li><a href='/edit-profile'>Edit Profile</a></li>
                     </ul>
                 </div>
                 <div className="form-control h-10">
