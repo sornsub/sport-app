@@ -163,86 +163,78 @@ const TrackingExerciseForm = () => {
   };
 
   return (
-  <>
-      <ThemeProvider theme={theme}>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Box sx={{ width: "872px", textAlign: "center", }} >
-            <Typography variant="h5" component="h1" sx={{ fontWeight: "medium", m:5, }}>
-              Tracking Exercise Activity
-            </Typography>
-            <form onSubmit={handleSubmit}>
-              <select onChange={handleInputChange} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
-                <option value="select">Select</option>
-                {activitiesTypeList.map((activitiesType) => (
-                  <option key={activitiesType._id} value={activitiesType._id}>
-                    {activitiesType.name}
-                  </option>
-                ))}
-              </select>
-              <div className="flex flex-col w-full bg-white border border-grey rounded-main">
-                <div className="text-pink font-semibold bold p-5 flex justify-start">
-                  <label htmlFor="caption">Your caption</label>
-                </div>
-                <textarea
-                  id="caption"
-                  rows="1"
-                  name="caption"
-                  className="resize-none placeholder-grey outline-0 block p-5 w-full text-sm rounded-card border-b border-grey"
-                  placeholder="Type some caption here..."
-                  value={formData.caption} onChange={handleInputChange}
-                />
-                {/* UploadImage Component */}
-                <UploadImage setImage={setImage}/>
-                <div className="text-pink font-semibold bold p-5 flex justify-start">
-                  <label htmlFor="description">Description</label>
-                </div>
-                <textarea
-                  id="description"
-                  rows="5"
-                  name="description"
-                  className="resize-none placeholder-grey-dark outline-0 block p-5 w-full text-sm border-grey rounded-main"
-                  placeholder="Type some description here..."
-                  value={formData.description} onChange={handleInputChange}
-                />
+    <ThemeProvider theme={theme}>
+      <Container sx={{display: "flex",alignItems: "center",justifyContent: "center"}}>
+        <Box sx={{ width: "872px", textAlign: "center" }}>
+          <Typography variant="h5" component="h1" sx={{ fontWeight: "medium",m:5}}>
+            Edit Exercise Activity
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <select onChange={handleInputChange} name="activity_type_id" className="focus:ring-none mb-10 border-none block w-full p-2.5 rounded-4xl bg-blue text-white pl-5 pr-5 text-sm">
+              <option value="select">Select</option>
+              {activitiesTypeList.map((activitiesType) => (
+                <option key={activitiesType._id} value={activitiesType._id}>
+                  {activitiesType.name}
+                </option>
+              ))}
+            </select>
+            <div className="flex flex-col w-full bg-white border border-grey rounded-main">
+              <div className="text-pink font-semibold bold p-5 flex justify-start">
+                <label htmlFor="caption">Your caption</label>
               </div>
-              <div className="gap-2 mt-5 mb-5 flex justify-center">
-                <label htmlFor="duration" className="text-pink font-semibold bold">Duration </label>
-                <input type="number" name="hour" placeholder="input number (0-23)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="23"
-                value={formData.hour} onChange={handleInputChange}/>
-                <p>hour </p>
-                <p> : </p>
-                <input type="number" name="minute" placeholder="input number (0-59)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="59"
-                value={formData.minute} onChange={handleInputChange}/>
-                <p>minute</p>
+              <textarea
+                id="caption"
+                rows="1"
+                name="caption"
+                className="resize-none placeholder-grey outline-0 block p-5 w-full text-sm rounded-card border-b border-grey"
+                placeholder="Type some caption here..."
+                value={formData.caption} onChange={handleInputChange}
+              />
+              {/* UploadImage Component */}
+              <UploadImage setImage={setImage}/>
+              <div className="text-pink font-semibold bold p-5 flex justify-start">
+                <label htmlFor="description">Description</label>
               </div>
-              <div className="gap-2 mt-5 mb-5 flex justify-center">
-                <label htmlFor="distance" className="text-pink font-semibold bold">Distance </label>
-                <input type="number" name="distance" placeholder="input number..." className="focus:outline-pink border-grey border rounded-main pl-3 w-40" min="0"
-                value={formData.distance} onChange={handleInputChange}/>
-                km
-              </div>
-              {/* CalculateCalories Component */}
-              <CalculateCalories calories={calories} />
-              <div className="gap-2 mb-5 flex justify-center">
-                <label htmlFor="date" className="text-pink font-semibold bold">Date </label>
-                <input type="date" name="date" className="focus:outline-pink text-grey border-grey border rounded-main pl-3 pr-3" 
-                       value={formData.date} onChange={handleInputChange} />
-              </div>
-              <button type="submit" className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
-                >
-                  Save
-              </button>
-            </form>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </>
+              <textarea
+                id="description"
+                rows="5"
+                name="description"
+                className="resize-none placeholder-grey-dark outline-0 block p-5 w-full text-sm border-grey rounded-main"
+                placeholder="Type some description here..."
+                value={formData.description} onChange={handleInputChange}
+              />
+            </div>
+            <div className="gap-2 mt-5 mb-5 flex justify-center">
+              <label htmlFor="duration" className="text-pink font-semibold bold">Duration </label>
+              <input type="number" name="hour" placeholder="input number (0-23)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="23"
+              value={formData.hour} onChange={handleInputChange}/>
+              <p>hour </p>
+              <p> : </p>
+              <input type="number" name="minute" placeholder="input number (0-59)" className="focus:outline-pink border-grey border rounded-main pl-3 w-48" min="0" max="59"
+              value={formData.minute} onChange={handleInputChange}/>
+              <p>minute</p>
+            </div>
+            <div className="gap-2 mt-5 mb-5 flex justify-center">
+              <label htmlFor="distance" className="text-pink font-semibold bold">Distance </label>
+              <input type="number" name="distance" placeholder="input number..." className="focus:outline-pink border-grey border rounded-main pl-3 w-40" min="0"
+              value={formData.distance} onChange={handleInputChange}/>
+              km
+            </div>
+            {/* CalculateCalories Component */}
+            <CalculateCalories calories={calories} />
+            <div className="gap-2 mb-5 flex justify-center">
+              <label htmlFor="date" className="text-pink font-semibold bold">Date </label>
+              <input type="date" name="date" className="focus:outline-pink text-grey border-grey border rounded-main pl-3 pr-3" 
+                      value={formData.date} onChange={handleInputChange} />
+            </div>
+            <button type="submit" className="mb-6 text-white rounded-4xl bg-pink text-lg w-full py-1 text-center"
+              >
+                Save
+            </button>
+          </form>
+        </Box>
+      </Container>
+    </ThemeProvider>
   )
 }
 

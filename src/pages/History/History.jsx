@@ -28,7 +28,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+          https://sport-app-beryl.vercel.app/
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -49,7 +49,7 @@ const History = () =>  {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(true);
+    setOpen(false);
     setReload(!reload);
   };
 
@@ -81,8 +81,11 @@ const History = () =>  {
     // const response = await API.get(`${exerciseActivitiesRoute}/user/${user_id}`, {headers: headers}); // [GET] https://localhost:5000/api/exercise-activities/user/:user_id
     const response = await API.delete(`${exerciseActivitiesRoute}/${id}`, {headers: headers})
     if (response.status === 200) {     // ถ้าลบสำเร็จ 105 จะช่วย reload
-      handleClose ();
+      // handleClose ();
       console.log(response);
+      handleClose();
+      setReload(!reload);
+
     }
   };
 
@@ -172,16 +175,16 @@ const History = () =>  {
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
+        {/* <Typography variant="h6" align="center" gutterBottom>
           Footer
-        </Typography>
+        </Typography> */}
         <Typography
           variant="subtitle1"
           align="center"
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          Bobtailsoda Tracking Exercise Website
 
         </Typography>
         <Copyright />
